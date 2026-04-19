@@ -1,0 +1,42 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .hero-scroll-hint {
+    animation: hero-scroll-hint 2.2s ease-in-out infinite;
+  }
+}
+
+@keyframes hero-scroll-hint {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(6px);
+  }
+}
+
+@layer base {
+  /* CSS Variables for theme colors */
+  :root {
+    --color-surface: 249 250 251;
+    --color-surface-raised: 243 244 246;
+    --color-surface-overlay: 229 231 235;
+    --color-border-subtle: 209 213 219;
+    --color-border: 229 231 235;
+    color-scheme: light;
+  }
+
+  html.dark {
+    --color-surface: 10 10 15;
+    --color-surface-raised: 18 18 26;
+    --color-surface-overlay: 26 26 36;
+    --color-border-subtle: 63 63 70;
+    --color-border: 82 82 89;
+    color-scheme: dark;
+  }
+}
+
+
