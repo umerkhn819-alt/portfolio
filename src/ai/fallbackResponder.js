@@ -1,12 +1,11 @@
 import { aboutSection, aboutSpotlight } from "../data/about";
-import { skills } from "../data/skills";
+import { SKILL_CARDS } from "../data/skills";
 import { projects } from "../data/projects";
 import { socials } from "../data/socials";
 
 function formatSkills() {
-  return skills
-    .sort((a, b) => b.level - a.level)
-    .map((s) => `${s.name} (${s.level}%)`)
+  return SKILL_CARDS
+    .map((s) => s.title)
     .join(", ");
 }
 

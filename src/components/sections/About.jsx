@@ -56,7 +56,7 @@ export function About() {
   };
 
   return (
-    <Section id="about" className="bg-gray-50 dark:bg-surface-raised/40 relative overflow-hidden transition-colors duration-300" parallax>
+    <Section id="about" className="bg-transparent relative overflow-hidden transition-colors duration-300" parallax>
       {/* Animated background gradient */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute -top-20 -right-20 w-96 h-96 bg-indigo-500/10 dark:bg-accent/10 rounded-full blur-3xl opacity-30" />

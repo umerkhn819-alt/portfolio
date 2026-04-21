@@ -20,7 +20,7 @@ export function AssistantSection() {
   }, []);
 
   return (
-    <Section id="assistant" className="bg-white dark:bg-surface/70 relative overflow-hidden transition-colors duration-300">
+    <Section id="assistant" className="bg-transparent relative overflow-hidden transition-colors duration-300">
       {/* Animated background elements */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute -top-40 -right-40 w-96 h-96 bg-purple-400/10 dark:bg-purple-500/10 rounded-full blur-3xl opacity-40" />

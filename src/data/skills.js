@@ -1,20 +1,63 @@
-/** @typedef {{ id: string; name: string; level: number }} Skill */
-
 export const skillsSection = {
-  eyebrow: "Skills",
-  title: "Tech Stack",
-  subtitle:
-    "Technologies I use to build intelligent, scalable applications.",
+  eyebrow: "PROJECTS",
+  title: "Web & Mobile Apps",
+  subtitle: "Interactive web experiences and cross-platform mobile applications. Click to explore details.",
 };
 
-/** @type {Skill[]} */
-export const skills = [
-  { id: "python", name: "Python", level: 85 },
-  { id: "ai-ml", name: "AI & Machine Learning", level: 82 },
-  { id: "react", name: "React", level: 92 },
-  { id: "nodejs", name: "Node.js", level: 88 },
-  { id: "threejs", name: "Three.js & 3D", level: 86 },
-  { id: "system-design", name: "System Design", level: 80 },
-  { id: "api-integration", name: "API Integration", level: 90 },
-  { id: "testing", name: "Testing & QA", level: 78 },
+export const SKILL_CARDS = [
+  {
+    id: "01",
+    category: "MOBILE APP",
+    title: "TASTE AI",
+    icon: "📱",
+    desc: "Intelligent food preference engine. Built a cross-platform mobile app that vectorizes user preferences and maps them to real-time recommendations.",
+    tags: ["REACT NATIVE", "FIREBASE", "NODE.JS"],
+    specs: ["User preference vectorization", "Real-time recommendation mapping", "Firebase NoSQL graph", "Cross-platform mobile client"],
+    github: "#",
+    visualType: "neuralNode",
+  },
+  {
+    id: "02",
+    category: "WEB APP",
+    title: "QUANTUM LEDGER",
+    icon: "💻",
+    desc: "High-performance financial dashboard. Features real-time WebSocket data streaming and complex data visualizations using D3.js.",
+    tags: ["NEXT.JS", "TYPESCRIPT", "WEB SOCKETS"],
+    specs: ["Real-time data streaming", "High-frequency DOM updates", "WebAssembly processing core", "JWT secure sessions"],
+    github: "#",
+    visualType: "quantumCube",
+  },
+  {
+    id: "03",
+    category: "MOBILE APP",
+    title: "IRIS VISION CORE",
+    icon: "👁️",
+    desc: "Computer vision application for real-time object detection on edge devices. Optimized for low-latency inference.",
+    tags: ["FLUTTER", "TENSORFLOW LITE", "C++"],
+    specs: ["Edge-device inference", "60 FPS real-time detection", "Custom YOLOv8 quantization", "Cross-platform camera pipeline"],
+    github: "#",
+    visualType: "boundingScan",
+  },
+  {
+    id: "04",
+    category: "WEB APP",
+    title: "E-COMMERCE ENGINE",
+    icon: "🛍️",
+    desc: "Scalable headless e-commerce backend and storefront. Features global CDN caching, Stripe integration, and real-time inventory.",
+    tags: ["REACT", "STRIPE", "GRAPHQL", "REDIS"],
+    specs: ["Headless CMS integration", "Redis distributed caching", "Stripe payment intents", "GraphQL schema stitching"],
+    github: "#",
+    visualType: "dataWave",
+  },
+  {
+    id: "05",
+    category: "WEB APP",
+    title: "SPATIAL UI KIT",
+    icon: "🔮",
+    desc: "Open-source React component library for building 3D spatial interfaces. Includes custom shaders, glassmorphism, and GSAP hooks.",
+    tags: ["THREE.JS", "R3F", "GSAP", "WEBGL"],
+    specs: ["Custom GLSL shaders", "GSAP scroll-jacking", "React Three Fiber primitives", "Framer Motion layout animations"],
+    github: "#",
+    visualType: "holoKit",
+  }
 ];

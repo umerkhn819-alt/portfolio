@@ -1,12 +1,11 @@
 import gsap from "gsap";
 import { useGsapContext } from "../hooks/useGsapContext";
 import { Hero } from "../components/sections/Hero";
-import { About } from "../components/sections/About";
-import { Experience } from "../components/sections/Experience";
+import { Innovations } from "../components/sections/Innovations";
 import { Skills } from "../components/sections/Skills";
-import { Projects } from "../components/sections/Projects";
+import { WorksIndex } from "../components/sections/WorksIndex";
 import { AssistantSection } from "../components/sections/AssistantSection";
-import { TerminalSection } from "../components/sections/TerminalSection";
+
 import { Contact } from "../components/sections/Contact";
 
 export function Home() {
@@ -22,12 +21,11 @@ export function Home() {
   return (
     <main ref={mainRef}>
       <Hero />
-      <About />
-      <Experience />
+      <Innovations />
       <Skills />
-      <Projects />
+      <WorksIndex />
       <AssistantSection />
-      <TerminalSection />
+
       <Contact />
     </main>
   );

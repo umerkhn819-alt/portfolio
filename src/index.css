@@ -9,34 +9,67 @@
 }
 
 @keyframes hero-scroll-hint {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(6px);
-  }
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(6px); }
 }
 
 @layer base {
-  /* CSS Variables for theme colors */
   :root {
-    --color-surface: 249 250 251;
-    --color-surface-raised: 243 244 246;
-    --color-surface-overlay: 229 231 235;
-    --color-border-subtle: 209 213 219;
-    --color-border: 229 231 235;
-    color-scheme: light;
+    /* Enforced Deep Obsidian Dark Mode globally */
+    color-scheme: dark;
+    
+    /* Base background and surface */
+    --color-surface: 5 5 5;
+    --color-surface-raised: 10 10 10;
+    --color-surface-overlay: 18 18 18;
+    --color-border-subtle: 30 30 30;
+    --color-border: 40 40 40;
+
+    /* Neural Engine Theme Palette */
+    --accent-primary: #00F0FF;
+    --accent-secondary: #8A2BE2;
+    --text-main: #E2E8F0;
+    --text-muted: #64748B;
+    --text-primary: var(--text-main);
+    --text-secondary: var(--text-muted);
+
+    /* Section & Global Background */
+    --section-bg: #050505;
+    --section-bg-alt: #030303;
+
+    /* Card & UI Elements (Re-mapped to Neural Engine vibe) */
+    --card-bg: rgba(5, 5, 5, 0.7);
+    --card-bg-active: rgba(10, 10, 15, 0.85);
+    --card-border: rgba(0, 240, 255, 0.2);
+    --card-shadow: 0 4px 32px rgba(0,0,0,0.8);
+    --card-shadow-active: 0 20px 70px rgba(0,0,0,0.9), 0 0 30px rgba(0,240,255,0.1);
+
+    /* Bento card specifics */
+    --bento-bg: rgba(8, 8, 8, 0.8);
+    --bento-border: rgba(138, 43, 226, 0.2);
+    --bento-shadow: 0 2px 24px rgba(0,0,0,0.7);
+    --bento-glow: rgba(0, 240, 255, 0.15);
+
+    /* Hero Background (Deep Obsidian Gradient) */
+    --hero-bg-from: #050505;
+    --hero-bg-via: #030303;
+    --hero-bg-to: #050505;
   }
 
-  html.dark {
-    --color-surface: 10 10 15;
-    --color-surface-raised: 18 18 26;
-    --color-surface-overlay: 26 26 36;
-    --color-border-subtle: 63 63 70;
-    --color-border: 82 82 89;
-    color-scheme: dark;
+  body {
+    background-color: var(--section-bg);
+    color: var(--text-main);
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  h1, h2, h3, h4, h5, h6, .font-display {
+    font-family: 'Space Grotesk', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
   }
 }
 
-
+/* ── Global section transitions ──────────────────────────── */
+section {
+  transition: background-color 0.4s ease, color 0.4s ease;
+}

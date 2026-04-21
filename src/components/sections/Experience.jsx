@@ -46,7 +46,7 @@ export function Experience() {
   };
 
   return (
-    <Section id="experience" className="bg-white dark:bg-surface-raised/30 relative overflow-hidden transition-colors duration-300" parallax>
+    <Section id="experience" className="bg-transparent relative overflow-hidden transition-colors duration-300" parallax>
       {/* Animated background elements */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute -top-40 right-1/4 w-96 h-96 bg-cyan-400/10 dark:bg-cyan-500/8 rounded-full blur-3xl opacity-40" />

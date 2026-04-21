@@ -8,7 +8,7 @@ import { motion } from "framer-motion";
  * @param {boolean} useWords - If true, stagger by word; if false, stagger by letter
  * @param {number} delay - Initial delay before animation starts
  */
-export function TextReveal({ text, className = "", useWords = true, delay = 0 }) {
+export function TextReveal({ text, className = "", useWords = true, delay = 0, center = false }) {
   // Split text into words or letters
   const items = useWords 
     ? text.split(" ").map((word, i) => ({ id: i, text: word + (i < text.split(" ").length - 1 ? " " : "") }))
@@ -49,7 +49,7 @@ export function TextReveal({ text, className = "", useWords = true, delay = 0 })
       viewport={{ once: true, amount: 0.8 }}
     >
       {useWords ? (
-        <div className="flex flex-wrap">
+        <div className={`flex flex-wrap${center ? " justify-center" : ""}`}>
           {items.map((item) => (
             <motion.span key={item.id} variants={itemVariants} className="inline-block">
               {item.text}
@@ -57,7 +57,7 @@ export function TextReveal({ text, className = "", useWords = true, delay = 0 })
           ))}
         </div>
       ) : (
-        <div>
+        <div className={center ? "flex flex-wrap justify-center" : ""}>
           {items.map((item) => (
             <motion.span key={item.id} variants={itemVariants} className="inline-block">
               {item.text}
@@ -77,7 +77,8 @@ export function TextRevealGradient({
   parts = [], // Array of { type: "text"|"accent", value: string }
   className = "", 
   useWords = false,
-  delay = 0 
+  delay = 0,
+  center = false,
 }) {
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -117,7 +118,7 @@ export function TextRevealGradient({
         const items = part.value.split(" ");
         
         return (
-          <div key={index} className="flex flex-wrap">
+          <div key={index} className={`flex flex-wrap${center ? " justify-center" : ""}`}>
             {items.map((word, wordIndex) => (
               <motion.span
                 key={`${index}-${wordIndex}`}

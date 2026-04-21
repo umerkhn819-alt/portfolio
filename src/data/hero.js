@@ -27,7 +27,7 @@ export const heroContent = {
   },
   scrollHint: {
     label: "Scroll",
-    ariaLabel: "Scroll to about",
-    scrollToId: "about",
+    ariaLabel: "Scroll to innovations",
+    scrollToId: "innovations",
   },
 };

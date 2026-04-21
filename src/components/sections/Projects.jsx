@@ -25,7 +25,7 @@ export function Projects() {
   }, []);
 
   return (
-    <Section id="projects" className="bg-gray-50 dark:bg-surface-raised/30 transition-colors duration-300" parallax>
+    <Section id="projects" className="bg-transparent transition-colors duration-300" parallax>
       <Container>
         <div ref={headingRef}>
           <SectionHeading

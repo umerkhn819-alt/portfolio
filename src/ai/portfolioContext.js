@@ -1,13 +1,12 @@
 import { aboutSection, aboutSpotlight } from "../data/about";
-import { skills } from "../data/skills";
+import { SKILL_CARDS } from "../data/skills";
 import { projects } from "../data/projects";
 import { socials } from "../data/socials";
 
 export function buildPortfolioContext() {
-  const topSkills = [...skills]
-    .sort((a, b) => b.level - a.level)
+  const topSkills = SKILL_CARDS
     .slice(0, 5)
-    .map((s) => `${s.name} (${s.level}%)`)
+    .map((s) => `${s.title}`)
     .join(", ");
 
   const projectLines = projects
