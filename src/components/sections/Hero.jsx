@@ -145,27 +145,27 @@ export function Hero() {
       {/* Content overlay - structured layout */}
       <div className="relative z-10 h-full min-h-dvh flex items-center justify-center pb-32">
         {/* Desktop 2-Column Layout - Profile + Content */}
-        <div className="hidden lg:grid lg:w-full lg:grid-cols-2 lg:gap-20 lg:items-center lg:px-16 lg:py-16">
+        <div className="hidden lg:grid lg:w-full lg:grid-cols-12 lg:gap-8 lg:items-center lg:px-20 lg:py-24">
           {/* Left Column - Large Profile Image Focus */}
-          <div className="flex flex-col items-center justify-center relative w-full space-y-8">
+          <div className="lg:col-span-5 flex flex-col items-center justify-center relative w-full space-y-8">
             {/* Large Profile Image - Main focus */}
             <motion.div
-              className="relative w-full max-w-lg"
+              className="relative w-full max-w-md"
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8, delay: 0.2 }}
             >
               <motion.div
-                className="relative aspect-square rounded-3xl border-2 border-accent/50 shadow-2xl shadow-accent/40 overflow-hidden"
+                className="relative aspect-square rounded-2xl border-2 border-accent/60 shadow-2xl shadow-accent/40 overflow-hidden"
                 animate={{
-                  y: [0, -20, 0],
+                  y: [0, -25, 0],
                 }}
                 transition={{
                   duration: 6,
                   repeat: Infinity,
                   ease: "easeInOut",
                 }}
-                whileHover={{ borderColor: "rgba(99,102,241,1)", scale: 1.02 }}
+                whileHover={{ borderColor: "rgba(99,102,241,1)", scale: 1.03, shadow: "0 20px 60px rgba(99, 102, 241, 0.5)" }}
               >
                 <img
                   src="/profile.jpeg"
@@ -174,95 +174,135 @@ export function Hero() {
                 />
 
                 {/* Glow overlay */}
-                <div className="absolute inset-0 rounded-3xl border border-accent/30 opacity-50 pointer-events-none" />
+                <div className="absolute inset-0 rounded-2xl border border-accent/20 opacity-40 pointer-events-none" />
               </motion.div>
 
-              {/* Floating accent circles */}
+              {/* Floating accent circles - enhanced */}
               <motion.div
-                className="absolute -top-8 -right-8 w-28 h-28 border-2 border-accent/40 rounded-full"
+                className="absolute -top-10 -right-10 w-32 h-32 border-2 border-accent/30 rounded-full"
                 animate={{ rotate: 360 }}
-                transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
               />
               <motion.div
-                className="absolute -bottom-8 -left-8 w-32 h-32 border-2 border-accent/30 rounded-full"
+                className="absolute -bottom-10 -left-10 w-40 h-40 border-2 border-accent/20 rounded-full"
                 animate={{ rotate: -360 }}
-                transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+                transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
               />
             </motion.div>
 
-            {/* Social Links */}
-            <div className="flex gap-8 mt-8">
-              {socials.map((social) => (
+            {/* Social Links - Improved spacing */}
+            <motion.div
+              className="flex gap-10 mt-10"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.6 }}
+            >
+              {socials.map((social, idx) => (
                 <motion.a
                   key={social.id}
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-zinc-400 hover:text-accent transition-all duration-300 text-sm font-medium"
+                  className="text-zinc-400 hover:text-accent transition-all duration-300 text-sm font-semibold uppercase tracking-wide"
                   title={social.label}
-                  whileHover={{ scale: 1.25, rotateZ: 2, color: "rgba(99,102,241,1)" }}
+                  whileHover={{ scale: 1.2, rotateZ: 3, color: "rgba(99,102,241,1)" }}
                   whileTap={{
                     scale: 0.85,
-                    rotateZ: -3,
+                    rotateZ: -5,
                     boxShadow: "0 0 25px rgba(99,102,241,0.6)",
                     transition: { duration: 0.15, ease: "easeIn" }
                   }}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: 0.65 + idx * 0.05 }}
                 >
                   {social.label}
                 </motion.a>
               ))}
-            </div>
+            </motion.div>
           </div>
 
           {/* Right Column - Content */}
-          <div className="flex flex-col justify-center">
+          <div className="lg:col-span-7 flex flex-col justify-center space-y-8">
             {/* Eyebrow */}
-            <p
-              ref={eyebrowRef}
-              className="mb-4 text-sm font-semibold uppercase tracking-[0.35em] text-accent-glow"
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
             >
-              {heroContent.eyebrow}
-            </p>
+              <div className="flex items-center gap-3">
+                <div className="w-1.5 h-1.5 rounded-full bg-gradient-to-r from-accent via-accent-glow to-accent-muted" />
+                <p
+                  ref={eyebrowRef}
+                  className="text-xs font-bold uppercase tracking-[0.2em] text-accent-glow"
+                >
+                  {heroContent.eyebrow}
+                </p>
+              </div>
+            </motion.div>
 
             {/* Name */}
-            <LetterByLetterReveal
-              text={heroContent.name}
-              className="mb-4 text-6xl font-bold text-gray-900 dark:text-white leading-tight transition-colors duration-300"
-              delay={0}
-              staggerDelay={0.04}
-              duration={0.5}
-            />
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8, delay: 0.15 }}>
+              <LetterByLetterReveal
+                text={heroContent.name}
+                className="text-7xl lg:text-8xl font-black text-gray-900 dark:text-white leading-tight tracking-tight transition-colors duration-300"
+                delay={0}
+                staggerDelay={0.04}
+                duration={0.5}
+              />
+            </motion.div>
 
-            {/* Role */}
-            <p className="mb-6 text-xl text-accent font-semibold">
-              {heroContent.role}
-            </p>
+            {/* Role - Highlighted */}
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="inline-flex items-center gap-3 w-fit px-4 py-3 rounded-xl bg-gradient-to-r from-accent/10 via-accent/5 to-transparent border border-accent/40 backdrop-blur-sm"
+            >
+              <div className="w-2 h-2 rounded-full bg-gradient-to-r from-accent to-accent-glow animate-pulse" />
+              <p className="text-lg font-semibold bg-gradient-to-r from-accent via-accent-glow to-accent-muted bg-clip-text text-transparent">
+                {heroContent.role}
+              </p>
+            </motion.div>
 
             {/* Intro/Description */}
-            <p className="mb-8 text-base text-zinc-300 leading-relaxed max-w-lg">
+            <motion.p
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.35 }}
+              className="text-lg text-zinc-300 dark:text-zinc-400 leading-relaxed max-w-2xl font-light"
+            >
               {heroContent.intro}
-            </p>
+            </motion.p>
 
             {/* Headline */}
-            <TextRevealGradient
-              parts={headlineParts}
-              className="mb-6 text-4xl font-semibold leading-tight text-gray-900 dark:text-white transition-colors duration-300"
-              useWords={true}
-              delay={0.2}
-            />
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8, delay: 0.4 }}>
+              <TextRevealGradient
+                parts={headlineParts}
+                className="text-5xl font-bold leading-tight text-gray-900 dark:text-white transition-colors duration-300"
+                useWords={true}
+                delay={0.2}
+              />
+            </motion.div>
 
             {/* Subcopy */}
-            <p
+            <motion.p
               ref={subcopyRef}
-              className="mb-10 text-base text-zinc-400 leading-relaxed max-w-lg"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.45 }}
+              className="text-base text-zinc-400 dark:text-zinc-500 leading-relaxed max-w-2xl font-light"
             >
               {heroContent.subcopy}
-            </p>
+            </motion.p>
 
             {/* CTA Buttons */}
-            <div
+            <motion.div
               ref={ctaRef}
-              className="mb-12 flex gap-4"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.5 }}
+              className="flex gap-4 pt-4"
             >
               <Button
                 type="button"
@@ -275,28 +315,39 @@ export function Hero() {
               <Button variant="ghost" href={heroContent.secondaryCta.href}>
                 {heroContent.secondaryCta.label}
               </Button>
-            </div>
+            </motion.div>
 
             {/* Tech Stack */}
-            <div className="pt-8 border-t border-zinc-800">
-              <p className="text-xs uppercase tracking-widest text-zinc-500 mb-4">Tech Stack</p>
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.55 }}
+              className="pt-8 border-t border-zinc-800/60"
+            >
+              <div className="flex items-center gap-2 mb-4">
+                <p className="text-xs uppercase tracking-widest text-zinc-500 font-bold">Tech Stack</p>
+                <div className="flex-1 h-px bg-gradient-to-r from-zinc-700 to-transparent" />
+              </div>
               <div className="flex flex-wrap gap-2">
-                {heroContent.techStack.map((tech) => (
-                  <span
+                {heroContent.techStack.map((tech, idx) => (
+                  <motion.span
                     key={tech}
-                    className="px-3 py-1 rounded-full bg-accent/10 border border-accent/30 text-xs text-accent font-medium"
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.4, delay: 0.6 + idx * 0.05 }}
+                    className="px-3 py-1.5 rounded-lg bg-gradient-to-br from-accent/15 to-accent/5 border border-accent/40 text-xs font-semibold text-accent/90 hover:bg-accent/25 hover:border-accent/60 transition-all duration-300 cursor-default"
                   >
                     {tech}
-                  </span>
+                  </motion.span>
                 ))}
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
 
         {/* Mobile Layout - Stacked */}
         <motion.div 
-          className="lg:hidden w-full px-4 flex flex-col items-center justify-center text-center space-y-8"
+          className="lg:hidden w-full px-6 flex flex-col items-center justify-center text-center space-y-10 max-w-2xl mx-auto"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8 }}
@@ -308,9 +359,9 @@ export function Hero() {
             transition={{ duration: 0.8, delay: 0.2 }}
           >
             <motion.div
-              className="relative aspect-square rounded-3xl border-2 border-accent/50 shadow-2xl shadow-accent/40 overflow-hidden transition-all duration-300"
+              className="relative mx-auto aspect-square w-full max-w-xs rounded-2xl border-2 border-accent/50 shadow-2xl shadow-accent/40 overflow-hidden transition-all duration-300"
               animate={{
-                y: [0, -20, 0],
+                y: [0, -15, 0],
               }}
               transition={{
                 duration: 6,
@@ -324,65 +375,95 @@ export function Hero() {
                 alt="Muhammad Umer Khan"
                 className="h-full w-full object-cover"
               />
-              <div className="absolute inset-0 rounded-3xl border border-accent/30 opacity-50 pointer-events-none" />
+              <div className="absolute inset-0 rounded-2xl border border-accent/20 opacity-40 pointer-events-none" />
             </motion.div>
           </motion.div>
 
           {/* Content section */}
           <motion.div 
-            className="space-y-4 max-w-md w-full"
+            className="space-y-6 w-full"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4 }}
+            transition={{ delay: 0.3 }}
           >
-            <div className="flex items-center justify-center gap-2">
-              <div className="w-1 h-4 bg-gradient-to-b from-accent to-accent/50 rounded-full" />
+            {/* Eyebrow */}
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.35 }}
+              className="flex items-center justify-center gap-3"
+            >
+              <div className="w-1 h-1 bg-gradient-to-b from-accent to-accent/50 rounded-full" />
               <p
                 ref={eyebrowRef}
-                className="text-xs font-bold uppercase tracking-widest text-accent-glow"
+                className="text-xs font-bold uppercase tracking-wider text-accent-glow"
               >
                 {heroContent.eyebrow}
               </p>
-              <div className="w-1 h-4 bg-gradient-to-b from-accent to-accent/50 rounded-full" />
-            </div>
+              <div className="w-1 h-1 bg-gradient-to-b from-accent to-accent/50 rounded-full" />
+            </motion.div>
 
-            <LetterByLetterReveal
-              text={heroContent.name}
-              className="text-4xl font-black bg-gradient-to-r from-white via-accent to-white bg-clip-text text-transparent"
-              delay={0}
-              staggerDelay={0.04}
-              duration={0.5}
-            />
+            {/* Name */}
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8, delay: 0.4 }}>
+              <LetterByLetterReveal
+                text={heroContent.name}
+                className="text-5xl font-black bg-gradient-to-r from-gray-900 via-accent to-gray-900 dark:from-white dark:via-accent dark:to-white bg-clip-text text-transparent transition-colors duration-300"
+                delay={0}
+                staggerDelay={0.04}
+                duration={0.5}
+              />
+            </motion.div>
 
-            <motion.div 
-              className="inline-flex justify-center w-full items-center gap-2 px-4 py-2 rounded-full border border-accent/40 bg-accent/10 backdrop-blur-sm"
+            {/* Role */}
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.45 }}
+              className="inline-flex justify-center w-full items-center gap-2 px-4 py-3 rounded-xl border border-accent/40 bg-accent/10 backdrop-blur-sm mx-auto"
             >
               <div className="w-2 h-2 bg-accent rounded-full animate-pulse" />
-              <p className="text-xs font-semibold text-accent">
+              <p className="text-sm font-semibold text-accent">
                 {heroContent.role}
               </p>
             </motion.div>
 
-            <p className="text-sm text-zinc-300 leading-relaxed font-light">
+            {/* Intro */}
+            <motion.p
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.5 }}
+              className="text-base text-zinc-300 dark:text-zinc-400 leading-relaxed font-light"
+            >
               {heroContent.intro}
-            </p>
+            </motion.p>
 
-            <TextRevealGradient
-              parts={headlineParts}
-              className="text-xl font-bold leading-tight text-gray-900 dark:text-white transition-colors duration-300"
-              useWords={true}
-              delay={0.2}
-            />
+            {/* Headline */}
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8, delay: 0.55 }}>
+              <TextRevealGradient
+                parts={headlineParts}
+                className="text-2xl font-bold leading-tight text-gray-900 dark:text-white transition-colors duration-300"
+                useWords={true}
+                delay={0.2}
+              />
+            </motion.div>
 
-            <p
+            {/* Subcopy */}
+            <motion.p
               ref={subcopyRef}
-              className="text-xs text-zinc-400 leading-relaxed font-light"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.6 }}
+              className="text-sm text-zinc-400 dark:text-zinc-500 leading-relaxed font-light"
             >
               {heroContent.subcopy}
-            </p>
+            </motion.p>
 
-            <div
+            {/* CTA Buttons */}
+            <motion.div
               ref={ctaRef}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.65 }}
               className="flex flex-col gap-3 pt-4 w-full"
             >
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{
@@ -409,57 +490,84 @@ export function Hero() {
                   {heroContent.secondaryCta.label}
                 </Button>
               </motion.div>
-            </div>
+            </motion.div>
 
             {/* Tech Stack */}
-            <div className="pt-4 border-t border-zinc-800/50">
-              <p className="text-xs uppercase tracking-widest text-zinc-500 mb-3 font-semibold">Tech Stack</p>
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.7 }}
+              className="pt-6 border-t border-zinc-800/50"
+            >
+              <p className="text-xs uppercase tracking-widest text-zinc-500 mb-3 font-bold">Tech Stack</p>
               <div className="flex flex-wrap gap-2 justify-center">
-                {heroContent.techStack.map((tech) => (
-                  <span
+                {heroContent.techStack.map((tech, idx) => (
+                  <motion.span
                     key={tech}
-                    className="px-3 py-1 rounded-lg bg-gradient-to-r from-accent/20 to-accent/10 border border-accent/40 text-xs text-accent font-medium backdrop-blur-sm"
+                    initial={{ opacity: 0, scale: 0.85 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.4, delay: 0.75 + idx * 0.04 }}
+                    className="px-3 py-1.5 rounded-lg bg-gradient-to-r from-accent/20 to-accent/10 border border-accent/40 text-xs font-semibold text-accent/90 backdrop-blur-sm hover:bg-accent/30 hover:border-accent/60 transition-all duration-300"
                   >
                     {tech}
-                  </span>
+                  </motion.span>
                 ))}
               </div>
-            </div>
+            </motion.div>
 
             {/* Social Links */}
-            <div className="flex gap-6 justify-center pt-4">
-              {socials.map((social) => (
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.8 }}
+              className="flex gap-8 justify-center pt-6"
+            >
+              {socials.map((social, idx) => (
                 <motion.a
                   key={social.id}
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-zinc-400 text-sm font-medium transition-all duration-300"
+                  className="text-zinc-400 text-sm font-semibold uppercase tracking-wider transition-all duration-300 hover:text-accent"
                   title={social.label}
-                  whileHover={{ scale: 1.25, rotateZ: 2, color: "rgba(99,102,241,1)" }}
-                  whileTap={{ scale: 0.95 }}
+                  whileHover={{ scale: 1.2, rotateZ: 3, color: "rgba(99,102,241,1)" }}
+                  whileTap={{ scale: 0.9 }}
+                  initial={{ opacity: 0, y: 5 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: 0.85 + idx * 0.05 }}
                 >
                   {social.label}
                 </motion.a>
               ))}
-            </div>
+            </motion.div>
           </motion.div>
         </motion.div>
       </div>
 
       {/* Scroll hint - bottom */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 pointer-events-auto">
-        <button
+      <motion.div
+        className="absolute bottom-12 left-1/2 -translate-x-1/2 z-20 pointer-events-auto"
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 1.2 }}
+      >
+        <motion.button
           ref={scrollHintRef}
           type="button"
           onClick={() => scrollToSection(heroContent.scrollHint.scrollToId)}
-          className="hero-scroll-hint flex flex-col items-center gap-2 text-xs uppercase tracking-widest text-zinc-500"
+          className="hero-scroll-hint flex flex-col items-center gap-3 text-xs uppercase tracking-widest text-zinc-500 hover:text-accent transition-colors duration-300"
           aria-label={heroContent.scrollHint.ariaLabel}
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.95 }}
         >
           {heroContent.scrollHint.label}
-          <span className="block h-10 w-px bg-gradient-to-b from-accent/80 to-transparent" />
-        </button>
-      </div>
+          <motion.span
+            className="block h-12 w-px bg-gradient-to-b from-accent/80 via-accent/40 to-transparent"
+            animate={{ y: [0, 8, 0] }}
+            transition={{ duration: 2, repeat: Infinity }}
+          />
+        </motion.button>
+      </motion.div>
     </section>
   );
 }
