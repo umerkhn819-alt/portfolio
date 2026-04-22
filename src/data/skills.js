@@ -15,6 +15,7 @@ export const SKILL_CARDS = [
     specs: ["User preference vectorization", "Real-time recommendation mapping", "Firebase NoSQL graph", "Cross-platform mobile client"],
     github: "#",
     visualType: "neuralNode",
+    image: "/skills/taste_ai.png"
   },
   {
     id: "02",
@@ -26,6 +27,7 @@ export const SKILL_CARDS = [
     specs: ["Real-time data streaming", "High-frequency DOM updates", "WebAssembly processing core", "JWT secure sessions"],
     github: "#",
     visualType: "quantumCube",
+    image: "/skills/quantum_ledger.png"
   },
   {
     id: "03",
@@ -37,6 +39,7 @@ export const SKILL_CARDS = [
     specs: ["Edge-device inference", "60 FPS real-time detection", "Custom YOLOv8 quantization", "Cross-platform camera pipeline"],
     github: "#",
     visualType: "boundingScan",
+    image: "/skills/iris_vision.png"
   },
   {
     id: "04",
@@ -48,6 +51,7 @@ export const SKILL_CARDS = [
     specs: ["Headless CMS integration", "Redis distributed caching", "Stripe payment intents", "GraphQL schema stitching"],
     github: "#",
     visualType: "dataWave",
+    image: "/skills/ecommerce_engine.png"
   },
   {
     id: "05",
@@ -59,5 +63,42 @@ export const SKILL_CARDS = [
     specs: ["Custom GLSL shaders", "GSAP scroll-jacking", "React Three Fiber primitives", "Framer Motion layout animations"],
     github: "#",
     visualType: "holoKit",
+    image: "/skills/spatial_ui.png"
+  },
+  {
+    id: "06",
+    category: "DEEP LEARNING",
+    title: "NEURAL LINK",
+    icon: "🧠",
+    desc: "Advanced neural network architecture for predictive modeling and pattern recognition across massive datasets.",
+    tags: ["PYTHON", "PYTORCH", "CUDA"],
+    specs: ["Multi-layer perceptron routing", "GPU-accelerated training", "Transformer-based sequence generation", "High-dimensional tensor operations"],
+    github: "#",
+    visualType: "neuralNode",
+    image: "/skills/neural_link.png"
+  },
+  {
+    id: "07",
+    category: "DISTRIBUTED SYSTEM",
+    title: "CYBER GRID",
+    icon: "🌐",
+    desc: "A decentralized, high-availability microservices architecture designed for absolute fault tolerance and rapid scaling.",
+    tags: ["KUBERNETES", "GOLANG", "GRPC"],
+    specs: ["Distributed load balancing", "gRPC inter-service communication", "Kubernetes cluster orchestration", "Zero-downtime rolling deployments"],
+    github: "#",
+    visualType: "dataWave",
+    image: "/skills/cyber_grid.png"
+  },
+  {
+    id: "08",
+    category: "AR / VR",
+    title: "HOLO-PROJECTOR",
+    icon: "✨",
+    desc: "Experimental spatial computing application that maps complex 3D environments and projects interactive data overlays.",
+    tags: ["UNITY", "C#", "ARCORE"],
+    specs: ["Spatial environment meshing", "Real-time plane detection", "Hand-tracking gestures", "Volumetric rendering pipeline"],
+    github: "#",
+    visualType: "quantumCube",
+    image: "/skills/holo_projector.png"
   }
 ];

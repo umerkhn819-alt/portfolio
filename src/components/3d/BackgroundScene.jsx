@@ -1,10 +1,15 @@
 import { Canvas } from "@react-three/fiber";
 import { Stars } from "@react-three/drei";
 import { NeuralNetwork } from "./NeuralNetwork";
+import { motion, useScroll, useTransform } from "framer-motion";
 
 export function BackgroundScene() {
+  const { scrollY } = useScroll();
+  // Move the background up slightly as the user scrolls down for parallax depth
+  const y = useTransform(scrollY, [0, 5000], [0, -200]);
+
   return (
-    <div
+    <motion.div
       style={{
         position: "fixed",
         top: 0,
@@ -13,6 +18,7 @@ export function BackgroundScene() {
         height: "100vh",
         zIndex: 0,
         pointerEvents: "none", // Prevent capturing interactions
+        y // Apply parallax translation
       }}
     >
       <Canvas
@@ -35,6 +41,6 @@ export function BackgroundScene() {
         {/* The Swirling Neural Engine Particle Field */}
         <NeuralNetwork />
       </Canvas>
-    </div>
+    </motion.div>
   );
 }

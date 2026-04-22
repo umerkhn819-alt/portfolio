@@ -1,11 +1,8 @@
 import { useState, memo } from "react";
 import { motion } from "framer-motion";
-import { useGsapContext } from "../../hooks/useGsapContext";
-import { bindStaggerReveal } from "../../animations/scrollReveal";
+import { AnimatedText } from "../ui/AnimatedText";
 import { contactSection, contactForm } from "../../data/contact";
 import { Container } from "../ui/Container";
-import { Section } from "../ui/Section";
-import { SectionHeading } from "../ui/SectionHeading";
 
 const initial = { name: "", email: "", message: "" };
 
@@ -13,16 +10,7 @@ export const Contact = memo(function Contact() {
   const [form, setForm] = useState(initial);
   const [sent, setSent] = useState(false);
 
-  const zoneRef = useGsapContext((el) => {
-    if (!el) return;
-    bindStaggerReveal(
-      el,
-      "[data-reveal]",
-      { autoAlpha: 0, y: 36 },
-      { autoAlpha: 1, y: 0 },
-      { start: "top 86%", stagger: 0.1 }
-    );
-  }, []);
+  // GSAP removed to ensure visibility.
 
   const onChange = (e) => {
     const { name, value } = e.target;
@@ -39,114 +27,145 @@ export const Contact = memo(function Contact() {
   };
 
   return (
-    <Section id="contact" className="relative overflow-hidden bg-transparent transition-colors duration-300">
-      <Container className="relative z-10 py-20">
-        <div 
-          ref={zoneRef} 
-          className="grid gap-12 lg:gap-20 lg:grid-cols-[1fr_1.2fr] lg:items-start"
-        >
-          <div>
-            <SectionHeading
-              eyebrow={contactSection.eyebrow}
-              title={contactSection.title}
-              subtitle={contactSection.subtitle}
-            />
-            
-            <div data-reveal className="mt-12 font-mono text-[var(--accent-primary)] text-sm tracking-widest uppercase opacity-80 flex flex-col gap-4 border-l border-[var(--accent-primary)]/30 pl-6">
-              <div>&gt; STATUS: ONLINE</div>
-              <div>&gt; CHANNELS: OPEN</div>
-              <div>&gt; ENCRYPTION: ACTIVE</div>
+    <section id="contact" className="relative overflow-hidden bg-transparent py-16 md:py-32">
+      <Container className="relative z-10">
+        <div className="grid gap-16 lg:gap-20 lg:grid-cols-[1fr_1.2fr] lg:items-center">
+          {/* Left Column: Typography & Info */}
+          <div className="flex flex-col">
+            <h2 className="font-mono text-sm text-[#00BBFF] tracking-[0.3em] uppercase mb-6 flex items-center gap-4">
+              <span className="w-8 h-px bg-[#00BBFF]" />
+              {contactSection.eyebrow}
+            </h2>
+
+            <h3 className="font-display text-4xl md:text-6xl font-bold text-white mb-8 uppercase tracking-wide leading-tight">
+              <AnimatedText text={contactSection.title} type="letter" delay={0.2} stagger={0.05} />
+            </h3>
+
+            <p className="font-mono text-base text-white/70 leading-relaxed max-w-lg mb-12">
+              <AnimatedText text={contactSection.subtitle} type="word" delay={0.5} stagger={0.02} />
+            </p>
+
+            {/* Cyber Status Indicators */}
+            <div className="font-mono text-[#00BBFF] text-xs tracking-[0.2em] uppercase flex flex-col gap-5 border-l-2 border-[#00BBFF]/30 pl-6 bg-gradient-to-r from-[#00BBFF]/5 to-transparent py-4">
+              <div className="flex items-center gap-3">
+                <span className="w-2 h-2 rounded-full bg-[#00BBFF] shadow-[0_0_10px_#00BBFF] animate-pulse" />
+                SYSTEM STATUS: ONLINE
+              </div>
+              <div className="flex items-center gap-3">
+                <span className="w-2 h-2 rounded-full bg-[#00BBFF] shadow-[0_0_10px_#00BBFF] animate-pulse" />
+                COMMS CHANNELS: OPEN
+              </div>
+              <div className="flex items-center gap-3">
+                <span className="w-2 h-2 rounded-full bg-[#00BBFF] shadow-[0_0_10px_#00BBFF] animate-pulse" />
+                ENCRYPTION: ACTIVE
+              </div>
             </div>
           </div>
 
-          <motion.div
-            animate={{ y: [0, -15, 0] }}
-            transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
-            className="relative group perspective-1000"
-          >
+          {/* Right Column: Cybernetic Form */}
+          <div className="contact-scroll-out relative w-full">
             <motion.form
               onSubmit={onSubmit}
-              className="rounded-2xl border border-[var(--accent-secondary)]/30 bg-[#050505]/90 backdrop-blur-xl p-8 sm:p-12 relative overflow-hidden shadow-[0_0_50px_rgba(138,43,226,0.1)] transition-colors duration-300"
-              initial={{ opacity: 0, x: 40, rotateY: -5 }}
-              whileInView={{ opacity: 1, x: 0, rotateY: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.3 }}
+              className="relative rounded-[32px] border border-white/10 bg-[#050505]/60 backdrop-blur-2xl p-8 sm:p-12 overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.8)]"
             >
-              {/* Animated top border glow */}
-              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[var(--accent-secondary)] to-transparent opacity-50" />
-
-              <div className="flex items-center gap-3 mb-10 border-b border-white/5 pb-4">
-                <span className="w-2 h-2 rounded-full bg-[var(--accent-secondary)] animate-pulse" />
-                <span className="font-mono text-xs tracking-[0.2em] text-[var(--accent-secondary)] uppercase">Transmission Interface</span>
+              {/* Form Header */}
+              <div className="flex items-center justify-between border-b border-white/10 pb-6 mb-8">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center">
+                    <span className="w-2 h-2 bg-[#00BBFF] rounded-full animate-ping" />
+                  </div>
+                  <div>
+                    <h4 className="font-display text-white text-lg uppercase tracking-wide">Secure Link</h4>
+                    <p className="font-mono text-[10px] text-white/50 tracking-widest uppercase">Direct connection established</p>
+                  </div>
+                </div>
+                <div className="font-mono text-[10px] text-[#00BBFF] border border-[#00BBFF]/30 px-3 py-1 rounded bg-[#00BBFF]/10">
+                  READY
+                </div>
               </div>
 
-              <motion.div 
-                data-reveal 
-                className="grid gap-8 sm:grid-cols-2 relative z-10"
-              >
-                <label className="flex flex-col gap-3 font-mono text-xs tracking-widest text-[var(--text-muted)] uppercase">
-                  {contactForm.nameField.label}
-                  <input
+              {/* Form Fields */}
+              <div className="grid gap-6 sm:grid-cols-2 relative z-10 mb-6">
+                <div className="flex flex-col gap-2">
+                  <label className="font-mono text-[10px] tracking-[0.2em] text-white/50 uppercase ml-1">
+                    {contactForm.nameField.label}
+                  </label>
+                  <motion.input
                     required
                     name="name"
                     value={form.name}
                     onChange={onChange}
-                    className="bg-transparent border-b border-white/10 px-0 py-2 text-sm text-white outline-none transition-all focus:border-[var(--accent-primary)] focus:shadow-[0_4px_15px_-3px_rgba(0,240,255,0.3)] placeholder:text-white/20"
-                    placeholder="ENTER_IDENTIFIER..."
+                    whileFocus={{ scale: 1.02, backgroundColor: "rgba(0,187,255,0.05)", borderColor: "#00BBFF" }}
+                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                    className="w-full bg-black/40 border border-white/10 rounded-xl px-5 py-4 text-sm text-white font-mono outline-none shadow-[0_0_20px_rgba(0,187,255,0)] focus:shadow-[0_0_20px_rgba(0,187,255,0.1)] placeholder:text-white/20"
+                    placeholder="Enter Identifier..."
                   />
-                </label>
-                
-                <label className="flex flex-col gap-3 font-mono text-xs tracking-widest text-[var(--text-muted)] uppercase">
-                  {contactForm.emailField.label}
-                  <input
+                </div>
+
+                <div className="flex flex-col gap-2">
+                  <label className="font-mono text-[10px] tracking-[0.2em] text-white/50 uppercase ml-1">
+                    {contactForm.emailField.label}
+                  </label>
+                  <motion.input
                     required
                     type="email"
                     name="email"
                     value={form.email}
                     onChange={onChange}
-                    className="bg-transparent border-b border-white/10 px-0 py-2 text-sm text-white outline-none transition-all focus:border-[var(--accent-primary)] focus:shadow-[0_4px_15px_-3px_rgba(0,240,255,0.3)] placeholder:text-white/20"
-                    placeholder="ENTER_COMM_LINK..."
+                    whileFocus={{ scale: 1.02, backgroundColor: "rgba(0,187,255,0.05)", borderColor: "#00BBFF" }}
+                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                    className="w-full bg-black/40 border border-white/10 rounded-xl px-5 py-4 text-sm text-white font-mono outline-none shadow-[0_0_20px_rgba(0,187,255,0)] focus:shadow-[0_0_20px_rgba(0,187,255,0.1)] placeholder:text-white/20"
+                    placeholder="Enter Comms Link..."
                   />
-                </label>
-              </motion.div>
+                </div>
+              </div>
 
-              <motion.label
-                data-reveal
-                className="mt-10 flex flex-col gap-3 font-mono text-xs tracking-widest text-[var(--text-muted)] uppercase relative z-10"
-              >
-                {contactForm.messageField.label}
-                <textarea
+              <div className="flex flex-col gap-2 relative z-10 mb-10">
+                <label className="font-mono text-[10px] tracking-[0.2em] text-white/50 uppercase ml-1">
+                  {contactForm.messageField.label}
+                </label>
+                <motion.textarea
                   required
                   name="message"
                   value={form.message}
                   onChange={onChange}
                   rows={4}
-                  className="bg-transparent border border-white/10 rounded-lg p-4 text-sm text-white outline-none transition-all focus:border-[var(--accent-primary)] focus:shadow-[0_0_20px_rgba(0,240,255,0.15)] placeholder:text-white/20 resize-none mt-2"
-                  placeholder="TRANSMIT_PAYLOAD..."
+                  whileFocus={{ scale: 1.02, backgroundColor: "rgba(0,187,255,0.05)", borderColor: "#00BBFF" }}
+                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                  className="w-full bg-black/40 border border-white/10 rounded-xl px-5 py-4 text-sm text-white font-mono outline-none shadow-[0_0_20px_rgba(0,187,255,0)] focus:shadow-[0_0_20px_rgba(0,187,255,0.1)] placeholder:text-white/20 resize-none"
+                  placeholder="Transmit Payload Details..."
                 />
-              </motion.label>
+              </div>
 
-              <motion.div 
-                data-reveal 
-                className="mt-10 flex flex-wrap items-center gap-6 relative z-10"
-              >
-                <button
+              {/* Submit Button */}
+              <div className="relative z-10">
+                <motion.button
                   type="submit"
                   disabled={sent}
-                  className="font-mono text-sm tracking-widest uppercase border border-[var(--accent-secondary)] bg-[var(--accent-secondary)]/10 text-[var(--accent-secondary)] px-8 py-4 rounded hover:bg-[var(--accent-secondary)]/20 hover:shadow-[0_0_20px_rgba(138,43,226,0.4)] transition-all disabled:opacity-30 disabled:cursor-not-allowed"
+                  whileHover={{ scale: 1.05, boxShadow: "0 15px 40px rgba(0,187,255,0.5)" }}
+                  whileTap={{ scale: 0.95 }}
+                  className="w-full font-display font-bold text-sm tracking-widest uppercase bg-white text-black px-8 py-5 rounded-xl transition-colors duration-300 shadow-[0_10px_30px_rgba(255,255,255,0.2)] disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3"
                 >
-                  {sent ? contactForm.submit.pendingLabel : contactForm.submit.idleLabel || "INITIALIZE_TRANSFER"}
-                </button>
+                  {sent ? (
+                    <span className="flex items-center gap-2">
+                      <span className="w-2 h-2 bg-black rounded-full animate-ping" />
+                      {contactForm.submit.pendingLabel || "TRANSMITTING..."}
+                    </span>
+                  ) : (
+                    <span>{contactForm.submit.idleLabel || "INITIALIZE TRANSFER"}</span>
+                  )}
+                </motion.button>
                 {sent && (
-                  <span className="font-mono text-sm text-[#00F0FF] animate-pulse">
-                    &gt; {contactForm.successMessage || "TRANSMISSION_SUCCESSFUL"}
-                  </span>
+                  <p className="font-mono text-xs text-[#00BBFF] mt-4 text-center animate-pulse tracking-widest">
+                    &gt; {contactForm.successMessage || "TRANSMISSION SUCCESSFUL."}
+                  </p>
                 )}
-              </motion.div>
+              </div>
             </motion.form>
-          </motion.div>
+          </div>
+
         </div>
       </Container>
-    </Section>
+    </section>
   );
 });

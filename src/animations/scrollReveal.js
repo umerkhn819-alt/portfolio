@@ -14,17 +14,20 @@ export function bindSectionReveal(el, opts = {}) {
 
   return gsap.fromTo(
     el,
-    { autoAlpha: 0, y },
+    { autoAlpha: 0, y: 150, z: -300, rotateX: 45, scale: 0.85, transformPerspective: 1200 },
     {
       autoAlpha: 1,
       y: 0,
-      duration: 0.9,
+      z: 0,
+      rotateX: 0,
+      scale: 1,
+      duration: 1.2,
       delay,
       ease: defaultsEase,
       scrollTrigger: {
         trigger: el,
         start,
-        toggleActions: "play none none none",
+        toggleActions: "play reverse play reverse",
         id: id ?? el.id ?? undefined,
       },
     }
@@ -63,7 +66,7 @@ export function bindStaggerReveal(
       scrollTrigger: {
         trigger: container,
         start,
-        toggleActions: scrub ? undefined : "play none none none",
+        toggleActions: scrub ? undefined : "play reverse play reverse",
         scrub: scrub || false,
       },
     }

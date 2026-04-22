@@ -1,37 +1,39 @@
 export const PROJECT_DATA = [
   {
     id: "tasteai",
-    title: "TasteAi",
-    tag: "React Native / Firebase",
-    desc: "Intelligent food preference engine.",
+    title: "Neural Taste Prediction API",
+    tag: "TensorFlow / Python",
+    desc: "Intelligent food preference engine driven by deep learning.",
     specs: [
       "User preference vectorization",
       "Real-time recommendation mapping",
-      "Firebase NoSQL graph",
-      "Cross-platform mobile client"
+      "Neural graph clustering",
+      "Predictive behavioral modeling"
     ],
     github: "https://github.com/umerkhn819/tasteai",
-    visualType: "neuralNode", // Changed from foodNodes
+    visualType: "neuralNode",
+    image: "/projects/neon_tasteai.png"
   },
   {
     id: "iris-vision",
     title: "Iris Vision Core",
     tag: "Anaconda / ML / Jupyter",
-    desc: "100% Accuracy Neural Network trained on botanical datasets.",
+    desc: "100% Accuracy Neural Network trained on complex visual datasets.",
     specs: [
       "Convolutional Neural Network (CNN)",
       "100% Validation Accuracy",
-      "Botanical image classification",
+      "Real-time image classification",
       "Optimized Jupyter pipelines"
     ],
     github: "https://github.com/umerkhn819/iris-vision",
     visualType: "wireframeFlower",
+    image: "/projects/neon_iris.png"
   },
   {
     id: "sentinel-cv",
-    title: "Sentinel Computer Vision",
+    title: "Sentinel Autonomous Vision",
     tag: "Python / OpenCV",
-    desc: "Real-time object detection and spatial mapping pipeline.",
+    desc: "Real-time object detection and spatial mapping for autonomous agents.",
     specs: [
       "YOLOv8 object detection",
       "Spatial boundary mapping",
@@ -40,12 +42,13 @@ export const PROJECT_DATA = [
     ],
     github: "https://github.com/umerkhn819/sentinel-cv",
     visualType: "boundingScan",
+    image: "/projects/neon_sentinel.png"
   },
   {
     id: "neural-nlp",
     title: "Neural NLP Processor",
     tag: "TensorFlow / FastApi",
-    desc: "Sentiment analysis and semantic routing agent.",
+    desc: "Sentiment analysis and semantic routing agent for LLMs.",
     specs: [
       "Transformer-based sentiment extraction",
       "High-throughput FastAPI routing",
@@ -54,61 +57,66 @@ export const PROJECT_DATA = [
     ],
     github: "https://github.com/umerkhn819/neural-nlp",
     visualType: "dataWave",
+    image: "/projects/neon_nlp.png"
   },
   {
     id: "portfolio-arch",
-    title: "Portfolio Architecture",
-    tag: "React / WebGL / GSAP",
-    desc: "The very engine you are viewing. Cinematic scroll-driven 3D experience.",
+    title: "AI Autonomous Agent",
+    tag: "Python / LLM Architecture",
+    desc: "The very agent engine driving this portfolio. Cinematic 3D experience generated via AI.",
     specs: [
-      "Lenis smooth scroll interpolation",
-      "Custom WebGL shader integrations",
-      "GSAP timeline orchestration",
+      "LLM Context Processing",
+      "Autonomous tool execution",
+      "GSAP timeline generation",
       "React Three Fiber optimizations"
     ],
     github: "https://github.com/umerkhn819/portfolio",
     visualType: "engineCore",
+    image: "/projects/neon_portfolio.png"
   },
   {
     id: "crypto-ledger",
-    title: "Quantum Ledger",
-    tag: "Solidity / Next.js",
-    desc: "Decentralized state-channel protocol for ultra-fast microtransactions.",
+    title: "Quantum AI Validator",
+    tag: "Solidity / Neural Nets",
+    desc: "Decentralized state-channel protocol validated by quantum-resistant AI models.",
     specs: [
       "Layer 2 scaling solution",
       "Zero-knowledge proof validation",
-      "Smart contract auditing",
-      "Real-time indexing"
+      "AI Smart contract auditing",
+      "Real-time threat indexing"
     ],
     github: "https://github.com/umerkhn819/quantum-ledger",
     visualType: "quantumCube",
+    image: "/projects/neon_quantum.png"
   },
   {
     id: "holographic-ui",
-    title: "Holographic UI Kit",
-    tag: "Three.js / React",
-    desc: "Open-source 3D component library for spatial web interfaces.",
+    title: "AI Generative UI Framework",
+    tag: "Three.js / React / LLMs",
+    desc: "Open-source 3D component library generated via spatial prompts.",
     specs: [
-      "Glassmorphism shaders",
+      "Generative Glassmorphism shaders",
       "Framer Motion physics",
-      "Component-driven architecture",
-      "Accessibility focus"
+      "Prompt-driven architecture",
+      "WebGL rendering optimizations"
     ],
     github: "https://github.com/umerkhn819/holographic-ui",
-    visualType: "holoKit",
+    visualType: "hologramProjection",
+    image: "/projects/neon_holo.png"
   },
   {
-    id: "sentinel-drone",
+    id: "drone-swarm",
     title: "Autonomous Drone Swarm",
-    tag: "C++ / ROS",
-    desc: "Coordinated drone swarm logic for search and rescue operations.",
+    tag: "C++ / ROS / Computer Vision",
+    desc: "Multi-agent coordination system for search and rescue operations via distributed AI.",
     specs: [
-      "Multi-agent pathfinding",
-      "Real-time obstacle avoidance",
-      "Sensor fusion algorithms",
-      "High-frequency telemetry"
+      "Distributed pathfinding algorithms",
+      "LIDAR spatial reconstruction",
+      "Real-time telemetry streaming",
+      "Swarm intelligence protocols"
     ],
     github: "https://github.com/umerkhn819/drone-swarm",
-    visualType: "droneSwarm",
+    visualType: "swarmNodes",
+    image: "/projects/neon_drone.png"
   }
 ];

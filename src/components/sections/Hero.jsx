@@ -1,214 +1,224 @@
-import { useCallback, useEffect, useRef } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Button } from "../ui/Button";
-import { Container } from "../ui/Container";
-import { scrollToSection } from "../../utils/scrollToId";
+import { useEffect } from "react";
 import { useGsapContext } from "../../hooks/useGsapContext";
-import { heroContent } from "../../data/hero";
-import { socials } from "../../data/socials";
-import { motion } from "framer-motion";
+import gsap from "gsap";
+import ScrollTrigger from "gsap/ScrollTrigger";
+import { AnimatedText } from "../ui/AnimatedText";
+import { PlanetEclipse } from "../3d/PlanetEclipse";
 
-gsap.registerPlugin(ScrollTrigger);
-
-// Custom Cursive Font for Signature (using Google Fonts dynamically or just a generic cursive stack)
-const signatureFont = "'Cedarville Cursive', 'Dancing Script', cursive, serif";
-
+// --- Main Hero Section ---
 export function Hero() {
-  const rootRef = useRef(null);
-  const leftColRef = useRef(null);
-  const rightColRef = useRef(null);
 
-  /* ── GSAP Intro Animations ───────────────────────────── */
   useGsapContext((root) => {
     if (!root) return;
+    gsap.registerPlugin(ScrollTrigger);
 
-    // Intro stagger for left column
-    gsap.fromTo(
-      ".hero-left-anim",
-      { opacity: 0, y: 20 },
-      { opacity: 1, y: 0, duration: 0.8, stagger: 0.15, ease: "power3.out", delay: 0.1 }
-    );
-
-    // Intro stagger for right column
-    gsap.fromTo(
-      ".hero-right-anim",
-      { opacity: 0, x: 20 },
-      { opacity: 1, x: 0, duration: 0.8, stagger: 0.1, ease: "power3.out", delay: 0.3 }
-    );
-
-    // Faded background text parallax
-    gsap.to(".hero-bg-text", {
-      y: -50,
-      ease: "none",
+    // Disappear/Appear Scroll Pattern for Hero elements
+    gsap.to(".hero-scroll-out", {
+      y: -150,
+      opacity: 0,
+      scale: 0.9,
+      stagger: 0.05,
       scrollTrigger: {
         trigger: root,
         start: "top top",
         end: "bottom top",
-        scrub: 1,
-      },
+        scrub: true,
+      }
     });
+
+    // Mobile card entrance animation
+    gsap.fromTo(".hero-mobile-card",
+      { opacity: 0, y: 60, scale: 0.95 },
+      { opacity: 1, y: 0, scale: 1, duration: 1.2, ease: "power3.out", delay: 0.3 }
+    );
   }, []);
 
   return (
-    <section
-      ref={rootRef}
-      id="hero"
-      className="relative z-10 min-h-[100dvh] w-full overflow-hidden pt-24 pb-16 transition-colors duration-500 flex items-center"
-      style={{
-        background: "transparent",
-      }}
-    >
-      <Container className="relative z-10 w-full">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-stretch">
-          
-          {/* ── LEFT SIDEBAR (approx 30% width) ────────────────────── */}
-          <div
-            ref={leftColRef}
-            className="lg:col-span-4 flex flex-col justify-between items-center lg:items-start lg:pr-8 lg:border-r border-border-subtle/30 dark:border-white/5 relative"
-          >
-            {/* 1. Status Pill */}
-            <div className="hero-left-anim flex items-center gap-2 mb-10 w-fit">
-              <div
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: "8px",
-                  padding: "8px 16px",
-                  borderRadius: "100px",
-                  background: "transparent",
-                  border: "1px solid var(--color-border-subtle)",
-                }}
-                className="dark:border-white/10"
-              >
-                <span
-                  style={{
-                    width: 8,
-                    height: 8,
-                    borderRadius: "50%",
-                    background: "#10b981",
-                    display: "inline-block",
-                    animation: "pulse 2s infinite",
-                  }}
-                />
-                <span className="text-[13px] font-medium text-gray-700 dark:text-zinc-300 tracking-wide">
-                  Available for projects
-                </span>
-              </div>
-            </div>
+    <section id="hero" className="relative min-h-screen w-full overflow-hidden bg-transparent">
 
-            {/* 2. Rectangular Image Card Container */}
-            <div className="hero-left-anim relative w-full max-w-[280px] lg:max-w-full aspect-[3/4] mx-auto lg:mx-0 mb-10 group">
-              {/* Wireframe background lines (replicating the stacked border effect) */}
-              <div className="absolute inset-0 border border-gray-300 dark:border-white/10 translate-x-4 translate-y-4 rounded-sm transition-transform duration-500 group-hover:translate-x-6 group-hover:translate-y-6" />
-              <div className="absolute inset-0 border border-gray-200 dark:border-white/5 translate-x-8 translate-y-8 rounded-sm transition-transform duration-500 group-hover:translate-x-12 group-hover:translate-y-12" />
-              
-              {/* Main Image */}
-              <div className="relative w-full h-full rounded-sm overflow-hidden border-2 border-white dark:border-zinc-900 shadow-xl bg-gray-100 dark:bg-zinc-900 z-10">
-                <img
-                  src="/profile.jpeg"
-                  alt="Muhammad Umer Khan"
-                  className="w-full h-full object-cover grayscale contrast-125 brightness-90 transition-all duration-500 group-hover:grayscale-0 group-hover:contrast-100"
-                />
-              </div>
-            </div>
+      {/* 3D Eclipse Planet Background */}
+      <PlanetEclipse />
 
-            {/* 3. Footer Details (Signature + Email) */}
-            <div className="hero-left-anim text-center lg:text-left">
-              <h2
-                style={{ fontFamily: signatureFont }}
-                className="text-5xl lg:text-6xl text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.5)] mb-2 rotate-[-4deg]"
-              >
-                Umer Khan
-              </h2>
-              <p className="text-sm font-medium text-[#00F0FF] drop-shadow-[0_0_8px_rgba(0,240,255,0.4)] tracking-wider">
-                umerkhn819@gmail.com
-              </p>
+      {/* 1. Top Navigation Bar */}
+      <div className="hero-nav absolute top-0 inset-x-0 h-24 flex items-center justify-between px-6 md:px-16 z-50">
+        <div className="font-display text-white text-2xl font-bold tracking-tight">
+          Umer <span className="text-[#00BBFF]">ツ</span>
+        </div>
+
+        <div className="hidden lg:flex items-center gap-3 bg-[#050505]/80 backdrop-blur-md border border-white/10 rounded-full px-5 py-2">
+          <span className="w-2 h-2 bg-[#10b981] rounded-full animate-pulse shadow-[0_0_8px_#10b981]" />
+          <span className="font-mono text-xs text-white/80 tracking-wider uppercase">Available for Freelance</span>
+        </div>
+
+        <div className="flex items-center gap-4">
+          <span className="font-mono text-xs text-white uppercase tracking-widest hidden sm:block">Menu</span>
+          <button className="w-12 h-12 rounded-full bg-white text-black flex flex-col items-center justify-center gap-1.5 hover:bg-[#00BBFF] hover:text-white transition-all duration-300 shadow-[0_0_20px_rgba(255,255,255,0.2)]">
+            <span className="w-5 h-[2px] bg-current rounded-full" />
+            <span className="w-5 h-[2px] bg-current rounded-full" />
+          </button>
+        </div>
+      </div>
+
+      {/* 2. Main Content Grid — DESKTOP ONLY (lg+) */}
+      <div className="relative z-10 w-full min-h-[100dvh] max-w-[1600px] mx-auto hidden lg:grid lg:grid-cols-12 px-6 md:px-16">
+
+        {/* Left Column: Text & Stats */}
+        <div className="lg:col-span-7 flex flex-col justify-center h-full pb-20 lg:pb-0 z-20">
+
+          {/* Avatar Stack */}
+          <div className="hero-text-stagger hero-scroll-out flex items-center gap-5 mb-10">
+            <div className="flex -space-x-4">
+              <div className="w-12 h-12 rounded-full border-2 border-[#050505] bg-gray-800 overflow-hidden"><img src="https://i.pravatar.cc/100?img=1" alt="client" className="w-full h-full object-cover" /></div>
+              <div className="w-12 h-12 rounded-full border-2 border-[#050505] bg-gray-700 overflow-hidden"><img src="https://i.pravatar.cc/100?img=2" alt="client" className="w-full h-full object-cover" /></div>
+              <div className="w-12 h-12 rounded-full border-2 border-[#050505] bg-gray-600 overflow-hidden"><img src="https://i.pravatar.cc/100?img=3" alt="client" className="w-full h-full object-cover" /></div>
+            </div>
+            <div className="font-mono text-sm text-white/70 leading-snug">
+              <span className="text-white font-bold text-xl tracking-wide">120+</span> <br /> Total Satisfied Clients
             </div>
           </div>
 
-          {/* ── RIGHT CONTENT COLUMN (approx 70% width) ──────────────── */}
-          <div
-            ref={rightColRef}
-            className="lg:col-span-8 flex flex-col justify-center relative pl-0 lg:pl-10"
-          >
-            {/* Background Faded Text Layers (Removed) */}
+          {/* Main Heading */}
+          <h1 className="hero-scroll-out font-display font-black text-5xl sm:text-6xl md:text-8xl leading-none text-white tracking-tighter mb-2 drop-shadow-[0_0_30px_rgba(255,255,255,0.1)]">
+            <AnimatedText text="IT'S ME" delay={0} type="letter" />
+          </h1>
+          <h1 className="hero-text-stagger hero-scroll-out font-display font-black text-5xl sm:text-6xl md:text-[5.5rem] lg:text-[7rem] leading-none tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-[#8A2BE2] via-[#00BBFF] to-[#00BBFF] mb-10 drop-shadow-[0_0_30px_rgba(0,187,255,0.3)]">
+            UMER KHAN
+          </h1>
 
-            {/* Main Introduction Title */}
-            <h1 className="hero-right-anim font-display text-4xl sm:text-5xl lg:text-[64px] font-bold text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.2)] leading-[1.1] mb-6 tracking-tight">
-              {heroContent.name}
-            </h1>
+          {/* Subcopy */}
+          <p className="hero-scroll-out font-mono text-base md:text-lg text-white/70 max-w-xl mb-16 leading-relaxed">
+            <AnimatedText text="I've earned the trust of over 250 clients and 40 brands, all of whom are very satisfied with my AI engineering and full-stack development services!" type="word" delay={0.1} stagger={0.02} />
+          </p>
 
-            {/* Primary Description */}
-            <p className="hero-right-anim text-lg lg:text-xl text-white/80 leading-relaxed max-w-2xl mb-10">
-              {heroContent.intro} <br className="hidden sm:block"/> {heroContent.subcopy}
-            </p>
-
-            {/* Glowing Skill Tags Block */}
-            <div className="hero-right-anim flex flex-wrap gap-3 mb-12 max-w-3xl">
-              {heroContent.techStack.map((tech) => (
-                <div
-                  key={tech}
-                  className="px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300 cursor-default"
-                  style={{
-                    color: "var(--text-primary)",
-                    background: "rgba(99,102,241,0.03)",
-                    border: "1px solid rgba(99,102,241,0.2)",
-                    boxShadow: "0 0 12px rgba(99,102,241,0.1) inset, 0 0 12px rgba(99,102,241,0.05)",
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.boxShadow = "0 0 20px rgba(99,102,241,0.4) inset, 0 0 20px rgba(99,102,241,0.2)";
-                    e.currentTarget.style.borderColor = "rgba(99,102,241,0.6)";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.boxShadow = "0 0 12px rgba(99,102,241,0.1) inset, 0 0 12px rgba(99,102,241,0.05)";
-                    e.currentTarget.style.borderColor = "rgba(99,102,241,0.2)";
-                  }}
-                >
-                  {tech}
-                </div>
-              ))}
+          {/* Bottom Stats Row */}
+          <div className="flex flex-wrap items-center gap-6 sm:gap-10 md:gap-16">
+            <div className="hero-stats hero-scroll-out">
+              <div className="text-4xl font-bold text-white font-display mb-2 drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]">600+</div>
+              <div className="font-mono text-xs text-[#00BBFF] uppercase tracking-widest">Projects Done</div>
             </div>
-
-            {/* Software Logos Row */}
-            <div className="hero-right-anim flex items-center gap-8 mb-12 opacity-80 grayscale hover:grayscale-0 transition-all duration-500">
-              {/* React SVG */}
-              <svg viewBox="-11.5 -10.23174 23 20.46348" width="36" height="36" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="0" cy="0" r="2.05" fill="#61dafb"/>
-                <g stroke="#61dafb" strokeWidth="1" fill="none">
-                  <ellipse rx="11" ry="4.2"/>
-                  <ellipse rx="11" ry="4.2" transform="rotate(60)"/>
-                  <ellipse rx="11" ry="4.2" transform="rotate(120)"/>
-                </g>
-              </svg>
-              {/* Python SVG */}
-              <svg viewBox="0 0 110 108" width="36" height="36" xmlns="http://www.w3.org/2000/svg">
-                <path fill="#3776ab" d="M54.1 3.5c-25.7 0-24.6 11.2-24.6 11.2l.1 11.5h25.4v3.6H23.8C7.5 29.8 7.3 46 7.3 46s-1.6 17.5 15.3 17.5h7.3V52c0-8.8 7.3-15.8 16-15.8h21.4s7.2 0 7.2-6.8V11.2S75.8 3.5 54.1 3.5zM38.8 11.7c1.9 0 3.5 1.6 3.5 3.5s-1.6 3.5-3.5 3.5-3.5-1.6-3.5-3.5 1.6-3.5 3.5-3.5z"/>
-                <path fill="#ffd343" d="M55.4 104.5c25.7 0 24.6-11.2 24.6-11.2l-.1-11.5H54.5v-3.6h31.2c16.3 0 16.5-16.2 16.5-16.2s1.6-17.5-15.3-17.5h-7.3v11.5c0 8.8-7.3 15.8-16 15.8H42.2s-7.2 0-7.2 6.8v18.2s-1.3 7.7 20.4 7.7zM70.7 96.3c-1.9 0-3.5-1.6-3.5-3.5s1.6-3.5 3.5-3.5 3.5 1.6 3.5 3.5-1.6 3.5-3.5 3.5z"/>
-              </svg>
-              {/* Node SVG */}
-              <svg viewBox="0 0 118 35" width="70" height="36" xmlns="http://www.w3.org/2000/svg">
-                <path fill="#68A063" d="M33.6 17.9L24.8 2.6c-.6-1-1.8-1.7-3-1.7H4.3c-1.2 0-2.4.7-3 1.7L.4 17.9c-.6 1-.6 2.3 0 3.4l8.8 15.3c.6 1 1.8 1.7 3 1.7h17.5c1.2 0 2.4-.7 3-1.7l8.8-15.3c.7-1 .7-2.3.1-3.4zm-6 2.1l-6.8 11.7c-.2.3-.6.5-1 .5H8.5c-.4 0-.8-.2-1-.5L.7 20c-.2-.3-.2-.8 0-1.1l6.8-11.7c.2-.3.6-.5 1-.5h11.3c.4 0 .8.2 1 .5l6.8 11.7c.3.3.3.8 0 1.1z"/>
-                <path fill="#333" className="dark:fill-white" d="M47.7 10.3h-3.4v14.4h3.4v-8.2c0-2.6 1-3.9 2.9-3.9 1.9 0 2.9 1.3 2.9 3.9v8.2h3.4v-8.5c0-4.3-2.1-6.4-6.4-6.4-2.5 0-4.3 1-5.1 2.8h-.1l-.1-2.5-3.5-.2.1.4zM66.4 10c-4.7 0-8 3.5-8 8.1 0 4.6 3.3 8.1 8 8.1 4.7 0 8-3.5 8-8.1 0-4.6-3.3-8.1-8-8.1zm0 13.5c-2.8 0-4.6-2.1-4.6-5.4 0-3.3 1.8-5.4 4.6-5.4s4.6 2.1 4.6 5.4c0 3.3-1.8 5.4-4.6 5.4zM86.1 20.1c0-2.6-1-4-2.9-4-1.9 0-3 1.3-3 4v4.5H76.8V1h3.4v8.8h.1c.8-1.8 2.6-2.8 5-2.8 4.3 0 6.4 2.1 6.4 6.4v11.3H88.3l-.1-.4-2.1.2zM96.7 10.2c-4 0-7.2 3.1-7.2 7.8 0 4.8 3 8.1 7.2 8.1 3 0 5.4-1.6 6.5-4l-2.8-1.5c-.8 1.4-2 2.3-3.8 2.3-2.3 0-4-1.5-4-4h11.1v-1.1c.1-4.2-2.7-7.6-7-7.6zm-3.8 6.1c.4-1.9 1.8-3.3 3.8-3.3 2 0 3.4 1.3 3.6 3.3h-7.4z"/>
-              </svg>
-              {/* Vercel SVG */}
-              <svg viewBox="0 0 116 100" width="36" height="36" xmlns="http://www.w3.org/2000/svg">
-                <path fill="currentColor" className="text-black dark:text-white" d="M57.5 0L115 100H0L57.5 0z"/>
-              </svg>
+            <div className="hero-stats hero-scroll-out">
+              <div className="text-4xl font-bold text-white font-display mb-2 drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]">50+</div>
+              <div className="font-mono text-xs text-[#00BBFF] uppercase tracking-widest">Brand Partners</div>
             </div>
-
-            {/* Buttons */}
-            <div className="hero-right-anim flex flex-wrap gap-4 mt-auto">
-              <Button type="button" onClick={() => scrollToSection(heroContent.primaryCta.scrollToId)}>
-                {heroContent.primaryCta.label}
-              </Button>
-              <Button variant="ghost" href={heroContent.secondaryCta.href}>
-                {heroContent.secondaryCta.label}
-              </Button>
+            <div className="hero-stats">
+              <div className="text-4xl font-bold text-white font-display mb-2 drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]">12+</div>
+              <div className="font-mono text-xs text-[#00BBFF] uppercase tracking-widest">Years Experience</div>
             </div>
           </div>
         </div>
-      </Container>
+
+        {/* Right Column: Portrait & Interactive Elements */}
+        <div className="lg:col-span-5 relative h-full flex items-end justify-center pointer-events-none">
+
+          {/* Portrait with Seamless Fade Mask */}
+          <div className="hero-portrait hero-scroll-out absolute bottom-0 w-full max-w-[600px] h-[90vh]">
+            <img
+              src="/profile.jpeg"
+              alt="Muhammad Umer Khan"
+              className="w-full h-full object-cover object-top grayscale-[20%] contrast-125"
+              style={{
+                maskImage: "linear-gradient(to bottom, black 60%, transparent 100%)",
+                WebkitMaskImage: "linear-gradient(to bottom, black 60%, transparent 100%)"
+              }}
+            />
+          </div>
+
+          {/* Floating Schedule Button */}
+          <button className="hero-floating-elements hero-scroll-out pointer-events-auto absolute bottom-40 right-[10%] z-40 bg-[#8A2BE2] hover:bg-[#9d4edd] text-white px-8 py-5 rounded-2xl font-mono text-sm tracking-widest uppercase flex items-center gap-4 shadow-[0_20px_40px_rgba(138,43,226,0.5)] transition-all hover:-translate-y-2 group">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 group-hover:animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+            Schedule a Call
+          </button>
+        </div>
+      </div>
+
+      {/* 3. Mobile Layout — MOBILE ONLY (< lg) */}
+      <div className="lg:hidden relative z-10 w-full min-h-screen flex flex-col items-center justify-center px-5 pt-28 pb-16">
+
+        {/* Glassmorphism Profile Card */}
+        <div
+          className="hero-mobile-card w-full max-w-[360px] rounded-3xl overflow-hidden flex flex-col"
+          style={{
+            background: "linear-gradient(145deg, rgba(10,10,20,0.9) 0%, rgba(18,10,35,0.85) 100%)",
+            border: "1px solid rgba(0,187,255,0.25)",
+            boxShadow: "0 0 0 1px rgba(138,43,226,0.15), 0 25px 60px rgba(0,0,0,0.8), inset 0 0 30px rgba(0,187,255,0.04)",
+            backdropFilter: "blur(20px)",
+          }}
+        >
+          {/* Top glow bar */}
+          <div style={{ height: 2, background: "linear-gradient(90deg, transparent, #8A2BE2 30%, #00BBFF 70%, transparent)", borderRadius: "12px 12px 0 0" }} />
+
+          {/* Image Container */}
+          <div className="relative w-full overflow-hidden" style={{ height: 300, background: "linear-gradient(to bottom, rgba(138,43,226,0.12), rgba(0,0,0,0))" }}>
+            <img
+              src="/profile.jpeg"
+              alt="Umer Khan"
+              className="w-full h-full object-cover object-top"
+              style={{
+                maskImage: "linear-gradient(to bottom, black 55%, transparent 100%)",
+                WebkitMaskImage: "linear-gradient(to bottom, black 55%, transparent 100%)",
+              }}
+            />
+            {/* Availability badge */}
+            <div className="absolute top-4 left-4 flex items-center gap-2 bg-[#050505]/80 backdrop-blur-md border border-white/10 rounded-full px-3 py-1.5">
+              <span className="w-1.5 h-1.5 bg-[#10b981] rounded-full animate-pulse shadow-[0_0_6px_#10b981]" />
+              <span className="font-mono text-[10px] text-white/80 tracking-wider uppercase">Available</span>
+            </div>
+          </div>
+
+          {/* Text Content */}
+          <div className="px-6 pb-6 flex flex-col items-center text-center">
+            <h1 className="font-display font-black text-3xl tracking-tighter mb-1" style={{ background: "linear-gradient(135deg, #8A2BE2, #00BBFF)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
+              UMER KHAN
+            </h1>
+            <p className="font-mono text-[11px] text-white/60 uppercase tracking-[0.2em] mb-4 bg-white/5 px-4 py-1.5 rounded-full border border-white/10">
+              AI Engineer &amp; Full Stack Dev
+            </p>
+            <p className="font-mono text-xs text-white/55 leading-relaxed mb-6">
+              Trusted by 250+ clients &amp; 40 brands. Building intelligent, scalable web &amp; AI solutions.
+            </p>
+
+            {/* Stats Row */}
+            <div className="w-full grid grid-cols-3 border border-white/10 rounded-2xl overflow-hidden mb-6">
+              <div className="flex flex-col items-center py-4 px-2">
+                <span className="font-display text-xl font-bold text-white">600+</span>
+                <span className="font-mono text-[9px] text-[#00BBFF] uppercase tracking-widest mt-0.5">Projects</span>
+              </div>
+              <div className="flex flex-col items-center py-4 px-2 border-l border-r border-white/10">
+                <span className="font-display text-xl font-bold text-white">50+</span>
+                <span className="font-mono text-[9px] text-[#00BBFF] uppercase tracking-widest mt-0.5">Partners</span>
+              </div>
+              <div className="flex flex-col items-center py-4 px-2">
+                <span className="font-display text-xl font-bold text-white">12+</span>
+                <span className="font-mono text-[9px] text-[#00BBFF] uppercase tracking-widest mt-0.5">Yrs Exp</span>
+              </div>
+            </div>
+
+            {/* CTA Button */}
+            <button className="w-full bg-gradient-to-r from-[#8A2BE2] to-[#00BBFF] text-white py-3.5 rounded-xl font-mono text-xs tracking-widest uppercase font-semibold flex items-center justify-center gap-3 shadow-[0_8px_24px_rgba(138,43,226,0.4)] active:scale-95 transition-transform">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+              Schedule a Call
+            </button>
+          </div>
+        </div>
+
+        {/* Scroll hint */}
+        <div className="mt-8 flex flex-col items-center gap-2 opacity-40">
+          <span className="font-mono text-[10px] text-white uppercase tracking-widest">Scroll to Explore</span>
+          <div className="w-px h-8 bg-gradient-to-b from-white/60 to-transparent" />
+        </div>
+      </div>
+
+      {/* Vertical Navigation (Far Right) */}
+      <div className="hero-nav absolute right-12 top-1/2 -translate-y-1/2 flex flex-col gap-16 z-40 hidden 2xl:flex items-center">
+        <a href="#projects" className="font-mono text-[10px] text-white/50 hover:text-[#00BBFF] tracking-[0.3em] uppercase transition-colors" style={{ writingMode: 'vertical-rl' }}>Works</a>
+        <a href="#services" className="font-mono text-[10px] text-white/50 hover:text-[#00BBFF] tracking-[0.3em] uppercase transition-colors" style={{ writingMode: 'vertical-rl' }}>Services</a>
+        <a href="#contact" className="font-mono text-[10px] text-white/50 hover:text-[#00BBFF] tracking-[0.3em] uppercase transition-colors" style={{ writingMode: 'vertical-rl' }}>Contact</a>
+      </div>
+
     </section>
   );
 }

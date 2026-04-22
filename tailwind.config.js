@@ -22,13 +22,13 @@ export default {
       },
       fontFamily: {
         sans: [
-          "DM Sans",
+          "Rajdhani",
           "system-ui",
           "-apple-system",
           "Segoe UI",
           "sans-serif",
         ],
-        display: ["Outfit", "DM Sans", "system-ui", "sans-serif"],
+        display: ["Orbitron", "system-ui", "sans-serif"],
       },
       animation: {
         "gradient-shift": "gradient-shift 8s ease infinite",

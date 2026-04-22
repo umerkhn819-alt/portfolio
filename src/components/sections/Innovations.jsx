@@ -1,11 +1,13 @@
 import { useEffect, useRef, useState, useCallback } from "react";
 import gsap from "gsap";
+import ScrollTrigger from "gsap/ScrollTrigger";
 import {
   aboutHighlights,
   aboutSpotlight,
 } from "../../data/about";
 import { experiences } from "../../data/experience";
 import { Container } from "../ui/Container";
+import { AnimatedText } from "../ui/AnimatedText";
 
 /* ─── Card data — 7 cards for a convincing deep curve ─────────────────── */
 
@@ -306,10 +308,38 @@ function SliderCard({ card, cardRef, isActive }) {
 
 /* ─── Main Innovations Section ────────────────────────────────────────────── */
 export function Innovations() {
-  const [activeIndex, setActiveIndex] = useState(3); // start at card 4 (center)
+  const [activeIndex, setActiveIndex] = useState(3);
+  const [isMobile, setIsMobile] = useState(false);
   const cardRefs = useRef([]);
   const sceneRef = useRef(null);
   const animating = useRef(false);
+
+  // Detect mobile
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
+
+  useEffect(() => {
+    if (isMobile || !sceneRef.current) return;
+    gsap.registerPlugin(ScrollTrigger);
+    
+    // Scale down and fade out the whole slider scene when scrolling past
+    gsap.to(sceneRef.current, {
+      scale: 0.5,
+      opacity: 0,
+      y: -100,
+      scrollTrigger: {
+        trigger: "#innovations",
+        start: "center top",
+        end: "bottom top",
+        scrub: true,
+      }
+    });
+    return () => ScrollTrigger.getAll().forEach(t => t.kill());
+  }, [isMobile]);
 
   /* Apply 3D + opacity + blur + zIndex to all cards */
   const applyPositions = useCallback((newActive, animate = true) => {
@@ -480,15 +510,21 @@ export function Innovations() {
           opacity: 0.6;
         }
 
-        @media (max-width: 640px) {
-          .slider-scene { perspective: 800px; }
+        @media (max-width: 767px) {
+          .slider-scene-desktop { display: none !important; }
+          .slider-dot-nav { display: none !important; }
+          .slider-counter { display: none !important; }
+          #innovations { padding: 60px 0 40px; min-height: auto; }
+        }
+        @media (min-width: 768px) {
+          .slider-mobile-cards { display: none !important; }
         }
       `}</style>
 
       <section id="innovations">
 
         <Container style={{ position: "relative", zIndex: 10, flex: 1, display: "flex", flexDirection: "column" }}>
-          {/* Heading */}
+          {/* Heading — always shown */}
           <div style={{ marginBottom: "8px" }}>
             <p className="inno-eyebrow" style={{ fontSize: "11px", fontWeight: 700, letterSpacing: "0.22em", textTransform: "uppercase", marginBottom: "12px" }}>
               Innovations &amp; Capabilities
@@ -497,7 +533,7 @@ export function Innovations() {
               className="inno-heading"
               style={{
                 fontFamily: "'Outfit', 'DM Sans', system-ui, sans-serif",
-                fontSize: "clamp(26px, 4vw, 46px)",
+                fontSize: "clamp(24px, 4vw, 46px)",
                 fontWeight: 800,
                 letterSpacing: "-0.02em",
                 lineHeight: 1.15,
@@ -507,65 +543,124 @@ export function Innovations() {
               Innovations, Milestones<br />
               &amp; Core Capabilities
             </h2>
-            <p
-              className="inno-subtitle"
-              style={{ marginTop: "14px", fontSize: "clamp(13px, 1.4vw, 15px)", maxWidth: "540px", lineHeight: 1.65 }}
-            >
-              Building intelligent systems where AI meets real-world applications — from core capabilities to landmark achievements.
-            </p>
-          </div>
-
-          {/* Keyboard hint */}
-          <p style={{ fontSize: "11px", color: "var(--text-secondary)", opacity: 0.45, marginTop: "6px", letterSpacing: "0.06em" }}>
-            ← → arrow keys or click arrows to navigate
-          </p>
-
-          {/* Slider scene */}
-          <div className="slider-scene" ref={sceneRef} aria-label="3D card slider" role="region">
-            {/* Card track — preserve-3d context */}
-            <div style={{ position: "relative", width: "100%", height: "100%", transformStyle: "preserve-3d" }}>
-              {CARDS.map((card, i) => (
-                <SliderCard
-                  key={card.id}
-                  card={card}
-                  cardRef={(el) => (cardRefs.current[i] = el)}
-                  isActive={i === activeIndex}
-                />
-              ))}
+            <div className="inno-subtitle" style={{ marginTop: "14px", fontSize: "clamp(13px, 1.4vw, 15px)", maxWidth: "540px", lineHeight: 1.65 }}>
+              <AnimatedText text="Building intelligent systems where AI meets real-world applications — from core capabilities to landmark achievements." type="word" />
             </div>
-
-            {/* Nav arrows */}
-            <button className="slider-nav-btn prev" onClick={() => navigate(-1)} aria-label="Previous card">‹</button>
-            <button className="slider-nav-btn next" onClick={() => navigate(1)} aria-label="Next card">›</button>
           </div>
 
-          {/* Dot pagination */}
-          <nav className="dot-nav" aria-label="Card navigation">
-            {CARDS.map((card, i) => (
-              <button
-                key={card.id}
-                className={i === activeIndex ? "active-dot" : ""}
-                style={{
-                  background: i === activeIndex ? CARDS[activeIndex].accent : undefined,
-                }}
-                onClick={() => {
-                  if (animating.current || i === activeIndex) return;
-                  animating.current = true;
-                  setActiveIndex(i);
-                  applyPositions(i, true);
-                }}
-                aria-label={`Go to ${card.title}`}
-                aria-current={i === activeIndex ? "true" : undefined}
-              />
-            ))}
-          </nav>
+          {/* ── DESKTOP: 3D Coverflow slider ── */}
+          {!isMobile && (
+            <>
+              <p style={{ fontSize: "11px", color: "var(--text-secondary)", opacity: 0.45, marginTop: "6px", letterSpacing: "0.06em" }}>
+                ← → arrow keys or click arrows to navigate
+              </p>
 
-          {/* Card counter */}
-          <p className="inno-counter" style={{ textAlign: "center", marginTop: "12px", fontSize: "12px", letterSpacing: "0.08em" }}>
-            {activeIndex + 1} / {TOTAL} — {CARDS[activeIndex].label}
-          </p>
+              <div className="slider-scene" ref={sceneRef} aria-label="3D card slider" role="region">
+                <div style={{ position: "relative", width: "100%", height: "100%", transformStyle: "preserve-3d" }}>
+                  {CARDS.map((card, i) => (
+                    <SliderCard
+                      key={card.id}
+                      card={card}
+                      cardRef={(el) => (cardRefs.current[i] = el)}
+                      isActive={i === activeIndex}
+                    />
+                  ))}
+                </div>
+                <button className="slider-nav-btn prev" onClick={() => navigate(-1)} aria-label="Previous card">‹</button>
+                <button className="slider-nav-btn next" onClick={() => navigate(1)} aria-label="Next card">›</button>
+              </div>
+
+              <nav className="dot-nav" aria-label="Card navigation">
+                {CARDS.map((card, i) => (
+                  <button
+                    key={card.id}
+                    className={i === activeIndex ? "active-dot" : ""}
+                    style={{ background: i === activeIndex ? CARDS[activeIndex].accent : undefined }}
+                    onClick={() => {
+                      if (animating.current || i === activeIndex) return;
+                      animating.current = true;
+                      setActiveIndex(i);
+                      applyPositions(i, true);
+                    }}
+                    aria-label={`Go to ${card.title}`}
+                    aria-current={i === activeIndex ? "true" : undefined}
+                  />
+                ))}
+              </nav>
+
+              <p className="inno-counter" style={{ textAlign: "center", marginTop: "12px", fontSize: "12px", letterSpacing: "0.08em" }}>
+                {activeIndex + 1} / {TOTAL} — {CARDS[activeIndex].label}
+              </p>
+            </>
+          )}
+
+          {/* ── MOBILE: Horizontal snap-scroll ── */}
+          {isMobile && (
+            <>
+              <p style={{ fontSize: "11px", color: "var(--text-secondary)", opacity: 0.5, marginTop: "6px", letterSpacing: "0.06em" }}>
+                ← Swipe to explore →
+              </p>
+              <div
+                style={{
+                  display: "flex",
+                  gap: 16,
+                  overflowX: "auto",
+                  paddingBottom: 20,
+                  paddingTop: 20,
+                  scrollSnapType: "x mandatory",
+                  WebkitOverflowScrolling: "touch",
+                  scrollbarWidth: "none",
+                }}
+              >
+                {/* Leading spacer */}
+                <div style={{ flexShrink: 0, width: 4 }} />
+                {CARDS.map((card) => (
+                  <div
+                    key={card.id}
+                    style={{
+                      flexShrink: 0,
+                      width: "78vw",
+                      maxWidth: 300,
+                      scrollSnapAlign: "center",
+                      borderRadius: 20,
+                      padding: "24px 20px",
+                      background: "var(--card-bg)",
+                      border: `1px solid var(--card-border)`,
+                      backdropFilter: "blur(12px)",
+                      WebkitBackdropFilter: "blur(12px)",
+                      position: "relative",
+                      overflow: "hidden",
+                    }}
+                  >
+                    {/* Top accent bar */}
+                    <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 3, background: `linear-gradient(90deg, transparent, ${card.accent}, transparent)`, borderRadius: "20px 20px 0 0" }} />
+                    {/* Label badge */}
+                    <span style={{ display: "inline-flex", alignItems: "center", gap: 6, fontSize: 10, fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: card.accent, background: `rgba(${card.accentRgb}, 0.14)`, padding: "4px 10px", borderRadius: 20, border: `1px solid rgba(${card.accentRgb}, 0.28)` }}>
+                      {card.icon} {card.label}
+                    </span>
+                    <h3 style={{ fontFamily: "'Outfit', system-ui, sans-serif", fontSize: 15, fontWeight: 700, lineHeight: 1.3, color: "var(--text-primary)", margin: "10px 0 6px" }}>{card.title}</h3>
+                    {card.meta && <p style={{ fontSize: 11, color: card.accent, margin: "0 0 6px", fontWeight: 600 }}>{card.meta}</p>}
+                    <p style={{ fontSize: 12, lineHeight: 1.65, color: "var(--text-secondary)", margin: 0 }}>{card.body}</p>
+                    {card.highlights.length > 0 && (
+                      <ul style={{ margin: "10px 0 0", padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: 5 }}>
+                        {card.highlights.slice(0, 3).map((h, idx) => (
+                          <li key={idx} style={{ fontSize: 11, color: "var(--text-secondary)", paddingLeft: 14, position: "relative" }}>
+                            <span style={{ position: "absolute", left: 0, color: card.accent }}>▸</span>{h}
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
+                ))}
+                {/* Trailing spacer */}
+                <div style={{ flexShrink: 0, width: 4 }} />
+              </div>
+            </>
+          )}
+
         </Container>
       </section>
     </>
   );
 }
+

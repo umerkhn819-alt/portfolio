@@ -5,6 +5,8 @@ import { experienceSection, experiences } from "../../data/experience";
 import { Container } from "../ui/Container";
 import { Section } from "../ui/Section";
 import { SectionHeading } from "../ui/SectionHeading";
+import { TiltCard } from "../ui/TiltCard";
+import { SectionHeading } from "../ui/SectionHeading";
 
 export function Experience() {
   const zoneRef = useGsapContext((el) => {
@@ -61,25 +63,23 @@ export function Experience() {
             subtitle={experienceSection.subtitle}
           />
 
-          <motion.div 
-            className="space-y-6 sm:space-y-8"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.2 }}
+          <div 
+            className="relative"
+            style={{ paddingBottom: "20vh" }} // Allow scroll space after stack
           >
             {experiences.map((exp, index) => (
-              <motion.div
-                key={exp.id}
-                data-reveal
-                custom={index}
-                variants={experienceVariants}
-                className="group relative rounded-2xl border border-gray-300 dark:border-border-subtle/50 bg-gradient-to-br from-gray-50 dark:from-surface-overlay/60 to-white dark:to-surface/40 p-6 sm:p-8 overflow-hidden transition-all duration-300"
-                whileHover={{
-                  y: -6,
-                  boxShadow: "0 30px 60px rgba(99,102,241,0.2), inset 0 0 30px rgba(99,102,241,0.1)",
-                  transition: { duration: 0.3 }
-                }}
+              <div 
+                key={exp.id} 
+                className="sticky"
+                style={{ top: `calc(15vh + ${index * 20}px)` }} // Cards stack with slight offset
               >
+                <TiltCard className="w-full mb-[10vh]">
+                  <motion.div
+                    data-reveal
+                    custom={index}
+                    variants={experienceVariants}
+                    className="group relative rounded-3xl border border-gray-300 dark:border-border-subtle/50 bg-gray-50/90 dark:bg-surface-overlay/90 p-6 sm:p-8 overflow-hidden shadow-2xl dark:shadow-[0_20px_50px_rgba(0,0,0,0.5)] backdrop-blur-xl transition-all duration-300"
+                  >
                 {/* Glow effect */}
                 <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   <div className="absolute top-0 right-0 w-40 h-40 bg-accent/20 rounded-full blur-3xl" />
@@ -125,7 +125,7 @@ export function Experience() {
                     className="mt-4 space-y-2"
                     initial="hidden"
                     whileInView="visible"
-                    viewport={{ once: true }}
+                    viewport={{ once: false }}
                     variants={{
                       hidden: { opacity: 0 },
                       visible: {
@@ -153,17 +153,19 @@ export function Experience() {
                   </motion.ul>
                 </div>
 
-                {/* Bottom accent line */}
-                <motion.div 
-                  className="absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-accent/50 via-accent to-accent/50"
-                  initial={{ scaleX: 0 }}
-                  whileHover={{ scaleX: 1 }}
-                  style={{ width: "100%", transformOrigin: "left" }}
-                  transition={{ duration: 0.3 }}
-                />
-              </motion.div>
+                  {/* Bottom accent line */}
+                  <motion.div 
+                    className="absolute bottom-0 left-0 h-1 bg-gradient-to-r from-[#00BBFF]/50 via-[#00BBFF] to-[#00BBFF]/50"
+                    initial={{ scaleX: 0 }}
+                    whileHover={{ scaleX: 1 }}
+                    style={{ width: "100%", transformOrigin: "left" }}
+                    transition={{ duration: 0.3 }}
+                  />
+                </motion.div>
+                </TiltCard>
+              </div>
             ))}
-          </motion.div>
+          </div>
         </div>
       </Container>
     </Section>

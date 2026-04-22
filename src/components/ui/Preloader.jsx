@@ -1,85 +1,61 @@
-import { useEffect, useRef, useState } from 'react';
-import gsap from 'gsap';
+import { useEffect, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 
-export function Preloader() {
-  const containerRef = useRef(null);
-  const textRef = useRef(null);
+export function Preloader({ onComplete }) {
+  const [isExiting, setIsExiting] = useState(false);
   const [isFinished, setIsFinished] = useState(false);
 
   useEffect(() => {
-    if (isFinished) return;
+    // Start exit animation after 1 second
+    const timer = setTimeout(() => {
+      setIsExiting(true);
+      setTimeout(() => {
+        setIsFinished(true);
+        if (onComplete) onComplete();
+      }, 500); // Wait for fade out
+    }, 800); // Fast load duration
 
-    const tl = gsap.timeline({
-      onComplete: () => {
-        // Aggressive slice/fade out
-        gsap.to(containerRef.current, {
-          yPercent: -100,
-          duration: 1.2,
-          ease: "expo.inOut",
-          onComplete: () => setIsFinished(true),
-        });
-      }
-    });
-
-    const lines = [
-      "> INITIALIZING SYSTEM...",
-      "> LOADING NEURAL WEIGHTS...",
-      "> BYPASSING SECURITY PROTOCOLS...",
-      "> SYSTEM READY."
-    ];
-
-    // Initial delay
-    tl.to({}, { duration: 0.5 });
-
-    // Type out each line
-    lines.forEach((line) => {
-      tl.to({}, {
-        duration: 0.1, // slight pause before next line
-        onComplete: () => {
-          if (textRef.current) {
-            const span = document.createElement('div');
-            span.textContent = line;
-            span.style.opacity = '0';
-            span.style.color = 'var(--accent-primary)';
-            span.style.marginBottom = '8px';
-            textRef.current.appendChild(span);
-            
-            gsap.to(span, { opacity: 1, duration: 0.1 });
-          }
-        }
-      });
-      tl.to({}, { duration: 0.4 }); // wait a bit after typing line
-    });
-
-    // Hold before exiting
-    tl.to({}, { duration: 0.6 });
-
-    return () => tl.kill();
-  }, [isFinished]);
+    return () => clearTimeout(timer);
+  }, [onComplete]);
 
   if (isFinished) return null;
 
   return (
-    <div
-      ref={containerRef}
-      className="fixed inset-0 z-[9999] bg-[#050505] flex items-center justify-center overflow-hidden"
-    >
-      <div 
-        ref={textRef}
-        className="text-[var(--text-main)] font-mono text-sm md:text-base lg:text-lg text-left w-full max-w-2xl px-6"
-        style={{ fontFamily: "'JetBrains Mono', monospace" }}
-      >
-        {/* Lines appended here by GSAP */}
-      </div>
-      
-      {/* Subtle CRT scanning line effect */}
-      <div 
-        className="absolute inset-0 pointer-events-none opacity-10"
-        style={{
-          background: 'linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06))',
-          backgroundSize: '100% 2px, 3px 100%'
-        }}
-      />
-    </div>
+    <AnimatePresence>
+      {!isExiting && (
+        <motion.div
+          initial={{ opacity: 1 }}
+          exit={{ opacity: 0, y: -50, scale: 0.95 }}
+          transition={{ duration: 0.5, ease: "easeInOut" }}
+          className="fixed inset-0 z-[9999] bg-[#050505] flex items-center justify-center overflow-hidden"
+        >
+          <div className="relative flex flex-col items-center">
+            {/* AI Core Spinner */}
+            <motion.div
+              animate={{ rotate: 360 }}
+              transition={{ repeat: Infinity, duration: 1.5, ease: "linear" }}
+              className="w-20 h-20 border-[3px] border-[#00BBFF]/10 border-t-[#00BBFF] border-r-[#8A2BE2] rounded-full shadow-[0_0_40px_rgba(0,187,255,0.2)]"
+            />
+            {/* Inner pulsing core */}
+            <div className="absolute top-10 left-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center">
+              <motion.div 
+                animate={{ scale: [1, 1.5, 1], opacity: [0.5, 1, 0.5] }}
+                transition={{ repeat: Infinity, duration: 2 }}
+                className="w-3 h-3 bg-white rounded-full shadow-[0_0_15px_white]"
+              />
+            </div>
+            {/* Text */}
+            <motion.div 
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+              className="mt-8 font-mono text-[#00BBFF] text-[10px] tracking-[0.4em] uppercase"
+            >
+              INIT_AI_CORE
+            </motion.div>
+          </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 }

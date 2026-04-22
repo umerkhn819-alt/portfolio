@@ -1,4 +1,4 @@
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useState } from "react";
 import { Navbar } from "./components/layout/Navbar";
 import { Footer } from "./components/layout/Footer";
 import { PageLoader } from "./components/ui/PageLoader";
@@ -11,19 +11,24 @@ const Home = lazy(() =>
 );
 
 export default function App() {
+  const [isPreloading, setIsPreloading] = useState(true);
+
   return (
     <>
-      <Preloader />
+      <Preloader onComplete={() => setIsPreloading(false)} />
       <BackgroundScene />
-      <SmoothScroll>
-        <div className="min-h-dvh flex flex-col transition-colors duration-300">
-          <Navbar />
-          <Suspense fallback={<PageLoader />}>
-            <Home />
-          </Suspense>
-          <Footer />
-        </div>
-      </SmoothScroll>
+      
+      {!isPreloading && (
+        <SmoothScroll>
+          <div className="min-h-dvh w-full overflow-x-hidden flex flex-col transition-colors duration-300">
+            <Navbar />
+            <Suspense fallback={<PageLoader />}>
+              <Home />
+            </Suspense>
+            <Footer />
+          </div>
+        </SmoothScroll>
+      )}
     </>
   );
 }
