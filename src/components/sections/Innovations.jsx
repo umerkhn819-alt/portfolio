@@ -326,11 +326,45 @@ export function Innovations() {
     if (isMobile || !sceneRef.current) return;
     gsap.registerPlugin(ScrollTrigger);
     
-    // Scale down and fade out the whole slider scene when scrolling past
+    // ── Camera zoom entry: scale up from 0.92 ──
+    gsap.fromTo(".slider-scene-inner",
+      { scale: 0.92, opacity: 0, filter: "blur(6px)" },
+      {
+        scale: 1,
+        opacity: 1,
+        filter: "blur(0px)",
+        duration: 0.6,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: "#innovations",
+          start: "top 80%",
+          toggleActions: "play none none reverse",
+        },
+      }
+    );
+
+    // ── Heading clip-path reveal ──
+    gsap.fromTo(
+      ".inno-heading",
+      { clipPath: "inset(0 100% 0 0)" },
+      {
+        clipPath: "inset(0 0% 0 0)",
+        duration: 1,
+        ease: "power3.inOut",
+        scrollTrigger: {
+          trigger: "#innovations",
+          start: "top 75%",
+          toggleActions: "play none none reverse",
+        },
+      }
+    );
+
+    // ── Scale down + blur exit when scrolling past ──
     gsap.to(sceneRef.current, {
       scale: 0.5,
       opacity: 0,
       y: -100,
+      filter: "blur(10px)",
       scrollTrigger: {
         trigger: "#innovations",
         start: "center top",
@@ -556,7 +590,7 @@ export function Innovations() {
               </p>
 
               <div className="slider-scene" ref={sceneRef} aria-label="3D card slider" role="region">
-                <div style={{ position: "relative", width: "100%", height: "100%", transformStyle: "preserve-3d" }}>
+                <div className="slider-scene-inner" style={{ position: "relative", width: "100%", height: "100%", transformStyle: "preserve-3d" }}>
                   {CARDS.map((card, i) => (
                     <SliderCard
                       key={card.id}

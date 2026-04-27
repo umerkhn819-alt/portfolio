@@ -7,14 +7,11 @@ import { AnimatedText } from "../ui/AnimatedText";
 
 gsap.registerPlugin(ScrollTrigger);
 
-// --- Bottom Drawer Detail Panel ---
-function ProjectBottomDrawer({ project, onClose }) {
+// --- Side Detail Panel ---
+function ProjectSidePanel({ project, onClose }) {
   useEffect(() => {
-    if (project) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
+    if (project) document.body.style.overflow = 'hidden';
+    else document.body.style.overflow = '';
     return () => { document.body.style.overflow = ''; };
   }, [project]);
 
@@ -29,65 +26,65 @@ function ProjectBottomDrawer({ project, onClose }) {
         onClick={onClose}
         className="fixed inset-0 z-[90] bg-black/40 backdrop-blur-sm cursor-pointer"
       />
-
       <motion.div
-        initial={{ y: "100%" }}
-        animate={{ y: 0 }}
-        exit={{ y: "100%" }}
+        initial={{ x: "100%" }}
+        animate={{ x: 0 }}
+        exit={{ x: "100%" }}
         transition={{ type: "spring", stiffness: 300, damping: 30 }}
-        className="fixed bottom-0 left-0 w-full h-[45%] z-[100] bg-[#050505]/95 backdrop-blur-2xl border-t border-[#00BBFF]/30 p-8 md:p-12 shadow-[0_-20px_40px_rgba(0,0,0,0.5)] flex flex-col md:flex-row gap-8 overflow-y-auto"
+        className="fixed top-0 right-0 h-screen w-full max-w-[450px] z-[100] bg-[#050505]/95 backdrop-blur-2xl border-l border-[#00BBFF]/30 p-8 flex flex-col shadow-[-20px_0_40px_rgba(0,0,0,0.5)] overflow-y-auto overflow-x-hidden"
       >
-        <button
-          onClick={onClose}
-          className="absolute top-6 right-6 text-[var(--accent-primary)] font-display text-sm tracking-widest uppercase border border-[var(--accent-primary)]/30 px-3 py-1 rounded hover:bg-[var(--accent-primary)]/10 transition-colors z-10"
-        >
-          [X] CLOSE
-        </button>
-
-        <div className="w-full md:w-1/3 flex flex-col gap-4 border-b md:border-b-0 md:border-r border-white/10 pb-6 md:pb-0 md:pr-8 shrink-0">
-          <div className="flex items-center gap-6">
-            <div className="w-24 h-24 rounded-2xl bg-white/5 border border-white/10 overflow-hidden flex items-center justify-center shrink-0 shadow-[0_0_20px_rgba(0,187,255,0.1)] group">
-              <img
-                src={project.image}
-                alt={project.title}
-                className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
-              />
-            </div>
-            <div>
-              <div className="font-mono text-[#00BBFF] text-xs tracking-widest mb-2 uppercase">{project.tag}</div>
-              <h2 className="font-display text-3xl font-bold text-white tracking-wide leading-tight">{project.title}</h2>
-            </div>
+        <div className="flex justify-between items-center mb-10">
+          <div className="font-mono text-xs text-[var(--text-muted)] tracking-widest uppercase">
+            PROJECT // {project.tag}
           </div>
-
-          <p className="font-mono text-sm text-white/80 leading-relaxed mt-4">
-            {project.desc}
-          </p>
-
-          {project.github && (
-            <a
-              href={project.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-auto inline-flex items-center justify-center w-fit font-mono text-xs text-[#050505] bg-[var(--text-main)] px-6 py-3 hover:bg-[var(--accent-primary)] transition-colors uppercase tracking-widest"
-            >
-              &gt; VIEW_SOURCE
-            </a>
-          )}
+          <button onClick={onClose} className="text-[var(--accent-primary)] font-display text-sm tracking-widest uppercase border border-[var(--accent-primary)]/30 px-3 py-1 rounded hover:bg-[var(--accent-primary)]/10 transition-colors">
+            [X]
+          </button>
         </div>
 
-        <div className="w-full md:w-2/3 flex flex-col justify-center pl-0 md:pl-4">
-          <h3 className="font-mono text-xs text-[var(--text-muted)] tracking-[0.2em] uppercase mb-6 border-b border-white/10 pb-2 w-fit">
-            System Specifications
-          </h3>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 gap-y-6">
+        <div className="flex items-center gap-4 mb-6">
+          <div className="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-3xl shadow-[0_0_20px_rgba(0,187,255,0.1)] overflow-hidden shrink-0">
+             <img src={project.image} alt="icon" className="w-full h-full object-cover mix-blend-screen opacity-90" />
+          </div>
+          <div>
+            <h2 className="font-display text-2xl font-bold text-white tracking-wide leading-tight">{project.title}</h2>
+          </div>
+        </div>
+
+        <div className="w-full h-48 rounded-2xl overflow-hidden mb-8 relative border border-white/10 group shrink-0">
+          <img src={project.image} alt={project.title} className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#050505] to-transparent opacity-80" />
+        </div>
+
+        <div className="mb-10">
+          <h3 className="font-mono text-xs text-[var(--text-muted)] tracking-[0.2em] uppercase mb-4 border-b border-white/10 pb-2">Description</h3>
+          <p className="font-mono text-sm text-white/80 leading-relaxed">{project.desc}</p>
+        </div>
+
+        <div className="mb-10">
+          <h3 className="font-mono text-xs text-[var(--text-muted)] tracking-[0.2em] uppercase mb-4 border-b border-white/10 pb-2">System Specs</h3>
+          <div className="space-y-3">
             {project.specs.map((spec, i) => (
-              <div key={i} className="flex items-start gap-3 font-mono text-sm text-white/90">
-                <span className="w-2 h-2 mt-1 bg-[#00BBFF] rounded-full animate-pulse shrink-0 shadow-[0_0_8px_rgba(0,187,255,0.8)]" />
-                <span className="leading-snug">{spec}</span>
+              <div key={i} className="flex items-start gap-3 font-mono text-xs text-white/70">
+                <span className="w-1.5 h-1.5 mt-1 bg-[#00BBFF] rounded-full animate-pulse shrink-0 shadow-[0_0_8px_rgba(0,187,255,0.8)]" />
+                <span>{spec}</span>
               </div>
             ))}
           </div>
         </div>
+
+        {project.github && (
+          <div className="mt-auto pt-8 border-t border-white/10">
+            <a
+              href={project.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center w-full font-mono text-xs text-[#050505] bg-[#00BBFF] px-6 py-4 rounded hover:bg-white transition-colors uppercase tracking-widest font-bold"
+            >
+              &gt; VIEW_SOURCE
+            </a>
+          </div>
+        )}
       </motion.div>
     </>
   );
@@ -161,7 +158,7 @@ export function WorksIndex() {
     return () => window.removeEventListener("resize", check);
   }, []);
 
-  // GSAP 3D carousel — desktop only
+  // GSAP 3D carousel + cinematic entry — desktop only
   useEffect(() => {
     const section = sectionRef.current;
     const track = trackRef.current;
@@ -174,6 +171,44 @@ export function WorksIndex() {
       const radius = 600;
       gsap.set(track, { z: -radius });
 
+      // ── Cinematic entry: left panel slides from left ──
+      gsap.fromTo(
+        ".works-left-panel",
+        { x: -100, opacity: 0, clipPath: "inset(0 100% 0 0)" },
+        {
+          x: 0,
+          opacity: 1,
+          clipPath: "inset(0 0% 0 0)",
+          duration: 0.8,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: section,
+            start: "top 80%",
+            toggleActions: "play none none reverse",
+          },
+        }
+      );
+
+      // ── Carousel zoom entry ──
+      gsap.fromTo(
+        ".works-carousel-area",
+        { scale: 0.85, opacity: 0, filter: "blur(10px)" },
+        {
+          scale: 1,
+          opacity: 1,
+          filter: "blur(0px)",
+          duration: 0.9,
+          delay: 0.1,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: section,
+            start: "top 80%",
+            toggleActions: "play none none reverse",
+          },
+        }
+      );
+
+      // ── 3D carousel rotation scrub ──
       const tween = gsap.to(track, {
         rotationY: -360,
         z: -radius,
@@ -181,7 +216,7 @@ export function WorksIndex() {
         scrollTrigger: {
           trigger: section,
           start: "top top",
-          end: "+=800",
+          end: "+=1500",
           pin: true,
           scrub: 1,
           invalidateOnRefresh: true,
@@ -204,7 +239,7 @@ export function WorksIndex() {
           <div className="h-screen w-full flex overflow-hidden pt-20">
 
             {/* Pinned Left Column */}
-            <div className="w-[300px] shrink-0 h-full flex flex-col justify-center pl-10 md:pl-20 relative z-20 border-r border-white/5 bg-transparent">
+            <div className="works-left-panel w-[300px] shrink-0 h-full flex flex-col justify-center pl-10 md:pl-20 relative z-20 border-r border-white/5 bg-transparent">
               <h2 className="font-display text-2xl md:text-3xl font-bold text-[#00BBFF] tracking-[0.2em] uppercase mb-12">
                 <AnimatedText text="AI PROJECTS" type="word" />
               </h2>
@@ -224,7 +259,7 @@ export function WorksIndex() {
             </div>
 
             {/* 3D Carousel Track */}
-            <div className="flex-1 h-full flex items-center justify-center relative overflow-hidden" style={{ perspective: "1500px" }}>
+            <div className="works-carousel-area flex-1 h-full flex items-center justify-center relative overflow-hidden" style={{ perspective: "1500px" }}>
               <div
                 ref={trackRef}
                 className="relative w-[360px] h-[500px] will-change-transform"
@@ -293,10 +328,10 @@ export function WorksIndex() {
         )}
       </section>
 
-      {/* Bottom Drawer Detail Modal */}
+      {/* Side Panel Detail Modal */}
       <AnimatePresence>
         {activeProject && (
-          <ProjectBottomDrawer
+          <ProjectSidePanel
             project={activeProject}
             onClose={() => setActiveProject(null)}
           />

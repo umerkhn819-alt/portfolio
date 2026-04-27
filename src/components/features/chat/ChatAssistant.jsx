@@ -7,11 +7,14 @@ function ChatInterface({ onClose, loading, setLoading }) {
   const [messages, setMessages] = useState([
     { role: "assistant", content: "Hi! I'm your interactive portfolio assistant. How can I help you today?" }
   ]);
-  const endRef = useRef(null);
+  const scrollContainerRef = useRef(null);
 
   useEffect(() => {
-    if (endRef.current) {
-      endRef.current.scrollIntoView({ behavior: "smooth" });
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollTo({
+        top: scrollContainerRef.current.scrollHeight,
+        behavior: "smooth"
+      });
     }
   }, [messages, loading]);
 
@@ -45,7 +48,7 @@ function ChatInterface({ onClose, loading, setLoading }) {
         <span className="font-mono text-xs tracking-[0.2em] text-white/50 uppercase">Neural Chat Overlay</span>
       </div>
 
-      <div className="flex-1 overflow-y-auto pr-2 mb-4 space-y-4 font-mono text-sm hide-scrollbar">
+      <div ref={scrollContainerRef} className="flex-1 overflow-y-auto pr-2 mb-4 space-y-4 font-mono text-sm hide-scrollbar">
         {messages.map((m, i) => (
           <div key={i} className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}>
             <div className={`max-w-[85%] p-3 rounded-xl ${m.role === "user" ? "bg-[#00BBFF]/10 text-white rounded-br-none border border-[#00BBFF]/20" : "bg-white/5 text-white/80 rounded-bl-none border border-white/5"}`}>
@@ -61,7 +64,6 @@ function ChatInterface({ onClose, loading, setLoading }) {
              </div>
           </div>
         )}
-        <div ref={endRef} />
       </div>
 
       <form onSubmit={handleSubmit} className="relative flex gap-2">
@@ -136,11 +138,8 @@ export function ChatAssistant() {
   return (
     <div 
       ref={containerRef}
-      className="w-full h-[600px] relative rounded-3xl overflow-hidden border border-white/5 bg-[#020202] flex group"
+      className="w-full h-[600px] relative rounded-3xl overflow-hidden bg-transparent flex group"
     >
-      {/* Dynamic Background Glow */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_#0a0a0a_0%,_#020202_70%)] pointer-events-none" />
-
       {/* Robot Container */}
       <motion.div
         layout

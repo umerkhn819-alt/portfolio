@@ -1,42 +1,129 @@
-import { useEffect } from "react";
-import { useGsapContext } from "../../hooks/useGsapContext";
+import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import { AnimatedText } from "../ui/AnimatedText";
 import { PlanetEclipse } from "../3d/PlanetEclipse";
 
-// --- Main Hero Section ---
+gsap.registerPlugin(ScrollTrigger);
+
+/**
+ * Hero — Cinematic fullscreen scene with parallax depth layers,
+ * clip-path text reveals, and scroll-driven exit transition.
+ */
 export function Hero() {
+  const sectionRef = useRef(null);
+  const foregroundRef = useRef(null);
+  const midgroundRef = useRef(null);
 
-  useGsapContext((root) => {
-    if (!root) return;
-    gsap.registerPlugin(ScrollTrigger);
+  useEffect(() => {
+    const section = sectionRef.current;
+    const fg = foregroundRef.current;
+    const mid = midgroundRef.current;
+    if (!section) return;
 
-    // Disappear/Appear Scroll Pattern for Hero elements
-    gsap.to(".hero-scroll-out", {
-      y: -150,
-      opacity: 0,
-      scale: 0.9,
-      stagger: 0.05,
-      scrollTrigger: {
-        trigger: root,
-        start: "top top",
-        end: "bottom top",
-        scrub: true,
+    const mm = gsap.matchMedia();
+
+    mm.add("(min-width: 768px)", () => {
+      // ── Parallax depth: foreground (text) moves faster than midground (portrait) ──
+      if (fg) {
+        gsap.to(fg, {
+          y: -180,
+          ease: "none",
+          scrollTrigger: {
+            trigger: section,
+            start: "top top",
+            end: "bottom top",
+            scrub: true,
+          },
+        });
       }
+
+      if (mid) {
+        gsap.to(mid, {
+          y: -80,
+          scale: 1.05,
+          ease: "none",
+          scrollTrigger: {
+            trigger: section,
+            start: "top top",
+            end: "bottom top",
+            scrub: true,
+          },
+        });
+      }
+
+      // ── Scroll-driven exit: scale down + fade ──
+      gsap.to(".hero-scroll-out", {
+        y: -150,
+        opacity: 0,
+        scale: 0.85,
+        stagger: 0.05,
+        scrollTrigger: {
+          trigger: section,
+          start: "30% top",
+          end: "bottom top",
+          scrub: true,
+        },
+      });
+
+      // ── Clip-path text wipe reveal for heading ──
+      gsap.fromTo(
+        ".hero-clip-reveal",
+        { clipPath: "inset(0 100% 0 0)" },
+        {
+          clipPath: "inset(0 0% 0 0)",
+          duration: 1.2,
+          ease: "power3.inOut",
+          stagger: 0.15,
+          scrollTrigger: {
+            trigger: section,
+            start: "top 80%",
+            toggleActions: "play none none reverse",
+          },
+        }
+      );
+
+      // ── Stats counter animation ──
+      const statEls = section.querySelectorAll(".hero-stat-number");
+      statEls.forEach((el) => {
+        const target = parseInt(el.getAttribute("data-value"), 10);
+        if (isNaN(target)) return;
+        const obj = { val: 0 };
+        gsap.to(obj, {
+          val: target,
+          duration: 2,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: el,
+            start: "top 90%",
+            toggleActions: "play none none reverse",
+          },
+          onUpdate: () => {
+            el.textContent = Math.floor(obj.val) + "+";
+          },
+        });
+      });
     });
 
-    // Mobile card entrance animation
-    gsap.fromTo(".hero-mobile-card",
-      { opacity: 0, y: 60, scale: 0.95 },
-      { opacity: 1, y: 0, scale: 1, duration: 1.2, ease: "power3.out", delay: 0.3 }
-    );
+    // ── Mobile: simple entrance ──
+    mm.add("(max-width: 767px)", () => {
+      gsap.fromTo(
+        ".hero-mobile-card",
+        { opacity: 0, y: 60, scale: 0.95 },
+        { opacity: 1, y: 0, scale: 1, duration: 1.2, ease: "power3.out", delay: 0.3 }
+      );
+    });
+
+    return () => mm.revert();
   }, []);
 
   return (
-    <section id="hero" className="relative min-h-screen w-full overflow-hidden bg-transparent">
-
-      {/* 3D Eclipse Planet Background */}
+    <section
+      ref={sectionRef}
+      id="hero-inner"
+      className="relative min-h-screen w-full overflow-hidden bg-transparent"
+    >
+      {/* 3D Eclipse Planet Background — deepest layer */}
       <PlanetEclipse />
 
       {/* 1. Top Navigation Bar */}
@@ -47,12 +134,19 @@ export function Hero() {
 
         <div className="hidden lg:flex items-center gap-3 bg-[#050505]/80 backdrop-blur-md border border-white/10 rounded-full px-5 py-2">
           <span className="w-2 h-2 bg-[#10b981] rounded-full animate-pulse shadow-[0_0_8px_#10b981]" />
-          <span className="font-mono text-xs text-white/80 tracking-wider uppercase">Available for Freelance</span>
+          <span className="font-mono text-xs text-white/80 tracking-wider uppercase">
+            Available for Freelance
+          </span>
         </div>
 
         <div className="flex items-center gap-4">
-          <span className="font-mono text-xs text-white uppercase tracking-widest hidden sm:block">Menu</span>
-          <button className="w-12 h-12 rounded-full bg-white text-black flex flex-col items-center justify-center gap-1.5 hover:bg-[#00BBFF] hover:text-white transition-all duration-300 shadow-[0_0_20px_rgba(255,255,255,0.2)]">
+          <span className="font-mono text-xs text-white uppercase tracking-widest hidden sm:block">
+            Menu
+          </span>
+          <button
+            className="w-12 h-12 rounded-full bg-white text-black flex flex-col items-center justify-center gap-1.5 hover:bg-[#00BBFF] hover:text-white transition-all duration-300 shadow-[0_0_20px_rgba(255,255,255,0.2)]"
+            data-cursor="Menu"
+          >
             <span className="w-5 h-[2px] bg-current rounded-full" />
             <span className="w-5 h-[2px] bg-current rounded-full" />
           </button>
@@ -61,55 +155,90 @@ export function Hero() {
 
       {/* 2. Main Content Grid — DESKTOP ONLY (lg+) */}
       <div className="relative z-10 w-full min-h-[100dvh] max-w-[1600px] mx-auto hidden lg:grid lg:grid-cols-12 px-6 md:px-16">
-
-        {/* Left Column: Text & Stats */}
-        <div className="lg:col-span-7 flex flex-col justify-center h-full pb-20 lg:pb-0 z-20">
-
+        {/* Left Column: Text & Stats — FOREGROUND parallax layer */}
+        <div
+          ref={foregroundRef}
+          className="lg:col-span-7 flex flex-col justify-center h-full pb-20 lg:pb-0 z-20"
+        >
           {/* Avatar Stack */}
           <div className="hero-text-stagger hero-scroll-out flex items-center gap-5 mb-10">
             <div className="flex -space-x-4">
-              <div className="w-12 h-12 rounded-full border-2 border-[#050505] bg-gray-800 overflow-hidden"><img src="https://i.pravatar.cc/100?img=1" alt="client" className="w-full h-full object-cover" /></div>
-              <div className="w-12 h-12 rounded-full border-2 border-[#050505] bg-gray-700 overflow-hidden"><img src="https://i.pravatar.cc/100?img=2" alt="client" className="w-full h-full object-cover" /></div>
-              <div className="w-12 h-12 rounded-full border-2 border-[#050505] bg-gray-600 overflow-hidden"><img src="https://i.pravatar.cc/100?img=3" alt="client" className="w-full h-full object-cover" /></div>
+              <div className="w-12 h-12 rounded-full border-2 border-[#050505] bg-gray-800 overflow-hidden">
+                <img src="https://i.pravatar.cc/100?img=1" alt="client" className="w-full h-full object-cover" />
+              </div>
+              <div className="w-12 h-12 rounded-full border-2 border-[#050505] bg-gray-700 overflow-hidden">
+                <img src="https://i.pravatar.cc/100?img=2" alt="client" className="w-full h-full object-cover" />
+              </div>
+              <div className="w-12 h-12 rounded-full border-2 border-[#050505] bg-gray-600 overflow-hidden">
+                <img src="https://i.pravatar.cc/100?img=3" alt="client" className="w-full h-full object-cover" />
+              </div>
             </div>
             <div className="font-mono text-sm text-white/70 leading-snug">
               <span className="text-white font-bold text-xl tracking-wide">120+</span> <br /> Total Satisfied Clients
             </div>
           </div>
 
-          {/* Main Heading */}
-          <h1 className="hero-scroll-out font-display font-black text-5xl sm:text-6xl md:text-8xl leading-none text-white tracking-tighter mb-2 drop-shadow-[0_0_30px_rgba(255,255,255,0.1)]">
+          {/* Main Heading — clip-path reveal */}
+          <h1 className="hero-scroll-out hero-clip-reveal font-display font-black text-5xl sm:text-6xl md:text-8xl leading-none text-white tracking-tighter mb-2 drop-shadow-[0_0_30px_rgba(255,255,255,0.1)]">
             <AnimatedText text="IT'S ME" delay={0} type="letter" />
           </h1>
-          <h1 className="hero-text-stagger hero-scroll-out font-display font-black text-5xl sm:text-6xl md:text-[5.5rem] lg:text-[7rem] leading-none tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-[#8A2BE2] via-[#00BBFF] to-[#00BBFF] mb-10 drop-shadow-[0_0_30px_rgba(0,187,255,0.3)]">
+          <h1 className="hero-text-stagger hero-scroll-out hero-clip-reveal font-display font-black text-5xl sm:text-6xl md:text-[5.5rem] lg:text-[7rem] leading-none tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-[#8A2BE2] via-[#00BBFF] to-[#00BBFF] mb-10 drop-shadow-[0_0_30px_rgba(0,187,255,0.3)]">
             UMER KHAN
           </h1>
 
           {/* Subcopy */}
           <p className="hero-scroll-out font-mono text-base md:text-lg text-white/70 max-w-xl mb-16 leading-relaxed">
-            <AnimatedText text="I've earned the trust of over 250 clients and 40 brands, all of whom are very satisfied with my AI engineering and full-stack development services!" type="word" delay={0.1} stagger={0.02} />
+            <AnimatedText
+              text="I've earned the trust of over 250 clients and 40 brands, all of whom are very satisfied with my AI engineering and full-stack development services!"
+              type="word"
+              delay={0.1}
+              stagger={0.02}
+            />
           </p>
 
-          {/* Bottom Stats Row */}
+          {/* Bottom Stats Row — animated counters */}
           <div className="flex flex-wrap items-center gap-6 sm:gap-10 md:gap-16">
             <div className="hero-stats hero-scroll-out">
-              <div className="text-4xl font-bold text-white font-display mb-2 drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]">600+</div>
-              <div className="font-mono text-xs text-[#00BBFF] uppercase tracking-widest">Projects Done</div>
+              <div
+                className="hero-stat-number text-4xl font-bold text-white font-display mb-2 drop-shadow-[0_0_15px_rgba(255,255,255,0.3)] neon-text-cyan"
+                data-value="600"
+              >
+                0+
+              </div>
+              <div className="font-mono text-xs text-[#00BBFF] uppercase tracking-widest">
+                Projects Done
+              </div>
             </div>
             <div className="hero-stats hero-scroll-out">
-              <div className="text-4xl font-bold text-white font-display mb-2 drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]">50+</div>
-              <div className="font-mono text-xs text-[#00BBFF] uppercase tracking-widest">Brand Partners</div>
+              <div
+                className="hero-stat-number text-4xl font-bold text-white font-display mb-2 drop-shadow-[0_0_15px_rgba(255,255,255,0.3)] neon-text-cyan"
+                data-value="50"
+              >
+                0+
+              </div>
+              <div className="font-mono text-xs text-[#00BBFF] uppercase tracking-widest">
+                Brand Partners
+              </div>
             </div>
-            <div className="hero-stats">
-              <div className="text-4xl font-bold text-white font-display mb-2 drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]">12+</div>
-              <div className="font-mono text-xs text-[#00BBFF] uppercase tracking-widest">Years Experience</div>
+            <div className="hero-stats hero-scroll-out">
+              <div
+                className="hero-stat-number text-4xl font-bold text-white font-display mb-2 drop-shadow-[0_0_15px_rgba(255,255,255,0.3)] neon-text-cyan"
+                data-value="12"
+              >
+                0+
+              </div>
+              <div className="font-mono text-xs text-[#00BBFF] uppercase tracking-widest">
+                Years Experience
+              </div>
             </div>
           </div>
         </div>
 
-        {/* Right Column: Portrait & Interactive Elements */}
-        <div className="lg:col-span-5 relative h-full flex items-end justify-center pointer-events-none">
-
+        {/* Right Column: Portrait — MIDGROUND parallax layer */}
+        <div
+          ref={midgroundRef}
+          className="lg:col-span-5 relative h-full flex items-end justify-center pointer-events-none"
+        >
           {/* Portrait with Seamless Fade Mask */}
           <div className="hero-portrait hero-scroll-out absolute bottom-0 w-full max-w-[600px] h-[90vh]">
             <img
@@ -118,13 +247,16 @@ export function Hero() {
               className="w-full h-full object-cover object-top grayscale-[20%] contrast-125"
               style={{
                 maskImage: "linear-gradient(to bottom, black 60%, transparent 100%)",
-                WebkitMaskImage: "linear-gradient(to bottom, black 60%, transparent 100%)"
+                WebkitMaskImage: "linear-gradient(to bottom, black 60%, transparent 100%)",
               }}
             />
           </div>
 
           {/* Floating Schedule Button */}
-          <button className="hero-floating-elements hero-scroll-out pointer-events-auto absolute bottom-40 right-[10%] z-40 bg-[#8A2BE2] hover:bg-[#9d4edd] text-white px-8 py-5 rounded-2xl font-mono text-sm tracking-widest uppercase flex items-center gap-4 shadow-[0_20px_40px_rgba(138,43,226,0.5)] transition-all hover:-translate-y-2 group">
+          <button
+            className="hero-floating-elements hero-scroll-out pointer-events-auto absolute bottom-40 right-[10%] z-40 bg-[#8A2BE2] hover:bg-[#9d4edd] text-white px-8 py-5 rounded-2xl font-mono text-sm tracking-widest uppercase flex items-center gap-4 shadow-[0_20px_40px_rgba(138,43,226,0.5)] transition-all hover:-translate-y-2 group neon-glow-purple"
+            data-cursor="Book"
+          >
             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 group-hover:animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
             </svg>
@@ -133,9 +265,8 @@ export function Hero() {
         </div>
       </div>
 
-      {/* 3. Mobile Layout — MOBILE ONLY (< lg) */}
+      {/* 3. Mobile Layout — MOBILE ONLY (<lg) */}
       <div className="lg:hidden relative z-10 w-full min-h-screen flex flex-col items-center justify-center px-5 pt-28 pb-16">
-
         {/* Glassmorphism Profile Card */}
         <div
           className="hero-mobile-card w-full max-w-[360px] rounded-3xl overflow-hidden flex flex-col"
@@ -208,7 +339,7 @@ export function Hero() {
         {/* Scroll hint */}
         <div className="mt-8 flex flex-col items-center gap-2 opacity-40">
           <span className="font-mono text-[10px] text-white uppercase tracking-widest">Scroll to Explore</span>
-          <div className="w-px h-8 bg-gradient-to-b from-white/60 to-transparent" />
+          <div className="w-px h-8 bg-gradient-to-b from-white/60 to-transparent hero-scroll-hint" />
         </div>
       </div>
 
@@ -218,7 +349,6 @@ export function Hero() {
         <a href="#services" className="font-mono text-[10px] text-white/50 hover:text-[#00BBFF] tracking-[0.3em] uppercase transition-colors" style={{ writingMode: 'vertical-rl' }}>Services</a>
         <a href="#contact" className="font-mono text-[10px] text-white/50 hover:text-[#00BBFF] tracking-[0.3em] uppercase transition-colors" style={{ writingMode: 'vertical-rl' }}>Contact</a>
       </div>
-
     </section>
   );
 }

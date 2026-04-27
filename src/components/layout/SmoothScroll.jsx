@@ -9,22 +9,22 @@ export function SmoothScroll({ children }) {
   const lenisRef = useRef(null);
 
   useEffect(() => {
-    // Initialize Lenis
+    // Initialize Lenis with settings tuned for cinematic ScrollTrigger pinning
     const lenis = new Lenis({
-      duration: 0.6,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Custom cinematic easing
+      duration: 1.0,              // Slower for cinematic feel
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       direction: 'vertical',
       gestureDirection: 'vertical',
       smooth: true,
-      mouseMultiplier: 1,
-      smoothTouch: false,
+      mouseMultiplier: 0.8,       // Slightly reduced for controlled scrubbing
+      smoothTouch: false,         // Native touch for mobile perf
       touchMultiplier: 2,
       infinite: false,
     });
-    
+
     lenisRef.current = lenis;
 
-    // Sync Lenis with GSAP ScrollTrigger
+    // Sync Lenis with GSAP ScrollTrigger — critical for pinned sections
     lenis.on('scroll', ScrollTrigger.update);
 
     gsap.ticker.add((time) => {
@@ -32,6 +32,12 @@ export function SmoothScroll({ children }) {
     });
 
     gsap.ticker.lagSmoothing(0);
+
+    // Force ScrollTrigger refresh after Lenis init
+    // This ensures pinned sections calculate heights correctly
+    requestAnimationFrame(() => {
+      ScrollTrigger.refresh();
+    });
 
     return () => {
       lenis.destroy();
