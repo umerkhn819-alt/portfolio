@@ -34,7 +34,7 @@ export function Home() {
           label="Home"
           sceneIndex={0}
           transition="none"
-          pinDuration="+=80%"
+          pinDuration="+=110%"
         >
           <Hero />
         </CinematicScene>

@@ -3,7 +3,9 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { motion, AnimatePresence } from "framer-motion";
 import { PROJECT_DATA } from "../../data/projectsDetail";
+import { projectOptimizedStem480 } from "../../lib/optimizedPaths";
 import { AnimatedText } from "../ui/AnimatedText";
+import { OptimizedImg } from "../ui/OptimizedImg";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -44,15 +46,35 @@ function ProjectSidePanel({ project, onClose }) {
 
         <div className="flex items-center gap-4 mb-6">
           <div className="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-3xl shadow-[0_0_20px_rgba(0,187,255,0.1)] overflow-hidden shrink-0">
-             <img src={project.image} alt="icon" className="w-full h-full object-cover mix-blend-screen opacity-90" />
+            <OptimizedImg
+              src={project.image}
+              optimizedBasePath={projectOptimizedStem480(project.image) ?? undefined}
+              alt=""
+              className="h-full w-full object-cover mix-blend-screen opacity-90"
+              loading="eager"
+              decoding="async"
+              sizes="56px"
+              width={480}
+              height={480}
+            />
           </div>
           <div>
             <h2 className="font-display text-2xl font-bold text-white tracking-wide leading-tight">{project.title}</h2>
           </div>
         </div>
 
-        <div className="w-full h-48 rounded-2xl overflow-hidden mb-8 relative border border-white/10 group shrink-0">
-          <img src={project.image} alt={project.title} className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700" />
+        <div className="group relative mb-8 h-48 w-full shrink-0 overflow-hidden rounded-2xl border border-white/10">
+          <OptimizedImg
+            src={project.image}
+            optimizedBasePath={projectOptimizedStem480(project.image) ?? undefined}
+            alt={project.title}
+            className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+            loading="eager"
+            decoding="async"
+            sizes="(max-width: 450px) 92vw, 400px"
+            width={720}
+            height={480}
+          />
           <div className="absolute inset-0 bg-gradient-to-t from-[#050505] to-transparent opacity-80" />
         </div>
 
@@ -123,10 +145,16 @@ function HolographicCard({ project, onClick }) {
       <div className="absolute inset-0 pointer-events-none z-0 flex items-center justify-center p-4">
         <div className="w-full h-full relative flex items-center justify-center">
           <div className="absolute inset-0 bg-[#00BBFF]/10 blur-[50px] rounded-full animate-pulse" />
-          <img
+          <OptimizedImg
             src={project.image}
+            optimizedBasePath={projectOptimizedStem480(project.image) ?? undefined}
             alt={project.title}
-            className="w-[120%] h-[120%] object-contain relative z-10 animate-[float_4s_ease-in-out_infinite] group-hover:scale-110 transition-transform duration-500 mix-blend-screen opacity-90"
+            className="relative z-10 h-[120%] w-[120%] animate-[float_4s_ease-in-out_infinite] object-contain opacity-90 mix-blend-screen transition-transform duration-500 group-hover:scale-110"
+            loading="lazy"
+            decoding="async"
+            sizes="(max-width: 768px) 75vw, 400px"
+            width={720}
+            height={720}
           />
         </div>
       </div>
@@ -308,7 +336,17 @@ export function WorksIndex() {
                 >
                   {project.image && (
                     <div className="relative w-full overflow-hidden" style={{ height: 160 }}>
-                      <img src={project.image} alt={project.title} className="w-full h-full object-cover mix-blend-screen opacity-90" />
+                      <OptimizedImg
+                        src={project.image}
+                        optimizedBasePath={projectOptimizedStem480(project.image) ?? undefined}
+                        alt={project.title}
+                        className="h-full w-full object-cover mix-blend-screen opacity-90"
+                        loading="lazy"
+                        decoding="async"
+                        sizes="(max-width: 400px) 78vw, 300px"
+                        width={720}
+                        height={480}
+                      />
                       <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/30 to-transparent" />
                     </div>
                   )}

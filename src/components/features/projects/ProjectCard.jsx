@@ -1,6 +1,8 @@
 import { memo, useLayoutEffect, useRef } from "react";
 import gsap from "gsap";
 import { registerGsapPlugins } from "../../../animations/gsapSetup";
+import { projectOptimizedStem480 } from "../../../lib/optimizedPaths";
+import { OptimizedImg } from "../../ui/OptimizedImg";
 import { TechStack } from "./TechIcon";
 
 const statusConfig = {
@@ -38,7 +40,6 @@ export const ProjectCard = memo(function ProjectCard({
         overwrite: "auto",
       });
 
-      // Image zoom on hover
       if (imageRef.current) {
         gsap.to(imageRef.current, {
           scale: 1.1,
@@ -98,12 +99,19 @@ export const ProjectCard = memo(function ProjectCard({
         <div className="relative h-48 overflow-hidden bg-gray-200 dark:bg-surface-overlay/50">
           {image && !isComingSoon ? (
             <>
-              <img
-                ref={imageRef}
-                src={image}
-                alt={title}
-                className="w-full h-full object-cover will-change-transform"
-              />
+              <div ref={imageRef} className="h-full w-full overflow-hidden will-change-transform">
+                <OptimizedImg
+                  src={image}
+                  optimizedBasePath={projectOptimizedStem480(image) ?? undefined}
+                  alt={title}
+                  className="h-full w-full object-cover"
+                  loading="lazy"
+                  decoding="async"
+                  sizes="(max-width: 640px) 100vw, 400px"
+                  width={720}
+                  height={480}
+                />
+              </div>
               <div className="absolute inset-0 bg-gradient-to-t from-gray-100 dark:from-surface-raised via-transparent to-transparent" />
             </>
           ) : (

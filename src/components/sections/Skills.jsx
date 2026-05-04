@@ -3,8 +3,10 @@ import { motion, AnimatePresence } from "framer-motion";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import { SKILL_CARDS, skillsSection } from "../../data/skills";
+import { skillOptimizedStem480 } from "../../lib/optimizedPaths";
 import { Container } from "../ui/Container";
 import { AnimatedText } from "../ui/AnimatedText";
+import { OptimizedImg } from "../ui/OptimizedImg";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -97,7 +99,17 @@ function SkillRightDrawer({ project, onClose }) {
 
       <div className="px-7 pb-10 flex flex-col gap-8">
         <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden border border-white/10">
-          <img src={project.image} alt={project.title} className="w-full h-full object-cover" />
+          <OptimizedImg
+            src={project.image}
+            optimizedBasePath={skillOptimizedStem480(project.image)}
+            alt={project.title}
+            className="h-full w-full object-cover"
+            loading="eager"
+            decoding="async"
+            sizes="(max-width: 440px) 92vw, 400px"
+            width={720}
+            height={540}
+          />
           <div className="absolute inset-0 bg-gradient-to-t from-[#07070C] via-transparent to-transparent" />
           <div className="absolute top-3 left-3 font-mono text-[10px] text-[#00BBFF] tracking-widest bg-black/50 backdrop-blur-sm border border-[#00BBFF]/30 px-2.5 py-1 rounded">
             {project.category}
@@ -197,12 +209,18 @@ function ArcCard({ card, index, isFocal, isHovered, cardRef }) {
         }}
       >
         {/* Full-bleed image */}
-        <img
+        <OptimizedImg
           src={card.image}
+          optimizedBasePath={skillOptimizedStem480(card.image)}
           alt={card.title}
           draggable={false}
-          className="absolute inset-0 w-full h-full object-cover pointer-events-none select-none transition-transform duration-[900ms] ease-out"
+          className="pointer-events-none absolute inset-0 h-full w-full select-none object-cover transition-transform duration-[900ms] ease-out"
           style={{ transform: isHovered ? "scale(1.08)" : "scale(1)" }}
+          loading="lazy"
+          decoding="async"
+          sizes="(max-width: 768px) 75vw, 280px"
+          width={480}
+          height={640}
         />
 
         {/* Gradient overlay */}
@@ -579,7 +597,17 @@ export function Skills() {
                   onClick={() => setActiveProject(card)}
                   className="snap-center shrink-0 w-[72vw] max-w-[300px] h-[420px] rounded-[20px] overflow-hidden border border-white/10 relative shadow-[0_20px_60px_rgba(0,0,0,0.6)]"
                 >
-                  <img src={card.image} alt={card.title} className="absolute inset-0 w-full h-full object-cover" />
+                  <OptimizedImg
+                    src={card.image}
+                    optimizedBasePath={skillOptimizedStem480(card.image)}
+                    alt={card.title}
+                    className="absolute inset-0 h-full w-full object-cover"
+                    loading="lazy"
+                    decoding="async"
+                    sizes="72vw"
+                    width={480}
+                    height={640}
+                  />
                   <div
                     className="absolute inset-0"
                     style={{
