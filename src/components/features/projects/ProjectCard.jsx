@@ -7,7 +7,7 @@ import { TechStack } from "./TechIcon";
 
 const statusConfig = {
   completed: { label: "Completed", color: "bg-green-500/20 text-green-300 border-green-500/30" },
-  "in-progress": { label: "In Progress", color: "bg-blue-500/20 text-blue-300 border-blue-500/30" },
+  "in-progress": { label: "In Progress", color: "bg-white/10 text-white/80 border-white/20" },
   "coming-soon": { label: "Coming Soon", color: "bg-amber-500/20 text-amber-300 border-amber-500/30" },
 };
 
@@ -35,7 +35,7 @@ export const ProjectCard = memo(function ProjectCard({
         y: -8,
         duration: 0.3,
         ease: "power2.out",
-        boxShadow: "0 25px 50px rgba(99, 102, 241, 0.35), 0 0 20px rgba(99, 102, 241, 0.2), 0 0 0 1px rgba(99, 102, 241, 0.15)",
+        boxShadow: "0 25px 50px rgba(0,0,0,0.5), 0 0 24px rgba(255,255,255,0.08), 0 0 0 1px rgba(255,255,255,0.12)",
         transformPerspective: 1000,
         overwrite: "auto",
       });
@@ -57,7 +57,7 @@ export const ProjectCard = memo(function ProjectCard({
         y: 0,
         duration: 0.4,
         ease: "power2.out",
-        boxShadow: "0 10px 25px rgba(0,0,0,0.2), 0 0 0 1px rgba(99, 102, 241, 0.05)",
+        boxShadow: "0 10px 25px rgba(0,0,0,0.35), 0 0 0 1px rgba(255,255,255,0.06)",
         overwrite: "auto",
       });
 
@@ -87,11 +87,11 @@ export const ProjectCard = memo(function ProjectCard({
     <article
       ref={rootRef}
       data-project-card
-      className="group relative overflow-hidden rounded-2xl border border-gray-300 dark:border-accent/10 bg-gray-100 dark:bg-surface-raised/50 shadow-lg shadow-gray-400/20 dark:shadow-black/20 backdrop-blur-sm will-change-transform transition-all duration-300 hover:shadow-[0_20px_40px_rgba(99,_102,_241,_0.15)] dark:hover:shadow-[0_20px_40px_rgba(99,_102_,241,_0.25)]"
+      className="group relative overflow-hidden rounded-2xl border border-gray-300 bg-gray-100 shadow-lg shadow-gray-400/20 backdrop-blur-sm transition-all duration-300 will-change-transform hover:shadow-[0_20px_40px_rgba(0,0,0,0.35)] dark:border-white/10 dark:bg-surface-raised/50 dark:shadow-black/20 dark:hover:shadow-[0_20px_50px_rgba(255,255,255,0.06)]"
     >
       {/* Background glow on hover */}
       <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100">
-        <div className="absolute -inset-24 rotate-12 bg-gradient-to-br from-accent/15 via-transparent to-accent-muted/5 blur-2xl" />
+        <div className="absolute -inset-24 rotate-12 bg-gradient-to-br from-white/10 via-transparent to-white/[0.03] blur-2xl" />
       </div>
 
       <div className="relative flex h-full flex-col overflow-hidden">
@@ -115,7 +115,7 @@ export const ProjectCard = memo(function ProjectCard({
               <div className="absolute inset-0 bg-gradient-to-t from-gray-100 dark:from-surface-raised via-transparent to-transparent" />
             </>
           ) : (
-            <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-indigo-100 dark:from-accent/20 to-indigo-50 dark:to-accent-muted/10">
+            <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-gray-100 to-gray-50 dark:from-white/[0.08] dark:to-white/[0.03]">
               {isComingSoon && (
                 <div className="text-center">
                   <div className="text-3xl mb-2">🚀</div>
@@ -130,7 +130,7 @@ export const ProjectCard = memo(function ProjectCard({
         <div className="relative flex flex-1 flex-col p-6">
           {/* Status Badge */}
           <div className="flex items-center justify-between mb-3">
-            <h3 className="font-display text-lg font-semibold text-gray-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-accent-glow transition-colors flex-1">
+            <h3 className="font-display flex-1 text-lg font-semibold text-gray-900 transition-colors group-hover:text-gray-950 dark:text-white dark:group-hover:text-white">
               {title}
             </h3>
             <div className={`text-xs font-semibold px-3 py-1 rounded-full border whitespace-nowrap ml-3 ${statusInfo.color}`}>
@@ -155,7 +155,7 @@ export const ProjectCard = memo(function ProjectCard({
             {!isComingSoon && (
               <a
                 href={href}
-                className="inline-flex items-center gap-2 text-sm font-medium text-accent transition-all duration-200 hover:text-accent-glow hover:translate-x-1 group/link"
+                className="group/link inline-flex items-center gap-2 text-sm font-medium text-white/70 transition-all duration-200 hover:translate-x-1 hover:text-white"
               >
                 View details
                 <span className="transition-transform duration-200 group-hover/link:translate-x-1" aria-hidden>

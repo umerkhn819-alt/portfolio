@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import { SKILL_CARDS, skillsSection } from "../../data/skills";
+import { cardBackdropImageFilter } from "../../lib/cardBackdropStyle";
 import { skillOptimizedStem480 } from "../../lib/optimizedPaths";
 import { Container } from "../ui/Container";
 import { AnimatedText } from "../ui/AnimatedText";
@@ -78,8 +79,8 @@ function SkillRightDrawer({ project, onClose }) {
       animate={{ x: 0, opacity: 1 }}
       exit={{ x: "100%", opacity: 0 }}
       transition={{ type: "spring", stiffness: 260, damping: 32 }}
-      className="fixed top-0 right-0 h-screen w-[min(440px,92vw)] z-[100] bg-[#07070C]/92 backdrop-blur-2xl border-l border-[#00BBFF]/20 flex flex-col overflow-y-auto overflow-x-hidden"
-      style={{ boxShadow: "-20px 0 60px rgba(0,0,0,0.5), inset 1px 0 0 rgba(0,187,255,0.08)" }}
+      className="fixed top-0 right-0 h-screen w-[min(440px,92vw)] z-[100] bg-[#07070C]/92 backdrop-blur-2xl border-l border-white/12 flex flex-col overflow-y-auto overflow-x-hidden"
+      style={{ boxShadow: "-20px 0 60px rgba(0,0,0,0.5), inset 1px 0 0 rgba(255,255,255,0.06)" }}
     >
       <div className="sticky top-0 z-10 flex justify-between items-center px-7 pt-7 pb-5 bg-gradient-to-b from-[#07070C] via-[#07070C]/95 to-transparent">
         <div className="font-mono text-[10px] text-white/40 tracking-[0.25em] uppercase">
@@ -88,7 +89,7 @@ function SkillRightDrawer({ project, onClose }) {
         <button
           type="button"
           onClick={onClose}
-          className="w-9 h-9 rounded-full flex items-center justify-center border border-white/15 text-white/70 hover:text-white hover:border-[#00BBFF]/60 hover:bg-[#00BBFF]/10 transition-all"
+          className="w-9 h-9 rounded-full flex items-center justify-center border border-white/15 text-white/70 hover:text-white hover:border-white/35 hover:bg-white/[0.08] transition-all"
           aria-label="Close"
         >
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
@@ -101,27 +102,29 @@ function SkillRightDrawer({ project, onClose }) {
         <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden border border-white/10">
           <OptimizedImg
             src={project.image}
-            optimizedBasePath={skillOptimizedStem480(project.image)}
+            optimizedBasePath={skillOptimizedStem480(project.image) ?? undefined}
             alt={project.title}
-            className="h-full w-full object-cover"
+            className="absolute inset-0 h-full w-full object-cover"
+            style={cardBackdropImageFilter}
             loading="eager"
             decoding="async"
             sizes="(max-width: 440px) 92vw, 400px"
             width={720}
             height={540}
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#07070C] via-transparent to-transparent" />
-          <div className="absolute top-3 left-3 font-mono text-[10px] text-[#00BBFF] tracking-widest bg-black/50 backdrop-blur-sm border border-[#00BBFF]/30 px-2.5 py-1 rounded">
+          <div className="tex-grid pointer-events-none absolute inset-0 z-[1]" aria-hidden />
+          <div className="absolute inset-0 z-[2] bg-gradient-to-t from-[#07070C] via-transparent to-transparent" />
+          <div className="absolute top-3 left-3 z-10 font-mono text-[10px] text-white/70 tracking-widest bg-black/50 backdrop-blur-sm border border-white/15 px-2.5 py-1 rounded">
             {project.category}
           </div>
         </div>
 
         <div>
           <div className="flex items-center gap-3 mb-3">
-            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#00BBFF]/15 to-[#8A2BE2]/10 border border-white/10 flex items-center justify-center text-2xl">
+            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-white/12 to-white/[0.04] border border-white/10 flex items-center justify-center text-2xl">
               {project.icon}
             </div>
-            <div className="flex-1 h-px bg-gradient-to-r from-[#00BBFF]/40 to-transparent" />
+            <div className="flex-1 h-px bg-gradient-to-r from-white/35 to-transparent" />
           </div>
           <h2 className="font-display text-3xl font-bold text-white tracking-wide leading-tight">
             {project.title}
@@ -129,12 +132,12 @@ function SkillRightDrawer({ project, onClose }) {
         </div>
 
         <div>
-          <h3 className="font-mono text-[10px] text-[#00BBFF] tracking-[0.25em] uppercase mb-3">Overview</h3>
+          <h3 className="font-mono text-[10px] text-white/70 tracking-[0.25em] uppercase mb-3">Overview</h3>
           <p className="font-mono text-sm text-white/75 leading-relaxed">{project.desc}</p>
         </div>
 
         <div>
-          <h3 className="font-mono text-[10px] text-[#00BBFF] tracking-[0.25em] uppercase mb-3">Stack</h3>
+          <h3 className="font-mono text-[10px] text-white/70 tracking-[0.25em] uppercase mb-3">Stack</h3>
           <div className="flex flex-wrap gap-2">
             {project.tags.map((tag) => (
               <span
@@ -148,11 +151,11 @@ function SkillRightDrawer({ project, onClose }) {
         </div>
 
         <div>
-          <h3 className="font-mono text-[10px] text-[#00BBFF] tracking-[0.25em] uppercase mb-3">System Specs</h3>
+          <h3 className="font-mono text-[10px] text-white/70 tracking-[0.25em] uppercase mb-3">System Specs</h3>
           <ul className="space-y-2.5">
             {project.specs.map((spec, i) => (
               <li key={i} className="flex items-start gap-3 font-mono text-xs text-white/70 leading-relaxed">
-                <span className="w-1 h-1 mt-2 bg-[#00BBFF] rounded-full shrink-0 shadow-[0_0_6px_#00BBFF]" />
+                <span className="w-1 h-1 mt-2 bg-white rounded-full shrink-0 shadow-[0_0_8px_rgba(255,255,255,0.35)]" />
                 <span>{spec}</span>
               </li>
             ))}
@@ -171,7 +174,7 @@ function Bracket({ pos }) {
     bl: "bottom-3 left-3 border-b-[1.5px] border-l-[1.5px] rounded-bl-lg",
     br: "bottom-3 right-3 border-b-[1.5px] border-r-[1.5px] rounded-br-lg",
   };
-  return <div className={`absolute w-6 h-6 border-[#00BBFF] ${map[pos]}`} />;
+  return <div className={`absolute w-6 h-6 border-white/30 ${map[pos]}`} />;
 }
 
 // ─── Single Card in 3D Arc (visual only — clicks handled at stage level) ───
@@ -193,7 +196,7 @@ function ArcCard({ card, index, isFocal, isHovered, cardRef }) {
       <div
         className="absolute -inset-5 rounded-[32px] pointer-events-none transition-opacity duration-300"
         style={{
-          background: "radial-gradient(55% 55% at 50% 55%, rgba(0,187,255,0.35), transparent 70%)",
+          background: "radial-gradient(55% 55% at 50% 55%, rgba(255,255,255,0.18), transparent 70%)",
           opacity: glow ? 1 : 0,
         }}
       />
@@ -202,30 +205,34 @@ function ArcCard({ card, index, isFocal, isHovered, cardRef }) {
       <div
         className="relative w-full h-full rounded-[20px] overflow-hidden border transition-all duration-300"
         style={{
-          borderColor: glow ? "rgba(0,187,255,0.65)" : "rgba(255,255,255,0.08)",
+          borderColor: glow ? "rgba(245,245,244,0.45)" : "rgba(255,255,255,0.08)",
           boxShadow: glow
-            ? "0 40px 100px rgba(0,0,0,0.7), 0 0 50px rgba(0,187,255,0.3), inset 0 1px 0 rgba(255,255,255,0.08)"
+            ? "0 40px 100px rgba(0,0,0,0.7), 0 0 50px rgba(255,255,255,0.12), inset 0 1px 0 rgba(255,255,255,0.08)"
             : "0 24px 60px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.04)",
         }}
       >
         {/* Full-bleed image */}
         <OptimizedImg
           src={card.image}
-          optimizedBasePath={skillOptimizedStem480(card.image)}
+          optimizedBasePath={skillOptimizedStem480(card.image) ?? undefined}
           alt={card.title}
           draggable={false}
           className="pointer-events-none absolute inset-0 h-full w-full select-none object-cover transition-transform duration-[900ms] ease-out"
-          style={{ transform: isHovered ? "scale(1.08)" : "scale(1)" }}
+          style={{
+            transform: isHovered ? "scale(1.08)" : "scale(1)",
+            ...cardBackdropImageFilter,
+          }}
           loading="lazy"
           decoding="async"
           sizes="(max-width: 768px) 75vw, 280px"
           width={480}
           height={640}
         />
+        <div className="tex-grid pointer-events-none absolute inset-0 z-[1]" aria-hidden />
 
         {/* Gradient overlay */}
         <div
-          className="absolute inset-0 pointer-events-none"
+          className="pointer-events-none absolute inset-0 z-[2]"
           style={{
             background:
               "linear-gradient(180deg, rgba(7,7,12,0.2) 0%, rgba(7,7,12,0.35) 40%, rgba(7,7,12,0.85) 72%, rgba(7,7,12,0.96) 100%)",
@@ -234,7 +241,7 @@ function ArcCard({ card, index, isFocal, isHovered, cardRef }) {
 
         {/* Corner brackets (focal or hovered) */}
         <div
-          className="pointer-events-none transition-opacity duration-300"
+          className="pointer-events-none z-[3] transition-opacity duration-300"
           style={{ opacity: glow ? 1 : 0 }}
         >
           <Bracket pos="tl" />
@@ -244,13 +251,13 @@ function ArcCard({ card, index, isFocal, isHovered, cardRef }) {
         </div>
 
         {/* Top chips */}
-        <div className="absolute top-4 left-4 right-4 flex justify-between items-start pointer-events-none">
+        <div className="pointer-events-none absolute left-4 right-4 top-4 z-[3] flex items-start justify-between">
           <div
             className="font-mono text-[9px] tracking-[0.2em] uppercase px-2.5 py-1 rounded-md border"
             style={{
-              color: "#00BBFF",
-              background: "rgba(0,187,255,0.08)",
-              borderColor: "rgba(0,187,255,0.3)",
+              color: "#F5F5F4",
+              background: "rgba(255,255,255,0.06)",
+              borderColor: "rgba(255,255,255,0.2)",
               backdropFilter: "blur(8px)",
             }}
           >
@@ -262,16 +269,16 @@ function ArcCard({ card, index, isFocal, isHovered, cardRef }) {
         </div>
 
         {/* Bottom content */}
-        <div className="absolute left-5 right-5 bottom-5 pointer-events-none">
+        <div className="pointer-events-none absolute bottom-5 left-5 right-5 z-[3]">
           {/* Accent divider */}
           <div
             className="h-px mb-3 transition-all duration-300"
             style={{
               width: glow ? "56px" : "48px",
               background: glow
-                ? "linear-gradient(90deg, #00BBFF, transparent)"
+                ? "linear-gradient(90deg, #F5F5F4, transparent)"
                 : "linear-gradient(90deg, rgba(255,255,255,0.3), transparent)",
-              boxShadow: glow ? "0 0 10px rgba(0,187,255,0.6)" : "none",
+              boxShadow: glow ? "0 0 12px rgba(255,255,255,0.25)" : "none",
             }}
           />
           <h3 className="font-display text-lg md:text-xl font-bold text-white tracking-wide leading-tight mb-1.5 line-clamp-1">
@@ -294,12 +301,12 @@ function ArcCard({ card, index, isFocal, isHovered, cardRef }) {
 
         {/* Active ping (focal only) */}
         <div
-          className="absolute top-4 left-1/2 -translate-x-1/2 pointer-events-none transition-opacity duration-500"
+          className="pointer-events-none absolute left-1/2 top-4 z-[4] -translate-x-1/2 transition-opacity duration-500"
           style={{ opacity: isFocal ? 1 : 0 }}
         >
           <span className="relative flex h-1.5 w-1.5">
-            <span className="absolute inline-flex h-full w-full rounded-full bg-[#00BBFF] opacity-75 animate-ping" />
-            <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[#00BBFF]" />
+            <span className="absolute inline-flex h-full w-full rounded-full bg-white opacity-75 animate-ping" />
+            <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-white" />
           </span>
         </div>
       </div>
@@ -432,10 +439,10 @@ export function Skills() {
             <div className="absolute top-10 left-0 w-full z-30 pointer-events-none">
               <Container>
                 <div className="text-center">
-                  <h2 className="font-display text-[10px] md:text-xs text-[#00BBFF] tracking-[0.35em] uppercase mb-2">
+                  <h2 className="font-display text-[10px] md:text-xs text-white/70 tracking-[0.35em] uppercase mb-2">
                     <AnimatedText text={skillsSection.eyebrow} type="word" />
                   </h2>
-                  <h3 className="font-display text-3xl md:text-4xl font-bold text-white mb-2 uppercase tracking-wide drop-shadow-[0_0_30px_rgba(0,187,255,0.25)]">
+                  <h3 className="font-display text-3xl md:text-4xl font-bold text-white mb-2 uppercase tracking-wide drop-shadow-[0_0_24px_rgba(255,255,255,0.12)]">
                     <AnimatedText text={skillsSection.title} type="letter" delay={0.2} stagger={0.05} />
                   </h3>
                   <p className="font-mono text-white/45 text-[11px] md:text-xs max-w-lg mx-auto">
@@ -450,7 +457,7 @@ export function Skills() {
               className="absolute inset-0 pointer-events-none opacity-40"
               style={{
                 backgroundImage:
-                  "radial-gradient(1px 1px at 20% 30%, rgba(0,187,255,0.5) 50%, transparent 50%), radial-gradient(1px 1px at 75% 20%, rgba(138,43,226,0.4) 50%, transparent 50%), radial-gradient(1px 1px at 60% 70%, rgba(255,255,255,0.3) 50%, transparent 50%), radial-gradient(1px 1px at 15% 80%, rgba(0,187,255,0.4) 50%, transparent 50%), radial-gradient(1px 1px at 85% 85%, rgba(255,255,255,0.4) 50%, transparent 50%)",
+                  "radial-gradient(1px 1px at 20% 30%, rgba(255,255,255,0.45) 50%, transparent 50%), radial-gradient(1px 1px at 75% 20%, rgba(214,214,210,0.35) 50%, transparent 50%), radial-gradient(1px 1px at 60% 70%, rgba(255,255,255,0.3) 50%, transparent 50%), radial-gradient(1px 1px at 15% 80%, rgba(255,255,255,0.35) 50%, transparent 50%), radial-gradient(1px 1px at 85% 85%, rgba(255,255,255,0.4) 50%, transparent 50%)",
                 backgroundSize: "100% 100%",
               }}
             />
@@ -462,19 +469,19 @@ export function Skills() {
             >
               <div
                 className="absolute inset-0 rounded-full border opacity-[0.07]"
-                style={{ borderColor: "#00BBFF" }}
+                style={{ borderColor: "rgba(245,245,244,0.5)" }}
               />
               <div
                 className="absolute inset-[18%] rounded-full border opacity-[0.1]"
-                style={{ borderColor: "#00BBFF" }}
+                style={{ borderColor: "rgba(245,245,244,0.5)" }}
               />
               <div
                 className="absolute inset-[34%] rounded-full border opacity-[0.14]"
-                style={{ borderColor: "#00BBFF" }}
+                style={{ borderColor: "rgba(245,245,244,0.5)" }}
               />
               <div
                 className="absolute inset-[50%] rounded-full border-[0.5px] opacity-[0.2]"
-                style={{ borderColor: "#00BBFF" }}
+                style={{ borderColor: "rgba(245,245,244,0.5)" }}
               />
             </div>
 
@@ -484,7 +491,7 @@ export function Skills() {
               style={{
                 top: "58%",
                 background:
-                  "radial-gradient(50% 50% at 50% 50%, rgba(0,187,255,0.25) 0%, rgba(138,43,226,0.1) 40%, transparent 70%)",
+                  "radial-gradient(50% 50% at 50% 50%, rgba(255,255,255,0.14) 0%, rgba(255,255,255,0.04) 40%, transparent 70%)",
                 filter: "blur(48px)",
               }}
             />
@@ -524,7 +531,7 @@ export function Skills() {
               type="button"
               onClick={() => navigate(-1)}
               disabled={focalIndex === 0}
-              className="absolute left-8 lg:left-16 top-1/2 -translate-y-1/2 z-30 w-12 h-12 rounded-full border border-white/15 bg-black/40 backdrop-blur-md text-white/70 hover:text-white hover:border-[#00BBFF]/60 hover:bg-[#00BBFF]/10 transition-all flex items-center justify-center disabled:opacity-30 disabled:cursor-not-allowed"
+              className="absolute left-8 lg:left-16 top-1/2 -translate-y-1/2 z-30 w-12 h-12 rounded-full border border-white/15 bg-black/40 backdrop-blur-md text-white/70 hover:text-white hover:border-white/35 hover:bg-white/[0.08] transition-all flex items-center justify-center disabled:opacity-30 disabled:cursor-not-allowed"
               aria-label="Previous"
             >
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
@@ -537,7 +544,7 @@ export function Skills() {
               type="button"
               onClick={() => navigate(1)}
               disabled={focalIndex === N - 1}
-              className="absolute right-8 lg:right-16 top-1/2 -translate-y-1/2 z-30 w-12 h-12 rounded-full border border-white/15 bg-black/40 backdrop-blur-md text-white/70 hover:text-white hover:border-[#00BBFF]/60 hover:bg-[#00BBFF]/10 transition-all flex items-center justify-center disabled:opacity-30 disabled:cursor-not-allowed"
+              className="absolute right-8 lg:right-16 top-1/2 -translate-y-1/2 z-30 w-12 h-12 rounded-full border border-white/15 bg-black/40 backdrop-blur-md text-white/70 hover:text-white hover:border-white/35 hover:bg-white/[0.08] transition-all flex items-center justify-center disabled:opacity-30 disabled:cursor-not-allowed"
               aria-label="Next"
             >
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
@@ -548,7 +555,7 @@ export function Skills() {
             {/* Bottom HUD status bar */}
             <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-30 flex flex-col items-center gap-3">
               <div className="flex items-center gap-4 px-5 py-2.5 rounded-full border border-white/10 bg-black/55 backdrop-blur-md">
-                <span className="font-mono text-[10px] text-[#00BBFF] tracking-[0.25em] uppercase">
+                <span className="font-mono text-[10px] text-white/70 tracking-[0.25em] uppercase">
                   {SKILL_CARDS[focalIndex]?.category}
                 </span>
                 <span className="w-px h-3 bg-white/20" />
@@ -564,7 +571,7 @@ export function Skills() {
                     key={i}
                     onClick={() => jumpTo(i)}
                     className={`h-1 rounded-full transition-all duration-500 ${
-                      i === focalIndex ? "w-10 bg-[#00BBFF] shadow-[0_0_8px_rgba(0,187,255,0.6)]" : "w-1.5 bg-white/20 hover:bg-white/40"
+                      i === focalIndex ? "w-10 bg-white shadow-[0_0_10px_rgba(255,255,255,0.3)]" : "w-1.5 bg-white/20 hover:bg-white/40"
                     }`}
                     aria-label={`Go to card ${i + 1}`}
                   />
@@ -577,7 +584,7 @@ export function Skills() {
         {/* Mobile: simple snap scroll */}
         {isMobile && (
           <div className="w-full py-16 px-6">
-            <h2 className="font-display text-xs text-[#00BBFF] tracking-[0.3em] uppercase mb-2 text-center">
+            <h2 className="font-display text-xs text-white/70 tracking-[0.3em] uppercase mb-2 text-center">
               {skillsSection.eyebrow}
             </h2>
             <h3 className="font-display text-3xl font-bold text-white mb-2 uppercase tracking-wide text-center">
@@ -599,15 +606,17 @@ export function Skills() {
                 >
                   <OptimizedImg
                     src={card.image}
-                    optimizedBasePath={skillOptimizedStem480(card.image)}
+                    optimizedBasePath={skillOptimizedStem480(card.image) ?? undefined}
                     alt={card.title}
                     className="absolute inset-0 h-full w-full object-cover"
+                    style={cardBackdropImageFilter}
                     loading="lazy"
                     decoding="async"
                     sizes="72vw"
                     width={480}
                     height={640}
                   />
+                  <div className="tex-grid pointer-events-none absolute inset-0" aria-hidden />
                   <div
                     className="absolute inset-0"
                     style={{
@@ -615,14 +624,14 @@ export function Skills() {
                         "linear-gradient(180deg, rgba(7,7,12,0.2) 0%, rgba(7,7,12,0.35) 40%, rgba(7,7,12,0.85) 72%, rgba(7,7,12,0.96) 100%)",
                     }}
                   />
-                  <div className="absolute top-4 left-4 right-4 flex justify-between">
-                    <span className="font-mono text-[9px] tracking-[0.2em] uppercase px-2.5 py-1 rounded-md border border-[#00BBFF]/30 bg-[#00BBFF]/10 text-[#00BBFF]">
+                  <div className="absolute top-4 left-4 right-4 z-10 flex justify-between">
+                    <span className="font-mono text-[9px] tracking-[0.2em] uppercase px-2.5 py-1 rounded-md border border-white/15 bg-white/10 text-white/70">
                       {card.category}
                     </span>
                     <span className="font-mono text-[10px] text-white/55 tracking-widest pt-1">#{card.id}</span>
                   </div>
-                  <div className="absolute left-5 right-5 bottom-5">
-                    <div className="h-px w-12 mb-3 bg-gradient-to-r from-[#00BBFF] to-transparent" />
+                  <div className="absolute bottom-5 left-5 right-5 z-10">
+                    <div className="h-px w-12 mb-3 bg-gradient-to-r from-white/50 to-transparent" />
                     <h3 className="font-display text-xl font-bold text-white mb-1.5 leading-tight line-clamp-1">
                       {card.title}
                     </h3>

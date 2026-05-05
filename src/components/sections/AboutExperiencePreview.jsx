@@ -16,8 +16,8 @@ export function AboutExperienceHeroAccent() {
   const previewRoles = experiences.slice(0, 2);
 
   return (
-    <div className="rounded-2xl border border-white/10 bg-[#050508]/50 p-4 shadow-[0_12px_48px_rgba(0,0,0,0.45)] backdrop-blur-md md:p-5">
-      <p className="mb-1 font-mono text-[9px] uppercase tracking-[0.26em] text-[#00BBFF]/85">
+    <div className="rounded-2xl border border-white/10 bg-[#0E0E0D]/55 p-4 shadow-[0_24px_60px_rgba(0,0,0,0.55),inset_0_1px_0_rgba(255,255,255,0.06)] backdrop-blur-xl md:p-5">
+      <p className="mb-1 font-mono text-[9px] uppercase tracking-[0.26em] text-white/70">
         {aboutSection.eyebrow}
       </p>
       <h3 className="font-display text-base font-semibold tracking-tight text-white md:text-lg">
@@ -35,7 +35,7 @@ export function AboutExperienceHeroAccent() {
               key={h.title}
               className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.05] px-2 py-1 font-mono text-[9px] uppercase tracking-wider text-white/65 md:px-2.5 md:text-[10px]"
             >
-              <Icon className="h-3 w-3 shrink-0 text-[#00BBFF]/90" aria-hidden />
+              <Icon className="h-3 w-3 shrink-0 text-white/80" aria-hidden />
               <span className="max-w-[7.5rem] truncate sm:max-w-none">{h.title}</span>
             </span>
           );
@@ -59,7 +59,7 @@ export function AboutExperienceHeroAccent() {
           {previewRoles.map((exp) => (
             <li
               key={exp.id}
-              className="border-l border-[#8A2BE2]/40 pl-3 font-mono text-[10px] text-white/55 md:text-[11px]"
+              className="border-l border-white/12 pl-3 font-mono text-[10px] text-white/55 md:text-[11px]"
             >
               <span className="block text-white/85">{exp.position}</span>
               <span className="mt-0.5 block text-[9px] text-white/40 md:text-[10px]">

@@ -12,7 +12,7 @@ export const contactForm = {
   },
   emailField: {
     label: "Email",
-    placeholder: "you@company.com",
+    placeholder: "umerkhn819@gmail.com",
   },
   messageField: {
     label: "Message",

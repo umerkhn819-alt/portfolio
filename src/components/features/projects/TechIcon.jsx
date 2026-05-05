@@ -76,14 +76,14 @@ export function TechIcon({ tech }) {
   
   if (!icon) {
     return (
-      <div className="w-5 h-5 rounded-full bg-accent/30 flex items-center justify-center text-xs font-bold text-accent-glow">
+      <div className="flex h-5 w-5 items-center justify-center rounded-full bg-white/15 text-xs font-bold text-white/80">
         {tech.charAt(0)}
       </div>
     );
   }
 
   return (
-    <div className="w-5 h-5 text-accent-glow hover:text-accent transition-colors">
+    <div className="h-5 w-5 text-white/70 transition-colors hover:text-white">
       {icon}
     </div>
   );
@@ -95,11 +95,11 @@ export function TechStack({ tags }) {
       {tags.map((tag) => (
         <div
           key={tag}
-          className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-accent/10 border border-accent/30 hover:border-accent transition-colors group"
+          className="group flex items-center gap-2 rounded-lg border border-white/15 bg-white/[0.06] px-3 py-1.5 transition-colors hover:border-white/25"
           title={tag}
         >
           <TechIcon tech={tag} />
-          <span className="text-xs font-medium text-zinc-300 group-hover:text-accent-glow transition-colors">
+          <span className="text-xs font-medium text-zinc-300 transition-colors group-hover:text-white">
             {tag}
           </span>
         </div>

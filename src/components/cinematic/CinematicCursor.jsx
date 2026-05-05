@@ -59,7 +59,7 @@ export function CinematicCursor() {
     const onMouseEnter = (e) => {
       gsap.to(outer, {
         scale: 2.2,
-        borderColor: "rgba(0,240,255,0.6)",
+        borderColor: "rgba(245,245,244,0.55)",
         duration: 0.3,
         ease: "power2.out",
       });

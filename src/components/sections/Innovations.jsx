@@ -20,8 +20,8 @@ const CARDS = [
     title: aboutHighlights[0].title,
     body: aboutHighlights[0].body,
     highlights: [],
-    accent: "#6366f1",
-    accentRgb: "99,102,241",
+    accent: "#D6D6D2",
+    accentRgb: "214,214,210",
   },
   {
     id: "skill-fullstack",
@@ -31,8 +31,8 @@ const CARDS = [
     title: aboutHighlights[1].title,
     body: aboutHighlights[1].body,
     highlights: [],
-    accent: "#06b6d4",
-    accentRgb: "6,182,212",
+    accent: "#BDBDB8",
+    accentRgb: "189,189,184",
   },
   {
     id: "skill-interactive",
@@ -42,8 +42,8 @@ const CARDS = [
     title: aboutHighlights[2].title,
     body: aboutHighlights[2].body,
     highlights: [],
-    accent: "#8b5cf6",
-    accentRgb: "139,92,246",
+    accent: "#A1A19C",
+    accentRgb: "161,161,156",
   },
   {
     id: "focus",
@@ -53,8 +53,8 @@ const CARDS = [
     title: "Focus & Outlook",
     body: aboutSpotlight.body,
     highlights: aboutSpotlight.bullets,
-    accent: "#10b981",
-    accentRgb: "16,185,129",
+    accent: "#C4C4BF",
+    accentRgb: "196,196,191",
   },
   {
     id: "exp-senior",
@@ -65,8 +65,8 @@ const CARDS = [
     body: experiences[0].description,
     highlights: experiences[0].highlights,
     meta: `${experiences[0].company} · ${experiences[0].duration}`,
-    accent: "#f59e0b",
-    accentRgb: "245,158,11",
+    accent: "#8A8A86",
+    accentRgb: "138,138,134",
   },
   {
     id: "exp-fullstack",
@@ -77,8 +77,8 @@ const CARDS = [
     body: experiences[1].description,
     highlights: experiences[1].highlights,
     meta: `${experiences[1].company} · ${experiences[1].duration}`,
-    accent: "#ec4899",
-    accentRgb: "236,72,153",
+    accent: "#9E9E99",
+    accentRgb: "158,158,153",
   },
   {
     id: "exp-junior",
@@ -89,8 +89,8 @@ const CARDS = [
     body: experiences[2].description,
     highlights: experiences[2].highlights,
     meta: `${experiences[2].company} · ${experiences[2].duration}`,
-    accent: "#14b8a6",
-    accentRgb: "20,184,166",
+    accent: "#ADADA8",
+    accentRgb: "173,173,168",
   },
 ];
 
@@ -200,7 +200,7 @@ function SliderCard({ card, cardRef, isActive }) {
       {/* Title */}
       <h3
         style={{
-          fontFamily: "'Outfit', 'DM Sans', system-ui, sans-serif",
+          fontFamily: "'Inter Tight', 'Inter', system-ui, sans-serif",
           fontSize: "clamp(14px, 1.35vw, 18px)",
           fontWeight: 700,
           lineHeight: 1.3,
@@ -494,9 +494,9 @@ export function Innovations() {
           box-shadow: var(--card-shadow);
         }
         .slider-nav-btn:hover {
-          background: rgba(99,102,241,0.18);
-          border-color: rgba(99,102,241,0.5);
-          box-shadow: 0 0 20px rgba(99,102,241,0.28);
+          background: rgba(255,255,255,0.1);
+          border-color: rgba(255,255,255,0.35);
+          box-shadow: 0 0 20px rgba(255,255,255,0.08);
           transform: translateY(-50%) scale(1.1);
         }
         .slider-nav-btn:active {
@@ -528,10 +528,10 @@ export function Innovations() {
         }
 
         .inno-eyebrow {
-          color: #6366f1;
+          color: #8A8A86;
         }
         .inno-heading {
-          background: linear-gradient(135deg, var(--text-primary) 0%, #818cf8 60%, #6366f1 100%);
+          background: linear-gradient(135deg, #F5F5F4 0%, #D6D6D2 50%, #8A8A86 100%);
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
           background-clip: text;
@@ -566,7 +566,7 @@ export function Innovations() {
             <h2
               className="inno-heading"
               style={{
-                fontFamily: "'Outfit', 'DM Sans', system-ui, sans-serif",
+                fontFamily: "'Inter Tight', 'Inter', system-ui, sans-serif",
                 fontSize: "clamp(24px, 4vw, 46px)",
                 fontWeight: 800,
                 letterSpacing: "-0.02em",
@@ -672,7 +672,7 @@ export function Innovations() {
                     <span style={{ display: "inline-flex", alignItems: "center", gap: 6, fontSize: 10, fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: card.accent, background: `rgba(${card.accentRgb}, 0.14)`, padding: "4px 10px", borderRadius: 20, border: `1px solid rgba(${card.accentRgb}, 0.28)` }}>
                       {card.icon} {card.label}
                     </span>
-                    <h3 style={{ fontFamily: "'Outfit', system-ui, sans-serif", fontSize: 15, fontWeight: 700, lineHeight: 1.3, color: "var(--text-primary)", margin: "10px 0 6px" }}>{card.title}</h3>
+                    <h3 style={{ fontFamily: "'Inter Tight', 'Inter', system-ui, sans-serif", fontSize: 15, fontWeight: 700, lineHeight: 1.3, color: "var(--text-primary)", margin: "10px 0 6px" }}>{card.title}</h3>
                     {card.meta && <p style={{ fontSize: 11, color: card.accent, margin: "0 0 6px", fontWeight: 600 }}>{card.meta}</p>}
                     <p style={{ fontSize: 12, lineHeight: 1.65, color: "var(--text-secondary)", margin: 0 }}>{card.body}</p>
                     {card.highlights.length > 0 && (

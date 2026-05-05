@@ -23,8 +23,8 @@ export function SceneNavDots() {
       if (i === currentScene) {
         gsap.to(dot, {
           scale: 1.4,
-          boxShadow: "0 0 12px rgba(0,240,255,0.7), 0 0 30px rgba(0,240,255,0.3)",
-          backgroundColor: "#00F0FF",
+          boxShadow: "0 0 12px rgba(255,255,255,0.35), 0 0 28px rgba(255,255,255,0.12)",
+          backgroundColor: "#F5F5F4",
           duration: 0.35,
           ease: "power2.out",
         });
@@ -117,7 +117,7 @@ export function SceneNavDots() {
           width: 20px;
           height: 20px;
           border-radius: 50%;
-          border: 1px solid rgba(0,240,255,0.4);
+          border: 1px solid rgba(245,245,244,0.35);
           animation: navDotPulse 2s ease-in-out infinite;
           z-index: 1;
         }
@@ -148,7 +148,7 @@ export function SceneNavDots() {
         }
 
         .nav-dot-wrapper:hover .nav-dot {
-          background: rgba(0,240,255,0.6) !important;
+          background: rgba(245,245,244,0.45) !important;
         }
 
         @keyframes navDotPulse {

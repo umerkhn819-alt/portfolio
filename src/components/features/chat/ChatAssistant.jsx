@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, useMotionValue, useSpring, useTransform, AnimatePresence } from "framer-motion";
 import { getAssistantReply } from "../../../ai/chatService";
+import { assistantUi } from "../../../data/assistant";
 
 function ChatInterface({ onClose, loading, setLoading }) {
   const [input, setInput] = useState("");
@@ -39,28 +40,28 @@ function ChatInterface({ onClose, loading, setLoading }) {
       initial={{ opacity: 0, x: 50 }}
       animate={{ opacity: 1, x: 0 }}
       exit={{ opacity: 0, x: 50 }}
-      className="w-full h-full flex flex-col justify-center max-w-[500px] bg-[#050505]/60 backdrop-blur-md border-l border-white/10 p-6 shadow-[-20px_0_50px_rgba(0,187,255,0.05)] relative"
+      className="relative flex h-full w-full max-w-[500px] flex-col justify-center border-l border-white/10 bg-[#050505]/60 p-6 shadow-[-20px_0_50px_rgba(0,0,0,0.35)] backdrop-blur-md"
     >
       <button onClick={onClose} className="absolute top-4 right-4 text-white/50 hover:text-white transition-colors z-50">✕</button>
       
       <div className="flex items-center gap-3 mb-6 border-b border-white/10 pb-4">
-        <span className="w-2 h-2 rounded-full bg-[#00BBFF] animate-pulse" />
+        <span className="h-2 w-2 animate-pulse rounded-full bg-white/80" />
         <span className="font-mono text-xs tracking-[0.2em] text-white/50 uppercase">Neural Chat Overlay</span>
       </div>
 
       <div ref={scrollContainerRef} className="flex-1 overflow-y-auto pr-2 mb-4 space-y-4 font-mono text-sm hide-scrollbar">
         {messages.map((m, i) => (
           <div key={i} className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}>
-            <div className={`max-w-[85%] p-3 rounded-xl ${m.role === "user" ? "bg-[#00BBFF]/10 text-white rounded-br-none border border-[#00BBFF]/20" : "bg-white/5 text-white/80 rounded-bl-none border border-white/5"}`}>
+            <div className={`max-w-[85%] rounded-xl p-3 ${m.role === "user" ? "rounded-br-none border border-white/20 bg-white/[0.08] text-white" : "rounded-bl-none border border-white/10 bg-white/5 text-white/80"}`}>
               {m.content}
             </div>
           </div>
         ))}
         {loading && (
           <div className="flex justify-start">
-             <div className="bg-white/5 text-[#00BBFF] p-3 rounded-xl rounded-bl-none border border-white/5 flex items-center gap-2">
-               <span className="w-1.5 h-1.5 bg-[#00BBFF] rounded-full animate-ping" />
-               Typing...
+             <div className="flex items-center gap-2 rounded-xl rounded-bl-none border border-white/10 bg-white/5 p-3 text-white/85">
+               <span className="h-1.5 w-1.5 animate-ping rounded-full bg-white/70" />
+               {assistantUi.thinkingLabel}
              </div>
           </div>
         )}
@@ -71,15 +72,15 @@ function ChatInterface({ onClose, loading, setLoading }) {
           type="text"
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          placeholder="Ask a question..."
-          className="flex-1 bg-black/50 border border-white/20 rounded-lg px-4 py-3 text-white font-mono text-sm focus:outline-none focus:border-[#00BBFF] transition-colors"
+          placeholder={assistantUi.placeholder}
+          className="flex-1 rounded-lg border border-white/20 bg-black/50 px-4 py-3 font-mono text-sm text-white transition-colors focus:border-white/50 focus:outline-none"
         />
         <button 
           type="submit" 
           disabled={!input.trim() || loading}
           className="bg-white/5 text-white border border-white/10 px-6 rounded-lg font-mono text-sm hover:bg-white/10 transition-colors disabled:opacity-50"
         >
-          SEND
+          {assistantUi.sendLabel}
         </button>
       </form>
     </motion.div>
@@ -179,9 +180,9 @@ export function ChatAssistant() {
                   {/* Left Eye */}
                   <AnimatePresence>
                     {!isBlinking && (
-                      <motion.div initial={{ scaleY: 0 }} animate={{ scaleY: 1 }} exit={{ scaleY: 0 }} className="w-8 h-8 rounded-full bg-black shadow-[inset_0_0_5px_rgba(0,187,255,0.2)] flex items-center justify-center overflow-hidden">
+                      <motion.div initial={{ scaleY: 0 }} animate={{ scaleY: 1 }} exit={{ scaleY: 0 }} className="flex h-8 w-8 items-center justify-center overflow-hidden rounded-full bg-black shadow-[inset_0_0_6px_rgba(255,255,255,0.12)]">
                           <motion.div 
-                            className={`w-6 h-6 rounded-full ${isHovered || loading ? 'bg-[#8A2BE2] shadow-[0_0_15px_#8A2BE2]' : 'bg-[#00BBFF] shadow-[0_0_15px_#00BBFF]'} transition-colors duration-300 relative`}
+                            className={`relative h-6 w-6 rounded-full transition-colors duration-300 ${isHovered || loading ? "bg-white/50 shadow-[0_0_12px_rgba(255,255,255,0.35)]" : "bg-white/35 shadow-[0_0_10px_rgba(255,255,255,0.2)]"}`}
                             style={{ x: eyeMoveX, y: eyeMoveY }}
                           >
                             <div className="absolute top-1 left-1 w-2 h-2 bg-white rounded-full opacity-80" />
@@ -193,9 +194,9 @@ export function ChatAssistant() {
                   {/* Right Eye */}
                   <AnimatePresence>
                     {!isBlinking && (
-                      <motion.div initial={{ scaleY: 0 }} animate={{ scaleY: 1 }} exit={{ scaleY: 0 }} className="w-8 h-8 rounded-full bg-black shadow-[inset_0_0_5px_rgba(0,187,255,0.2)] flex items-center justify-center overflow-hidden">
+                      <motion.div initial={{ scaleY: 0 }} animate={{ scaleY: 1 }} exit={{ scaleY: 0 }} className="flex h-8 w-8 items-center justify-center overflow-hidden rounded-full bg-black shadow-[inset_0_0_6px_rgba(255,255,255,0.12)]">
                           <motion.div 
-                            className={`w-6 h-6 rounded-full ${isHovered || loading ? 'bg-[#8A2BE2] shadow-[0_0_15px_#8A2BE2]' : 'bg-[#00BBFF] shadow-[0_0_15px_#00BBFF]'} transition-colors duration-300 relative`}
+                            className={`relative h-6 w-6 rounded-full transition-colors duration-300 ${isHovered || loading ? "bg-white/50 shadow-[0_0_12px_rgba(255,255,255,0.35)]" : "bg-white/35 shadow-[0_0_10px_rgba(255,255,255,0.2)]"}`}
                             style={{ x: eyeMoveX, y: eyeMoveY }}
                           >
                             <div className="absolute top-1 left-1 w-2 h-2 bg-white rounded-full opacity-80" />
@@ -227,7 +228,7 @@ export function ChatAssistant() {
                 {/* Chest Button */}
                 <div className="w-10 h-10 rounded-full bg-[#E2E8F0] shadow-[inset_0_2px_5px_#94A3B8] flex items-center justify-center">
                   <motion.div 
-                    className="w-4 h-4 rounded-full bg-transparent border-2 border-[#00BBFF] shadow-[0_0_10px_#00BBFF]"
+                    className="h-4 w-4 rounded-full border-2 border-white/45 bg-transparent shadow-[0_0_10px_rgba(255,255,255,0.2)]"
                     animate={{ scale: loading ? [1, 1.2, 1] : 1, opacity: loading ? [0.5, 1, 0.5] : 1 }}
                     transition={{ duration: 1, repeat: Infinity }}
                   />
@@ -262,7 +263,7 @@ export function ChatAssistant() {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
-                  className="absolute -bottom-10 font-mono text-[10px] tracking-widest text-[#00BBFF] opacity-50 group-hover:opacity-100 transition-opacity whitespace-nowrap"
+                  className="absolute -bottom-10 whitespace-nowrap font-mono text-[10px] tracking-widest text-white/50 opacity-50 transition-opacity group-hover:opacity-100"
                 >
                   [ CLICK TO CHAT ]
                 </motion.div>

@@ -3,6 +3,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { motion, AnimatePresence } from "framer-motion";
 import { PROJECT_DATA } from "../../data/projectsDetail";
+import { cardBackdropImageFilter } from "../../lib/cardBackdropStyle";
 import { projectOptimizedStem480 } from "../../lib/optimizedPaths";
 import { AnimatedText } from "../ui/AnimatedText";
 import { OptimizedImg } from "../ui/OptimizedImg";
@@ -33,7 +34,7 @@ function ProjectSidePanel({ project, onClose }) {
         animate={{ x: 0 }}
         exit={{ x: "100%" }}
         transition={{ type: "spring", stiffness: 300, damping: 30 }}
-        className="fixed top-0 right-0 h-screen w-full max-w-[450px] z-[100] bg-[#050505]/95 backdrop-blur-2xl border-l border-[#00BBFF]/30 p-8 flex flex-col shadow-[-20px_0_40px_rgba(0,0,0,0.5)] overflow-y-auto overflow-x-hidden"
+        className="fixed top-0 right-0 h-screen w-full max-w-[450px] z-[100] bg-[#050505]/95 backdrop-blur-2xl border-l border-white/12 p-8 flex flex-col shadow-[-20px_0_40px_rgba(0,0,0,0.5)] overflow-y-auto overflow-x-hidden"
       >
         <div className="flex justify-between items-center mb-10">
           <div className="font-mono text-xs text-[var(--text-muted)] tracking-widest uppercase">
@@ -45,18 +46,20 @@ function ProjectSidePanel({ project, onClose }) {
         </div>
 
         <div className="flex items-center gap-4 mb-6">
-          <div className="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-3xl shadow-[0_0_20px_rgba(0,187,255,0.1)] overflow-hidden shrink-0">
+          <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-2xl border border-white/10 bg-white/5 shadow-[0_0_20px_rgba(255,255,255,0.06)]">
             <OptimizedImg
               src={project.image}
               optimizedBasePath={projectOptimizedStem480(project.image) ?? undefined}
               alt=""
-              className="h-full w-full object-cover mix-blend-screen opacity-90"
+              className="h-full w-full object-cover"
+              style={cardBackdropImageFilter}
               loading="eager"
               decoding="async"
               sizes="56px"
               width={480}
               height={480}
             />
+            <div className="tex-grid pointer-events-none absolute inset-0 opacity-50" aria-hidden />
           </div>
           <div>
             <h2 className="font-display text-2xl font-bold text-white tracking-wide leading-tight">{project.title}</h2>
@@ -68,14 +71,16 @@ function ProjectSidePanel({ project, onClose }) {
             src={project.image}
             optimizedBasePath={projectOptimizedStem480(project.image) ?? undefined}
             alt={project.title}
-            className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+            className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+            style={cardBackdropImageFilter}
             loading="eager"
             decoding="async"
             sizes="(max-width: 450px) 92vw, 400px"
             width={720}
             height={480}
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#050505] to-transparent opacity-80" />
+          <div className="tex-grid pointer-events-none absolute inset-0 z-[1]" aria-hidden />
+          <div className="absolute inset-0 z-[2] bg-gradient-to-t from-[#050505] to-transparent opacity-80" />
         </div>
 
         <div className="mb-10">
@@ -88,7 +93,7 @@ function ProjectSidePanel({ project, onClose }) {
           <div className="space-y-3">
             {project.specs.map((spec, i) => (
               <div key={i} className="flex items-start gap-3 font-mono text-xs text-white/70">
-                <span className="w-1.5 h-1.5 mt-1 bg-[#00BBFF] rounded-full animate-pulse shrink-0 shadow-[0_0_8px_rgba(0,187,255,0.8)]" />
+                <span className="w-1.5 h-1.5 mt-1 bg-white rounded-full animate-pulse shrink-0 shadow-[0_0_10px_rgba(255,255,255,0.25)]" />
                 <span>{spec}</span>
               </div>
             ))}
@@ -101,7 +106,7 @@ function ProjectSidePanel({ project, onClose }) {
               href={project.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center justify-center w-full font-mono text-xs text-[#050505] bg-[#00BBFF] px-6 py-4 rounded hover:bg-white transition-colors uppercase tracking-widest font-bold"
+              className="flex items-center justify-center w-full font-mono text-xs text-[#050505] bg-white px-6 py-4 rounded hover:bg-white transition-colors uppercase tracking-widest font-bold"
             >
               &gt; VIEW_SOURCE
             </a>
@@ -113,23 +118,23 @@ function ProjectSidePanel({ project, onClose }) {
 }
 
 
-// --- Holographic Card Component (Desktop) ---
+// --- Project card (desktop carousel): full-bleed image, minimal chrome ---
 function HolographicCard({ project, onClick }) {
   const cardRef = useRef(null);
 
   const handleMouseEnter = () => {
     gsap.to(cardRef.current, {
-      boxShadow: "0 0 30px rgba(0, 240, 255, 0.4), inset 0 0 20px rgba(138, 43, 226, 0.2)",
-      borderColor: "rgba(0, 240, 255, 0.5)",
+      boxShadow: "0 20px 56px rgba(0, 0, 0, 0.55)",
+      borderColor: "rgba(255, 255, 255, 0.22)",
       duration: 0.3,
     });
   };
 
   const handleMouseLeave = () => {
     gsap.to(cardRef.current, {
-      boxShadow: "none",
-      borderColor: "rgba(255,255,255,0.05)",
-      duration: 0.3
+      boxShadow: "0 12px 40px rgba(0, 0, 0, 0.45)",
+      borderColor: "rgba(255, 255, 255, 0.1)",
+      duration: 0.3,
     });
   };
 
@@ -137,33 +142,39 @@ function HolographicCard({ project, onClick }) {
     <motion.div
       layoutId={`project-${project.id}`}
       ref={cardRef}
-      className="relative w-[300px] h-[400px] md:w-[360px] md:h-[500px] shrink-0 rounded-3xl cursor-pointer overflow-hidden border border-white/10 bg-white/5 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.3)] flex flex-col items-center justify-center group"
+      className="group relative flex h-[400px] w-[300px] shrink-0 cursor-pointer flex-col overflow-hidden rounded-3xl border border-white/10 shadow-[0_12px_40px_rgba(0,0,0,0.45)] md:h-[500px] md:w-[360px]"
       onClick={() => onClick(project)}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <div className="absolute inset-0 pointer-events-none z-0 flex items-center justify-center p-4">
-        <div className="w-full h-full relative flex items-center justify-center">
-          <div className="absolute inset-0 bg-[#00BBFF]/10 blur-[50px] rounded-full animate-pulse" />
-          <OptimizedImg
-            src={project.image}
-            optimizedBasePath={projectOptimizedStem480(project.image) ?? undefined}
-            alt={project.title}
-            className="relative z-10 h-[120%] w-[120%] animate-[float_4s_ease-in-out_infinite] object-contain opacity-90 mix-blend-screen transition-transform duration-500 group-hover:scale-110"
-            loading="lazy"
-            decoding="async"
-            sizes="(max-width: 768px) 75vw, 400px"
-            width={720}
-            height={720}
-          />
-        </div>
-      </div>
+      <OptimizedImg
+        src={project.image}
+        optimizedBasePath={projectOptimizedStem480(project.image) ?? undefined}
+        alt={project.title}
+        className="pointer-events-none absolute inset-0 z-0 h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.04]"
+        style={cardBackdropImageFilter}
+        loading="lazy"
+        decoding="async"
+        sizes="(max-width: 768px) 75vw, 360px"
+        width={720}
+        height={960}
+      />
+      <div className="tex-grid pointer-events-none absolute inset-0 z-[1]" aria-hidden />
+      <div
+        className="pointer-events-none absolute inset-0 z-[2] bg-gradient-to-t from-black/90 via-black/35 to-black/10"
+        aria-hidden
+      />
 
-      <div className="absolute bottom-0 inset-x-0 p-6 bg-gradient-to-t from-black via-black/80 to-transparent z-10 translate-y-6 group-hover:translate-y-0 transition-transform duration-300 flex flex-col">
-        <h3 className="font-display text-xl md:text-2xl font-bold text-white mb-2 uppercase tracking-wide group-hover:text-[#00BBFF] transition-colors">{project.title}</h3>
-        <p className="font-mono text-[10px] md:text-xs text-[var(--text-muted)] line-clamp-1 border-t border-white/10 pt-2">{project.tag}</p>
-        <div className="mt-4 font-mono text-[10px] text-[#00BBFF] uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity delay-100 flex items-center gap-2">
-          <span className="w-2 h-px bg-[#00BBFF]" /> VIEW DETAILS
+      <div className="relative z-10 mt-auto flex flex-col p-6">
+        <h3 className="font-display text-xl font-bold uppercase tracking-wide text-white md:text-2xl">
+          {project.title}
+        </h3>
+        <p className="mt-2 border-t border-white/10 pt-2 font-mono text-[10px] text-white/60 line-clamp-1 md:text-xs">
+          {project.tag}
+        </p>
+        <div className="mt-4 flex items-center gap-2 font-mono text-[10px] uppercase tracking-widest text-white/70 opacity-60 transition-opacity duration-200 group-hover:opacity-100">
+          <span className="h-px w-2 bg-white" aria-hidden />
+          VIEW DETAILS
         </div>
       </div>
     </motion.div>
@@ -268,7 +279,7 @@ export function WorksIndex() {
 
             {/* Pinned Left Column */}
             <div className="works-left-panel w-[300px] shrink-0 h-full flex flex-col justify-center pl-10 md:pl-20 relative z-20 border-r border-white/5 bg-transparent">
-              <h2 className="font-display text-2xl md:text-3xl font-bold text-[#00BBFF] tracking-[0.2em] uppercase mb-12">
+              <h2 className="font-display text-2xl md:text-3xl font-bold text-white/70 tracking-[0.2em] uppercase mb-12">
                 <AnimatedText text="AI PROJECTS" type="word" />
               </h2>
               <div className="space-y-4 overflow-y-auto pr-4 pb-10" style={{ scrollbarWidth: 'none' }}>
@@ -314,7 +325,7 @@ export function WorksIndex() {
         {/* ── MOBILE LAYOUT (<md): Horizontal Snap Scroll ── */}
         {isMobile && (
           <div className="w-full py-20 px-5">
-            <h2 className="font-display text-3xl font-bold text-[#00BBFF] tracking-[0.2em] uppercase mb-3">
+            <h2 className="font-display text-3xl font-bold text-white/70 tracking-[0.2em] uppercase mb-3">
               AI PROJECTS
             </h2>
             <p className="font-mono text-xs text-white/40 mb-6 tracking-widest uppercase">
@@ -332,29 +343,38 @@ export function WorksIndex() {
                 <div
                   key={project.id}
                   onClick={() => setActiveProject(project)}
-                  className="snap-center shrink-0 w-[78vw] max-w-[300px] rounded-3xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-xl cursor-pointer active:scale-[0.97] transition-transform"
+                  className="relative aspect-[3/4] w-[78vw] max-w-[300px] shrink-0 cursor-pointer snap-center overflow-hidden rounded-3xl border border-white/10 shadow-[0_12px_40px_rgba(0,0,0,0.45)] transition-transform active:scale-[0.97]"
                 >
                   {project.image && (
-                    <div className="relative w-full overflow-hidden" style={{ height: 160 }}>
-                      <OptimizedImg
-                        src={project.image}
-                        optimizedBasePath={projectOptimizedStem480(project.image) ?? undefined}
-                        alt={project.title}
-                        className="h-full w-full object-cover mix-blend-screen opacity-90"
-                        loading="lazy"
-                        decoding="async"
-                        sizes="(max-width: 400px) 78vw, 300px"
-                        width={720}
-                        height={480}
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/30 to-transparent" />
-                    </div>
+                    <OptimizedImg
+                      src={project.image}
+                      optimizedBasePath={projectOptimizedStem480(project.image) ?? undefined}
+                      alt={project.title}
+                      className="pointer-events-none absolute inset-0 z-0 h-full w-full object-cover"
+                      style={cardBackdropImageFilter}
+                      loading="lazy"
+                      decoding="async"
+                      sizes="(max-width: 400px) 78vw, 300px"
+                      width={720}
+                      height={960}
+                    />
                   )}
-                  <div className="p-4">
-                    <h3 className="font-display text-base font-bold text-white uppercase tracking-wide mb-1">{project.title}</h3>
-                    <p className="font-mono text-[11px] text-white/55 line-clamp-2 mb-3 leading-relaxed">{project.desc}</p>
+                  <div className="tex-grid pointer-events-none absolute inset-0 z-[1]" aria-hidden />
+                  <div
+                    className="pointer-events-none absolute inset-0 z-[2] bg-gradient-to-t from-black/90 via-black/35 to-black/10"
+                    aria-hidden
+                  />
+                  <div className="absolute bottom-0 inset-x-0 z-10 p-4">
+                    <h3 className="font-display text-base font-bold uppercase tracking-wide text-white">
+                      {project.title}
+                    </h3>
+                    <p className="mt-1.5 font-mono text-[11px] leading-relaxed text-white/70 line-clamp-2">
+                      {project.desc}
+                    </p>
                     {project.tag && (
-                      <span className="font-mono text-[9px] px-2.5 py-1 rounded-full border border-white/10 text-[#00BBFF]">{project.tag}</span>
+                      <span className="mt-3 inline-block rounded-full border border-white/10 px-2.5 py-1 font-mono text-[9px] text-white/75">
+                        {project.tag}
+                      </span>
                     )}
                   </div>
                 </div>
@@ -377,10 +397,6 @@ export function WorksIndex() {
       </AnimatePresence>
 
       <style>{`
-        @keyframes float {
-          0%, 100% { transform: translateY(0); }
-          50% { transform: translateY(-15px); }
-        }
         /* hide scrollbar in snap row */
         #projects .overflow-x-auto::-webkit-scrollbar { display: none; }
       `}</style>

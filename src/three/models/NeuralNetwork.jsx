@@ -46,8 +46,8 @@ export function NeuralNetwork() {
       <mesh>
         <sphereGeometry args={[0.12, 32, 32]} />
         <meshStandardMaterial
-          color="#6366f1"
-          emissive="#6366f1"
+          color="#D6D6D2"
+          emissive="#D6D6D2"
           emissiveIntensity={1}
           metalness={0.9}
           roughness={0.1}
@@ -57,7 +57,7 @@ export function NeuralNetwork() {
       {/* Glow ring around core */}
       <mesh>
         <torusGeometry args={[0.15, 0.03, 16, 100]} />
-        <meshBasicMaterial color="#818cf8" opacity={0.8} transparent />
+        <meshBasicMaterial color="#D6D6D2" opacity={0.8} transparent />
       </mesh>
 
       {/* Neural nodes with glow */}
@@ -71,8 +71,8 @@ export function NeuralNetwork() {
           >
             <sphereGeometry args={[node.size, 24, 24]} />
             <meshStandardMaterial
-              color={i % 3 === 0 ? "#818cf8" : i % 3 === 1 ? "#a5b4fc" : "#6366f1"}
-              emissive={i % 3 === 0 ? "#818cf8" : i % 3 === 1 ? "#a5b4fc" : "#6366f1"}
+              color={i % 3 === 0 ? "#F5F5F4" : i % 3 === 1 ? "#D6D6D2" : "#8A8A86"}
+              emissive={i % 3 === 0 ? "#F5F5F4" : i % 3 === 1 ? "#D6D6D2" : "#8A8A86"}
               emissiveIntensity={0.8}
               metalness={0.7}
               roughness={0.2}
@@ -83,7 +83,7 @@ export function NeuralNetwork() {
           <mesh>
             <sphereGeometry args={[node.size * 1.4, 16, 16]} />
             <meshBasicMaterial
-              color={i % 3 === 0 ? "#818cf8" : i % 3 === 1 ? "#a5b4fc" : "#6366f1"}
+              color={i % 3 === 0 ? "#F5F5F4" : i % 3 === 1 ? "#D6D6D2" : "#8A8A86"}
               transparent
               opacity={0.2}
             />
@@ -94,15 +94,15 @@ export function NeuralNetwork() {
       {/* Multi-layered connection rings */}
       <mesh rotation={[0, 0, 0]}>
         <torusGeometry args={[0.8, 0.015, 8, 64]} />
-        <meshBasicMaterial color="#818cf8" opacity={0.5} transparent />
+        <meshBasicMaterial color="#D6D6D2" opacity={0.5} transparent />
       </mesh>
       <mesh rotation={[Math.PI * 0.3, 0, 0]}>
         <torusGeometry args={[0.75, 0.012, 8, 64]} />
-        <meshBasicMaterial color="#a5b4fc" opacity={0.35} transparent />
+        <meshBasicMaterial color="#8A8A86" opacity={0.35} transparent />
       </mesh>
       <mesh rotation={[Math.PI * -0.3, 0, 0]}>
         <torusGeometry args={[0.85, 0.012, 8, 64]} />
-        <meshBasicMaterial color="#6366f1" opacity={0.3} transparent />
+        <meshBasicMaterial color="#D6D6D2" opacity={0.3} transparent />
       </mesh>
     </group>
   );

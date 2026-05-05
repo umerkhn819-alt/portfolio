@@ -6,7 +6,7 @@ import * as THREE from "three";
 const EclipseShaderMaterial = {
   uniforms: {
     time: { value: 0 },
-    rimColor: { value: new THREE.Color("#60A5FA") }, // Subtle space blue/white
+    rimColor: { value: new THREE.Color("#F5F5F4") }, // Platinum glow matching site theme
   },
   vertexShader: `
     varying vec3 vNormal;
@@ -75,8 +75,8 @@ const EclipseShaderMaterial = {
       // Twinkle effect
       float twinkle = sin(time * 2.0 + h1 * 10.0) * 0.5 + 0.5;
       
-      // Mix colors for particles (Cyan to deep blue)
-      vec3 particleColor = mix(vec3(0.0, 0.73, 1.0), vec3(0.5, 0.2, 0.9), h2);
+      // Neutral particle tones (platinum to soft gray) to match monochrome theme
+      vec3 particleColor = mix(vec3(0.96, 0.96, 0.95), vec3(0.55, 0.55, 0.53), h2);
       
       // Fade out particles near the glowing rim so they stay in the "black area"
       float bodyMask = smoothstep(0.9, 0.4, fresnel);
@@ -86,7 +86,7 @@ const EclipseShaderMaterial = {
       // Add subtle starry dust layer for depth
       float dust = hash(vPosition * 40.0);
       float dustTwinkle = sin(time * 1.5 + dust * 100.0) * 0.5 + 0.5;
-      vec3 surfaceDust = vec3(0.4, 0.6, 1.0) * smoothstep(0.98, 1.0, dust) * dustTwinkle * bodyMask * 0.8;
+      vec3 surfaceDust = vec3(0.72, 0.72, 0.7) * smoothstep(0.98, 1.0, dust) * dustTwinkle * bodyMask * 0.8;
 
       gl_FragColor = vec4(baseColor + glow + surfaceParticles + surfaceDust, 1.0);
     }

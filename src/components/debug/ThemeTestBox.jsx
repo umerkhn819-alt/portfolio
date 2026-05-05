@@ -16,7 +16,7 @@ export function ThemeTestBox() {
         zIndex: 50,
         backgroundColor: theme === "dark" ? "#09090b" : "#f9fafb",
         color: theme === "dark" ? "#ffffff" : "#111827",
-        border: `2px solid ${theme === "dark" ? "#6366f1" : "#4f46e5"}`,
+        border: `2px solid ${theme === "dark" ? "#8A8A86" : "#525252"}`,
         boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
       }}
     >

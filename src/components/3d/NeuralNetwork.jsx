@@ -13,8 +13,8 @@ export function NeuralNetwork() {
     const positions = new Float32Array(particleCount * 3);
     const colors = new Float32Array(particleCount * 3);
 
-    const color1 = new THREE.Color("#00F0FF"); // Electric Cyan
-    const color2 = new THREE.Color("#8A2BE2"); // Deep Violet
+    const color1 = new THREE.Color("#F5F5F4");
+    const color2 = new THREE.Color("#8A8A86");
 
     for (let i = 0; i < particleCount; i++) {
       // Spherical distribution

@@ -34,7 +34,7 @@ export function Preloader({ onComplete }) {
             <motion.div
               animate={{ rotate: 360 }}
               transition={{ repeat: Infinity, duration: 1.5, ease: "linear" }}
-              className="w-20 h-20 border-[3px] border-[#00BBFF]/10 border-t-[#00BBFF] border-r-[#8A2BE2] rounded-full shadow-[0_0_40px_rgba(0,187,255,0.2)]"
+              className="w-20 h-20 border-[3px] border-white/10 border-t-[#F5F5F4] border-r-white/30 rounded-full shadow-[0_0_40px_rgba(255,255,255,0.08)]"
             />
             {/* Inner pulsing core */}
             <div className="absolute top-10 left-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center">
@@ -49,7 +49,7 @@ export function Preloader({ onComplete }) {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className="mt-8 font-mono text-[#00BBFF] text-[10px] tracking-[0.4em] uppercase"
+              className="mt-8 font-mono text-white/55 text-[10px] tracking-[0.4em] uppercase"
             >
               INIT_AI_CORE
             </motion.div>

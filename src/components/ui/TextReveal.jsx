@@ -125,7 +125,7 @@ export function TextRevealGradient({
                 variants={itemVariants}
                 className={`inline-block ${
                   part.type === "accent"
-                    ? "bg-gradient-to-r from-accent via-accent-muted to-accent-glow bg-clip-text text-transparent"
+                    ? "bg-gradient-to-r from-white/95 via-white/70 to-white/45 bg-clip-text text-transparent"
                     : ""
                 }`}
               >

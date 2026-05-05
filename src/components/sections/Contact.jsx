@@ -129,8 +129,8 @@ export const Contact = memo(function Contact() {
         <div className="grid gap-16 lg:gap-20 lg:grid-cols-[1fr_1.2fr] lg:items-center">
           {/* Left Column: Typography & Info */}
           <div ref={leftRef} className="flex flex-col">
-            <h2 className="font-mono text-sm text-[#00BBFF] tracking-[0.3em] uppercase mb-6 flex items-center gap-4">
-              <span className="w-8 h-px bg-[#00BBFF]" />
+            <h2 className="font-mono text-sm text-[#F5F5F4] tracking-[0.3em] uppercase mb-6 flex items-center gap-4">
+              <span className="w-8 h-px bg-[#F5F5F4]" />
               {contactSection.eyebrow}
             </h2>
 
@@ -143,17 +143,17 @@ export const Contact = memo(function Contact() {
             </p>
 
             {/* Cyber Status Indicators */}
-            <div className="font-mono text-[#00BBFF] text-xs tracking-[0.2em] uppercase flex flex-col gap-5 border-l-2 border-[#00BBFF]/30 pl-6 bg-gradient-to-r from-[#00BBFF]/5 to-transparent py-4">
+            <div className="font-mono text-[#F5F5F4] text-xs tracking-[0.2em] uppercase flex flex-col gap-5 border-l-2 border-[#F5F5F4]/30 pl-6 bg-gradient-to-r from-[#F5F5F4]/5 to-transparent py-4">
               <div className="contact-status-item flex items-center gap-3">
-                <span className="w-2 h-2 rounded-full bg-[#00BBFF] shadow-[0_0_10px_#00BBFF] animate-pulse" />
+                <span className="w-2 h-2 rounded-full bg-[#F5F5F4] shadow-[0_0_10px_#F5F5F4] animate-pulse" />
                 SYSTEM STATUS: ONLINE
               </div>
               <div className="contact-status-item flex items-center gap-3">
-                <span className="w-2 h-2 rounded-full bg-[#00BBFF] shadow-[0_0_10px_#00BBFF] animate-pulse" />
+                <span className="w-2 h-2 rounded-full bg-[#F5F5F4] shadow-[0_0_10px_#F5F5F4] animate-pulse" />
                 COMMS CHANNELS: OPEN
               </div>
               <div className="contact-status-item flex items-center gap-3">
-                <span className="w-2 h-2 rounded-full bg-[#00BBFF] shadow-[0_0_10px_#00BBFF] animate-pulse" />
+                <span className="w-2 h-2 rounded-full bg-[#F5F5F4] shadow-[0_0_10px_#F5F5F4] animate-pulse" />
                 ENCRYPTION: ACTIVE
               </div>
             </div>
@@ -169,14 +169,14 @@ export const Contact = memo(function Contact() {
               <div className="flex items-center justify-between border-b border-white/10 pb-6 mb-8">
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center">
-                    <span className="w-2 h-2 bg-[#00BBFF] rounded-full animate-ping" />
+                    <span className="w-2 h-2 bg-[#F5F5F4] rounded-full animate-ping" />
                   </div>
                   <div>
                     <h4 className="font-display text-white text-lg uppercase tracking-wide">Secure Link</h4>
                     <p className="font-mono text-[10px] text-white/50 tracking-widest uppercase">Direct connection established</p>
                   </div>
                 </div>
-                <div className="font-mono text-[10px] text-[#00BBFF] border border-[#00BBFF]/30 px-3 py-1 rounded bg-[#00BBFF]/10">
+                <div className="font-mono text-[10px] text-[#F5F5F4] border border-[#F5F5F4]/30 px-3 py-1 rounded bg-[#F5F5F4]/10">
                   READY
                 </div>
               </div>
@@ -192,9 +192,9 @@ export const Contact = memo(function Contact() {
                     name="name"
                     value={form.name}
                     onChange={onChange}
-                    whileFocus={{ scale: 1.02, backgroundColor: "rgba(0,187,255,0.05)", borderColor: "#00BBFF" }}
+                    whileFocus={{ scale: 1.02, backgroundColor: "rgba(245,245,244,0.06)", borderColor: "#F5F5F4" }}
                     transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                    className="w-full bg-black/40 border border-white/10 rounded-xl px-5 py-4 text-sm text-white font-mono outline-none shadow-[0_0_20px_rgba(0,187,255,0)] focus:shadow-[0_0_20px_rgba(0,187,255,0.1)] placeholder:text-white/20"
+                    className="w-full bg-black/40 border border-white/10 rounded-xl px-5 py-4 text-sm text-white font-mono outline-none shadow-[0_0_20px_rgba(0,0,0,0)] focus:shadow-[0_0_24px_rgba(255,255,255,0.08)] placeholder:text-white/20"
                     placeholder="Enter Identifier..."
                   />
                 </div>
@@ -209,9 +209,9 @@ export const Contact = memo(function Contact() {
                     name="email"
                     value={form.email}
                     onChange={onChange}
-                    whileFocus={{ scale: 1.02, backgroundColor: "rgba(0,187,255,0.05)", borderColor: "#00BBFF" }}
+                    whileFocus={{ scale: 1.02, backgroundColor: "rgba(245,245,244,0.06)", borderColor: "#F5F5F4" }}
                     transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                    className="w-full bg-black/40 border border-white/10 rounded-xl px-5 py-4 text-sm text-white font-mono outline-none shadow-[0_0_20px_rgba(0,187,255,0)] focus:shadow-[0_0_20px_rgba(0,187,255,0.1)] placeholder:text-white/20"
+                    className="w-full bg-black/40 border border-white/10 rounded-xl px-5 py-4 text-sm text-white font-mono outline-none shadow-[0_0_20px_rgba(0,0,0,0)] focus:shadow-[0_0_24px_rgba(255,255,255,0.08)] placeholder:text-white/20"
                     placeholder="Enter Comms Link..."
                   />
                 </div>
@@ -227,9 +227,9 @@ export const Contact = memo(function Contact() {
                   value={form.message}
                   onChange={onChange}
                   rows={4}
-                  whileFocus={{ scale: 1.02, backgroundColor: "rgba(0,187,255,0.05)", borderColor: "#00BBFF" }}
+                  whileFocus={{ scale: 1.02, backgroundColor: "rgba(245,245,244,0.06)", borderColor: "#F5F5F4" }}
                   transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                  className="w-full bg-black/40 border border-white/10 rounded-xl px-5 py-4 text-sm text-white font-mono outline-none shadow-[0_0_20px_rgba(0,187,255,0)] focus:shadow-[0_0_20px_rgba(0,187,255,0.1)] placeholder:text-white/20 resize-none"
+                  className="w-full bg-black/40 border border-white/10 rounded-xl px-5 py-4 text-sm text-white font-mono outline-none shadow-[0_0_20px_rgba(0,0,0,0)] focus:shadow-[0_0_24px_rgba(255,255,255,0.08)] placeholder:text-white/20 resize-none"
                   placeholder="Transmit Payload Details..."
                 />
               </div>
@@ -239,7 +239,7 @@ export const Contact = memo(function Contact() {
                 <motion.button
                   type="submit"
                   disabled={sent}
-                  whileHover={{ scale: 1.05, boxShadow: "0 15px 40px rgba(0,187,255,0.5)" }}
+                  whileHover={{ scale: 1.05, boxShadow: "0 16px 40px rgba(0,0,0,0.45)" }}
                   whileTap={{ scale: 0.95 }}
                   className="w-full font-display font-bold text-sm tracking-widest uppercase bg-white text-black px-8 py-5 rounded-xl transition-colors duration-300 shadow-[0_10px_30px_rgba(255,255,255,0.2)] disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3"
                   data-cursor="Send"
@@ -254,7 +254,7 @@ export const Contact = memo(function Contact() {
                   )}
                 </motion.button>
                 {sent && (
-                  <p className="font-mono text-xs text-[#00BBFF] mt-4 text-center animate-pulse tracking-widest">
+                  <p className="font-mono text-xs text-[#F5F5F4] mt-4 text-center animate-pulse tracking-widest">
                     &gt; {contactForm.successMessage || "TRANSMISSION SUCCESSFUL."}
                   </p>
                 )}

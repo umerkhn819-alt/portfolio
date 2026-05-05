@@ -35,7 +35,10 @@ export function OptimizedImg({
 }) {
   const candidates = useMemo(() => {
     if (!optimizedBasePath) return [src];
-    return [`${optimizedBasePath}.avif`, `${optimizedBasePath}.webp`, src];
+    const optimized = [`${optimizedBasePath}.avif`, `${optimizedBasePath}.webp`];
+    // In dev, prefer the source file so edits under public/ show without re-running optimize-images.
+    if (import.meta.env.DEV) return [src, ...optimized];
+    return [...optimized, src];
   }, [optimizedBasePath, src]);
 
   const [index, setIndex] = useState(0);

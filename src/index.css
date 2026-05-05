@@ -10,6 +10,16 @@
   .hero-scroll-hint {
     animation: hero-scroll-hint 2.2s ease-in-out infinite;
   }
+
+  /** Subtle grid on skill/project card photos — multiply darkens instead of lifting blacks. */
+  .tex-grid {
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    background-size: 24px 24px;
+    mix-blend-mode: multiply;
+    opacity: 0.45;
+  }
 }
 
 @keyframes hero-scroll-hint {
@@ -19,42 +29,47 @@
 
 @layer base {
   :root {
-    /* Enforced Deep Obsidian Dark Mode globally */
     color-scheme: dark;
-    
-    /* Base background and surface */
-    --color-surface: 5 5 5;
-    --color-surface-raised: 10 10 10;
-    --color-surface-overlay: 18 18 18;
-    --color-border-subtle: 30 30 30;
-    --color-border: 40 40 40;
 
-    /* Neural Engine Theme Palette */
-    --accent-primary: #00F0FF;
-    --accent-secondary: #8A2BE2;
-    --text-main: #E2E8F0;
-    --text-muted: #64748B;
+    /* Platinum scale */
+    --platinum-100: #F5F5F4;
+    --platinum-300: #D6D6D2;
+    --platinum-500: #8A8A86;
+    --platinum-700: #3A3A38;
+    --platinum-900: #0E0E0D;
+    --edge: rgba(245, 245, 244, 0.85);
+    --rule: rgba(245, 245, 244, 0.14);
+    --status-online: #10b981;
+
+    /* Base background and surface */
+    --color-surface: 14 14 13;
+    --color-surface-raised: 24 24 22;
+    --color-surface-overlay: 32 32 30;
+    --color-border-subtle: 58 58 56;
+    --color-border: 74 74 72;
+
+    /* Semantic (monochrome) */
+    --accent-primary: var(--platinum-100);
+    --accent-secondary: var(--platinum-500);
+    --text-main: var(--platinum-100);
+    --text-muted: var(--platinum-500);
     --text-primary: var(--text-main);
     --text-secondary: var(--text-muted);
 
-    /* Section & Global Background */
     --section-bg: #050505;
     --section-bg-alt: #030303;
 
-    /* Card & UI Elements (Re-mapped to Neural Engine vibe) */
-    --card-bg: rgba(5, 5, 5, 0.7);
-    --card-bg-active: rgba(10, 10, 15, 0.85);
-    --card-border: rgba(0, 240, 255, 0.2);
-    --card-shadow: 0 4px 32px rgba(0,0,0,0.8);
-    --card-shadow-active: 0 20px 70px rgba(0,0,0,0.9), 0 0 30px rgba(0,240,255,0.1);
+    --card-bg: rgba(14, 14, 13, 0.72);
+    --card-bg-active: rgba(24, 24, 22, 0.88);
+    --card-border: rgba(255, 255, 255, 0.08);
+    --card-shadow: 0 4px 32px rgba(0, 0, 0, 0.8);
+    --card-shadow-active: 0 20px 70px rgba(0, 0, 0, 0.9), inset 0 1px 0 rgba(255, 255, 255, 0.06);
 
-    /* Bento card specifics */
-    --bento-bg: rgba(8, 8, 8, 0.8);
-    --bento-border: rgba(138, 43, 226, 0.2);
-    --bento-shadow: 0 2px 24px rgba(0,0,0,0.7);
-    --bento-glow: rgba(0, 240, 255, 0.15);
+    --bento-bg: rgba(14, 14, 13, 0.82);
+    --bento-border: rgba(255, 255, 255, 0.08);
+    --bento-shadow: 0 2px 24px rgba(0, 0, 0, 0.7);
+    --bento-glow: rgba(245, 245, 244, 0.06);
 
-    /* Hero Background (Deep Obsidian Gradient) */
     --hero-bg-from: #050505;
     --hero-bg-via: #030303;
     --hero-bg-to: #050505;
@@ -63,15 +78,14 @@
   body {
     background-color: var(--section-bg);
     color: var(--text-main);
-    font-family: 'JetBrains Mono', monospace;
+    font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
     overflow-x: hidden;
     width: 100%;
   }
 
   h1, h2, h3, h4, h5, h6, .font-display {
-    font-family: 'Space Grotesk', sans-serif;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
+    font-family: "Inter Tight", "Inter", system-ui, sans-serif;
+    letter-spacing: -0.02em;
   }
 }
 
@@ -82,6 +96,8 @@ section {
 
 html {
   overflow-x: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: #3A3A38 rgba(5, 5, 5, 0.9);
 }
 
 @keyframes float {
@@ -93,7 +109,6 @@ html {
    CINEMATIC SCENE SYSTEM
    ═══════════════════════════════════════════════════════════════ */
 
-/* Scene container — fullscreen by default */
 .cinematic-scene {
   position: relative;
   width: 100%;
@@ -107,7 +122,6 @@ html {
   position: relative;
 }
 
-/* ── Parallax depth layers ────────────────────────────────────── */
 .parallax-bg {
   will-change: transform;
   transform: translateZ(-2px) scale(1.5);
@@ -123,7 +137,6 @@ html {
   transform: translateZ(0);
 }
 
-/* ── Clip-path text reveal ────────────────────────────────────── */
 .text-reveal-clip {
   clip-path: inset(0 100% 0 0);
   transition: clip-path 0.8s cubic-bezier(0.77, 0, 0.175, 1);
@@ -133,7 +146,6 @@ html {
   clip-path: inset(0 0 0 0);
 }
 
-/* ── Slide-up reveal ──────────────────────────────────────────── */
 .reveal-slide-up {
   opacity: 0;
   transform: translateY(60px);
@@ -145,11 +157,10 @@ html {
   transform: translateY(0);
 }
 
-/* ── Glass panel (enhanced glassmorphism) ─────────────────────── */
 .glass-panel {
-  background: rgba(5, 5, 15, 0.6);
-  backdrop-filter: blur(20px) saturate(1.2);
-  -webkit-backdrop-filter: blur(20px) saturate(1.2);
+  background: rgba(14, 14, 13, 0.65);
+  backdrop-filter: blur(20px) saturate(1.05);
+  -webkit-backdrop-filter: blur(20px) saturate(1.05);
   border: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow:
     0 8px 32px rgba(0, 0, 0, 0.6),
@@ -157,24 +168,23 @@ html {
     inset 0 1px 0 rgba(255, 255, 255, 0.06);
 }
 
-/* ── Neon glow accents ────────────────────────────────────────── */
+/* Platinum glow (neutral, replaces neon-cyan/purple) */
 .neon-glow-cyan {
-  box-shadow: 0 0 20px rgba(0, 240, 255, 0.3), 0 0 60px rgba(0, 240, 255, 0.1);
+  box-shadow: 0 0 20px rgba(245, 245, 244, 0.12), 0 0 60px rgba(245, 245, 244, 0.04);
 }
 
 .neon-glow-purple {
-  box-shadow: 0 0 20px rgba(138, 43, 226, 0.3), 0 0 60px rgba(138, 43, 226, 0.1);
+  box-shadow: 0 0 20px rgba(214, 214, 210, 0.1), 0 0 60px rgba(0, 0, 0, 0.35);
 }
 
 .neon-text-cyan {
-  text-shadow: 0 0 10px rgba(0, 240, 255, 0.5), 0 0 30px rgba(0, 240, 255, 0.2);
+  text-shadow: 0 0 12px rgba(245, 245, 244, 0.25), 0 0 32px rgba(245, 245, 244, 0.08);
 }
 
 .neon-text-purple {
-  text-shadow: 0 0 10px rgba(138, 43, 226, 0.5), 0 0 30px rgba(138, 43, 226, 0.2);
+  text-shadow: 0 0 12px rgba(214, 214, 210, 0.2), 0 0 28px rgba(0, 0, 0, 0.4);
 }
 
-/* ── Custom scrollbar ─────────────────────────────────────────── */
 ::-webkit-scrollbar {
   width: 4px;
 }
@@ -184,21 +194,14 @@ html {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, #8A2BE2, #00F0FF);
+  background: linear-gradient(180deg, #3A3A38, #F5F5F4);
   border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg, #9d4edd, #00BBFF);
+  background: linear-gradient(180deg, #8A8A86, #F5F5F4);
 }
 
-/* Firefox scrollbar */
-html {
-  scrollbar-width: thin;
-  scrollbar-color: #8A2BE2 rgba(5, 5, 5, 0.9);
-}
-
-/* ── Performance optimizations ────────────────────────────────── */
 .will-change-transform {
   will-change: transform;
 }
@@ -212,7 +215,6 @@ html {
   backface-visibility: hidden;
 }
 
-/* ── Cinematic section transitions ────────────────────────────── */
 .scene-transition-overlay {
   position: fixed;
   inset: 0;
@@ -223,12 +225,11 @@ html {
   transition: opacity 0.6s ease;
 }
 
-/* ── Scene-specific responsive overrides ──────────────────────── */
 @media (max-width: 767px) {
   .cinematic-scene {
     min-height: auto;
   }
-  
+
   .cinematic-scene__content {
     min-height: auto;
   }

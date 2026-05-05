@@ -21,7 +21,7 @@ export function Navbar() {
         <button
           type="button"
           onClick={() => onNavigate("hero")}
-          className="font-display text-lg font-semibold tracking-tight text-white drop-shadow-[0_0_10px_rgba(255,255,255,0.3)] transition-colors duration-300 hover:text-[#00F0FF] hover:drop-shadow-[0_0_15px_rgba(0,240,255,0.5)]"
+          className="font-display text-lg font-semibold tracking-tight text-[#F5F5F4] drop-shadow-[0_0_10px_rgba(255,255,255,0.2)] transition-colors duration-300 hover:text-white hover:drop-shadow-[0_0_18px_rgba(255,255,255,0.35)]"
         >
           {siteMeta.brandName}
         </button>
@@ -39,7 +39,7 @@ export function Navbar() {
                   whileTap={{
                     scale: 0.92,
                     rotateZ: -0.5,
-                    boxShadow: "0 0 15px rgba(99,102,241,0.4)",
+                    boxShadow: "0 0 18px rgba(255,255,255,0.25)",
                     transition: { duration: 0.15, ease: "easeIn" }
                   }}
                 >
@@ -57,7 +57,7 @@ export function Navbar() {
               whileTap={{
                 scale: 0.91,
                 rotateZ: -1,
-                boxShadow: "0 0 15px rgba(99,102,241,0.4)",
+                boxShadow: "0 0 18px rgba(255,255,255,0.25)",
                 transition: { duration: 0.15, ease: "easeIn" }
               }}
               aria-expanded={open}

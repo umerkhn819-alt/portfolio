@@ -19,12 +19,12 @@ export function Footer() {
               href={s.href}
               target="_blank"
               rel="noreferrer"
-              className="text-sm text-white/40 hover:text-[#00F0FF] transition-all duration-300 font-mono tracking-wider"
-              whileHover={{ y: -2, scale: 1.15, rotateZ: 1.5, textShadow: "0 0 10px rgba(0,240,255,0.5)" }}
+              className="text-sm text-white/40 hover:text-white transition-all duration-300 font-mono tracking-wider"
+              whileHover={{ y: -2, scale: 1.15, rotateZ: 1.5, textShadow: "0 0 12px rgba(255,255,255,0.35)" }}
               whileTap={{
                 scale: 0.88,
                 rotateZ: -2,
-                boxShadow: "0 0 20px rgba(99,102,241,0.6)",
+                boxShadow: "0 0 20px rgba(255,255,255,0.2)",
                 transition: { duration: 0.15, ease: "easeIn" }
               }}
             >

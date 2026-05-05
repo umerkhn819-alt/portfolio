@@ -30,7 +30,7 @@ export function Section({
         <div
           data-section-parallax
           aria-hidden
-          className="pointer-events-none absolute inset-0 -z-0 bg-[radial-gradient(ellipse_70%_50%_at_50%_0%,rgba(99,102,241,0.12),transparent)]"
+          className="pointer-events-none absolute inset-0 -z-0 bg-[radial-gradient(ellipse_70%_50%_at_50%_0%,rgba(255,255,255,0.04),transparent)]"
         />
       ) : null}
       <div className="relative z-10">{children}</div>

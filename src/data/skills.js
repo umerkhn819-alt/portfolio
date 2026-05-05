@@ -4,18 +4,20 @@ export const skillsSection = {
   subtitle: "Interactive web experiences and cross-platform mobile applications. Click to explore details.",
 };
 
+/** Theme-relevant dark UI / product shots (Unsplash) — full-bleed card backdrops. */
 export const SKILL_CARDS = [
   {
     id: "01",
     category: "MOBILE APP",
-    title: "TASTE AI",
+    title: "Eatsly",
     icon: "📱",
     desc: "Intelligent food preference engine. Built a cross-platform mobile app that vectorizes user preferences and maps them to real-time recommendations.",
     tags: ["REACT NATIVE", "FIREBASE", "NODE.JS"],
     specs: ["User preference vectorization", "Real-time recommendation mapping", "Firebase NoSQL graph", "Cross-platform mobile client"],
     github: "#",
     visualType: "neuralNode",
-    image: "/skills/taste_ai.png"
+    image:
+      "https://images.unsplash.com/photo-1551782450-a2132b4ba21d?w=720&q=80&auto=format&fit=crop",
   },
   {
     id: "02",
@@ -27,7 +29,8 @@ export const SKILL_CARDS = [
     specs: ["Real-time data streaming", "High-frequency DOM updates", "WebAssembly processing core", "JWT secure sessions"],
     github: "#",
     visualType: "quantumCube",
-    image: "/skills/quantum_ledger.png"
+    image:
+      "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=720&q=80&auto=format&fit=crop",
   },
   {
     id: "03",
@@ -39,7 +42,8 @@ export const SKILL_CARDS = [
     specs: ["Edge-device inference", "60 FPS real-time detection", "Custom YOLOv8 quantization", "Cross-platform camera pipeline"],
     github: "#",
     visualType: "boundingScan",
-    image: "/skills/iris_vision.png"
+    image:
+      "https://images.unsplash.com/photo-1505740106531-4243f3831c78?w=720&q=80&auto=format&fit=crop",
   },
   {
     id: "04",
@@ -51,7 +55,8 @@ export const SKILL_CARDS = [
     specs: ["Headless CMS integration", "Redis distributed caching", "Stripe payment intents", "GraphQL schema stitching"],
     github: "#",
     visualType: "dataWave",
-    image: "/skills/ecommerce_engine.png"
+    image:
+      "https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=720&q=80&auto=format&fit=crop",
   },
   {
     id: "05",
@@ -63,7 +68,8 @@ export const SKILL_CARDS = [
     specs: ["Custom GLSL shaders", "GSAP scroll-jacking", "React Three Fiber primitives", "Framer Motion layout animations"],
     github: "#",
     visualType: "holoKit",
-    image: "/skills/spatial_ui.png"
+    image:
+      "https://images.unsplash.com/photo-1607706189992-eae578626c86?w=720&q=80&auto=format&fit=crop",
   },
   {
     id: "06",
@@ -75,7 +81,8 @@ export const SKILL_CARDS = [
     specs: ["Multi-layer perceptron routing", "GPU-accelerated training", "Transformer-based sequence generation", "High-dimensional tensor operations"],
     github: "#",
     visualType: "neuralNode",
-    image: "/skills/neural_link.png"
+    image:
+      "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=720&q=80&auto=format&fit=crop",
   },
   {
     id: "07",
@@ -87,7 +94,8 @@ export const SKILL_CARDS = [
     specs: ["Distributed load balancing", "gRPC inter-service communication", "Kubernetes cluster orchestration", "Zero-downtime rolling deployments"],
     github: "#",
     visualType: "dataWave",
-    image: "/skills/cyber_grid.png"
+    image:
+      "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=720&q=80&auto=format&fit=crop",
   },
   {
     id: "08",
@@ -99,6 +107,7 @@ export const SKILL_CARDS = [
     specs: ["Spatial environment meshing", "Real-time plane detection", "Hand-tracking gestures", "Volumetric rendering pipeline"],
     github: "#",
     visualType: "quantumCube",
-    image: "/skills/holo_projector.png"
-  }
+    image:
+      "https://images.unsplash.com/photo-1526498460520-4c246339dccb?w=720&q=80&auto=format&fit=crop",
+  },
 ];

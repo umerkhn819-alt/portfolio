@@ -9,7 +9,7 @@ export function LeftPanel({ eyebrow, name, role, intro }) {
       transition={{ duration: 0.6, delay: 0.2 }}
     >
       {/* Eyebrow */}
-      <p className="text-xs font-semibold uppercase tracking-[0.35em] text-indigo-600 dark:text-accent-glow transition-colors duration-300">
+      <p className="font-mono text-xs font-semibold uppercase tracking-[0.35em] text-white/55 transition-colors duration-300">
         {eyebrow}
       </p>
 
@@ -18,7 +18,7 @@ export function LeftPanel({ eyebrow, name, role, intro }) {
         <h2 className="font-display text-3xl font-semibold text-gray-900 dark:text-white transition-colors duration-300">
           {name}
         </h2>
-        <p className="mt-2 text-sm font-medium text-indigo-600 dark:text-accent-muted transition-colors duration-300">
+        <p className="mt-2 text-sm font-medium text-white/70 transition-colors duration-300">
           {role}
         </p>
       </div>
@@ -29,7 +29,7 @@ export function LeftPanel({ eyebrow, name, role, intro }) {
       </p>
 
       {/* Accent line */}
-      <div className="h-0.5 w-12 bg-gradient-to-r from-accent to-transparent" />
+      <div className="h-px w-12 bg-gradient-to-r from-white/40 to-transparent" />
     </motion.div>
   );
 }

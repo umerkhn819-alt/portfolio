@@ -33,7 +33,7 @@ export function Particles() {
         this.vy2 = (Math.random() - 0.5) * 0.5;
         this.life = Math.random() * 0.5 + 0.3;
         this.maxLife = this.life;
-        this.hue = Math.random() * 60 + 200; // Blue-purple range
+        this.lightness = 72 + Math.random() * 22; // Platinum grayscale lines
       }
 
       update() {
@@ -58,7 +58,7 @@ export function Particles() {
 
       draw(ctx) {
         const opacity = this.life / this.maxLife;
-        ctx.strokeStyle = `hsla(${this.hue}, 80%, 50%, ${opacity * 0.6})`;
+        ctx.strokeStyle = `hsla(0, 0%, ${this.lightness}%, ${opacity * 0.55})`;
         ctx.lineWidth = 2;
         ctx.beginPath();
         ctx.moveTo(this.x1, this.y1);
@@ -107,7 +107,7 @@ export function Particles() {
       const gridSize = 100;
       const gridOpacity = 0.05;
 
-      ctx.strokeStyle = `rgba(99, 102, 241, ${gridOpacity})`;
+      ctx.strokeStyle = `rgba(255, 255, 255, ${gridOpacity})`;
       ctx.lineWidth = 1;
 
       for (let i = -2; i <= 2; i++) {
@@ -129,7 +129,7 @@ export function Particles() {
           const x2 = centerX + (i + 1) * gridSize + Math.sin(time * 0.01 + i + 1) * 20;
           const y2 = centerY + j * gridSize + Math.cos(time * 0.01 + j) * 20;
 
-          ctx.strokeStyle = `rgba(99, 102, 241, ${gridOpacity * 0.5})`;
+          ctx.strokeStyle = `rgba(255, 255, 255, ${gridOpacity * 0.45})`;
           ctx.lineWidth = 0.5;
           ctx.beginPath();
           ctx.moveTo(x1, y1);

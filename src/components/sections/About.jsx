@@ -81,8 +81,8 @@ export function About() {
     <Section id="about" className="bg-transparent relative overflow-hidden transition-colors duration-300" parallax>
       {/* Animated background gradient */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute -top-20 -right-20 w-96 h-96 bg-indigo-500/10 dark:bg-accent/10 rounded-full blur-3xl opacity-30" />
-        <div className="absolute -bottom-20 -left-20 w-96 h-96 bg-indigo-500/5 dark:bg-accent/5 rounded-full blur-3xl opacity-20" />
+        <div className="absolute -top-20 -right-20 w-96 h-96 rounded-full bg-white/[0.06] blur-3xl opacity-30 dark:bg-white/[0.08]" />
+        <div className="absolute -bottom-20 -left-20 w-96 h-96 rounded-full bg-white/[0.04] blur-3xl opacity-20 dark:bg-white/[0.05]" />
       </div>
 
       <Container className="relative z-10">
@@ -116,11 +116,11 @@ export function About() {
                     zIndex: isActive ? 20 : 10 - Math.abs(offset),
                     transformStyle: "preserve-3d"
                   }}
-                  whileHover={isActive ? { y: -10, boxShadow: "0 30px 60px rgba(0,187,255,0.3)" } : { opacity: 0.8 }}
+                  whileHover={isActive ? { y: -10, boxShadow: "0 30px 60px rgba(0,0,0,0.45)" } : { opacity: 0.8 }}
                 >
                   {/* Glow effect on hover */}
                   <div className={`absolute inset-0 transition-opacity duration-500 ${isActive ? 'opacity-100' : 'opacity-0'}`}>
-                    <div className="absolute top-0 left-0 w-32 h-32 bg-[#00BBFF]/20 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2 animate-pulse" />
+                    <div className="absolute top-0 left-0 h-32 w-32 -translate-x-1/2 -translate-y-1/2 animate-pulse rounded-full bg-white/10 blur-3xl" />
                   </div>
 
                   {/* Icon badge */}
@@ -138,7 +138,7 @@ export function About() {
                   {/* Bottom accent line */}
                   {isActive && (
                     <motion.div 
-                      className="absolute bottom-0 left-0 h-1 bg-gradient-to-r from-[#00BBFF]/50 via-[#00BBFF] to-[#00BBFF]/50"
+                      className="absolute bottom-0 left-0 h-px bg-gradient-to-r from-transparent via-white/50 to-transparent"
                       initial={{ scaleX: 0 }}
                       animate={{ scaleX: 1 }}
                       transition={{ duration: 0.5 }}
@@ -160,11 +160,11 @@ export function About() {
           >
             {/* Background accent */}
             <div className="absolute inset-0 pointer-events-none">
-              <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-500/10 dark:bg-accent/10 rounded-full blur-3xl opacity-20" />
+              <div className="absolute right-0 top-0 h-64 w-64 rounded-full bg-white/[0.06] blur-3xl opacity-20 dark:bg-white/[0.08]" />
             </div>
 
             <div className="relative z-10">
-              <p className="text-sm font-medium uppercase tracking-widest text-indigo-600 dark:text-accent-glow transition-colors duration-300">
+              <p className="font-mono text-sm font-medium uppercase tracking-widest text-white/55 transition-colors duration-300">
                 {aboutSpotlight.eyebrow}
               </p>
               <motion.div 

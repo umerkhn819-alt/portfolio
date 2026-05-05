@@ -55,11 +55,11 @@ export function ScrollProgressBar() {
         .scroll-progress-bar {
           width: 100%;
           height: 100%;
-          background: linear-gradient(90deg, #8A2BE2, #00F0FF, #00BBFF);
+          background: linear-gradient(90deg, #3A3A38, #D6D6D2, #F5F5F4);
           transform-origin: left center;
           transform: scaleX(0);
           will-change: transform;
-          box-shadow: 0 0 12px rgba(0,240,255,0.5), 0 0 4px rgba(138,43,226,0.4);
+          box-shadow: 0 0 10px rgba(255,255,255,0.15);
         }
       `}</style>
     </>

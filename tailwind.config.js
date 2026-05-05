@@ -10,10 +10,17 @@ export default {
           raised: "rgb(var(--color-surface-raised) / <alpha-value>)",
           overlay: "rgb(var(--color-surface-overlay) / <alpha-value>)",
         },
+        platinum: {
+          100: "#F5F5F4",
+          300: "#D6D6D2",
+          500: "#8A8A86",
+          700: "#3A3A38",
+          900: "#0E0E0D",
+        },
         accent: {
-          DEFAULT: "#6366f1",
-          muted: "#818cf8",
-          glow: "#a5b4fc",
+          DEFAULT: "#F5F5F4",
+          muted: "#D6D6D2",
+          glow: "#F5F5F4",
         },
         border: {
           subtle: "rgba(var(--color-border-subtle) / <alpha-value>)",
@@ -22,13 +29,14 @@ export default {
       },
       fontFamily: {
         sans: [
-          "Rajdhani",
+          "Inter",
           "system-ui",
           "-apple-system",
           "Segoe UI",
           "sans-serif",
         ],
-        display: ["Orbitron", "system-ui", "sans-serif"],
+        display: ["Inter Tight", "Inter", "system-ui", "sans-serif"],
+        mono: ["JetBrains Mono", "ui-monospace", "monospace"],
       },
       animation: {
         "gradient-shift": "gradient-shift 8s ease infinite",

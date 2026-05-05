@@ -20,7 +20,7 @@ export function NeuralNode() {
         thickness={2}
         ior={1.5}
         chromaticAberration={1}
-        color="#00F0FF"
+        color="#D6D6D2"
       />
     </mesh>
   );
@@ -34,7 +34,7 @@ export function WireframeFlower() {
   return (
     <mesh ref={meshRef}>
       <icosahedronGeometry args={[1.2, 1]} />
-      <meshStandardMaterial color="#8A2BE2" wireframe emissive="#8A2BE2" emissiveIntensity={2} />
+      <meshStandardMaterial color="#8A8A86" wireframe emissive="#8A8A86" emissiveIntensity={1.2} />
     </mesh>
   );
 }
@@ -49,7 +49,7 @@ export function BoundingScan() {
   return (
     <mesh ref={meshRef}>
       <boxGeometry args={[1.5, 1.5, 1.5]} />
-      <meshStandardMaterial color="#00F0FF" wireframe />
+      <meshStandardMaterial color="#D6D6D2" wireframe />
     </mesh>
   );
 }
@@ -64,7 +64,7 @@ export function DataWave() {
   return (
     <mesh ref={meshRef}>
       <sphereGeometry args={[1.2, 32, 32]} />
-      <MeshWobbleMaterial color="#00F0FF" factor={1} speed={2} wireframe />
+      <MeshWobbleMaterial color="#D6D6D2" factor={1} speed={2} wireframe />
     </mesh>
   );
 }
@@ -93,7 +93,7 @@ export function QuantumCube() {
   return (
     <mesh ref={meshRef}>
       <boxGeometry args={[1.2, 1.2, 1.2]} />
-      <MeshDistortMaterial color="#8A2BE2" distort={0.2} speed={5} wireframe emissive="#8A2BE2" emissiveIntensity={1} />
+      <MeshDistortMaterial color="#8A8A86" distort={0.2} speed={5} wireframe emissive="#8A8A86" emissiveIntensity={0.8} />
     </mesh>
   );
 }
@@ -106,7 +106,7 @@ export function HoloKit() {
   return (
     <mesh ref={meshRef}>
       <torusGeometry args={[0.8, 0.3, 16, 100]} />
-      <MeshTransmissionMaterial transmission={0.9} roughness={0} color="#00F0FF" />
+      <MeshTransmissionMaterial transmission={0.9} roughness={0} color="#F5F5F4" />
     </mesh>
   );
 }
@@ -193,7 +193,7 @@ export function DetailDashboard({ project, onClose }) {
               href={project.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-block font-mono text-sm text-[#050505] bg-[var(--text-main)] px-6 py-3 hover:bg-[var(--accent-primary)] transition-colors"
+              className="inline-block bg-[var(--text-main)] px-6 py-3 font-mono text-sm text-[#050505] transition-colors hover:bg-white"
             >
               &gt; VIEW_SOURCE
             </a>
@@ -202,16 +202,16 @@ export function DetailDashboard({ project, onClose }) {
       </div>
 
       {/* Right: Massive 3D View */}
-      <div className="w-full md:w-2/3 h-1/2 md:h-full relative bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-indigo-900/20 via-[#030303] to-[#030303]">
+      <div className="relative h-1/2 w-full bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-white/[0.06] via-[#030303] to-[#030303] md:h-full md:w-2/3">
         <Canvas camera={{ position: [0, 0, 7], fov: 45 }}>
           <ambientLight intensity={0.5} />
           <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} intensity={1} />
-          <pointLight position={[-10, -10, -10]} intensity={0.5} color="#8A2BE2" />
+          <pointLight position={[-10, -10, -10]} intensity={0.5} color="#8A8A86" />
           <Environment preset="city" />
           <Float speed={1.5} rotationIntensity={2} floatIntensity={2}>
             {renderVisual(project.visualType)}
           </Float>
-          <ContactShadows position={[0, -2.5, 0]} opacity={0.5} scale={10} blur={2} far={4} color="#00F0FF" />
+          <ContactShadows position={[0, -2.5, 0]} opacity={0.5} scale={10} blur={2} far={4} color="#F5F5F4" />
         </Canvas>
         
         {/* HUD Elements */}

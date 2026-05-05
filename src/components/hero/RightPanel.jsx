@@ -22,7 +22,7 @@ export function RightPanel({ techStack, socials }) {
               animate={{ opacity: 1 }}
               transition={{ delay: 0.4 + index * 0.05 }}
             >
-              <span className="h-1.5 w-1.5 rounded-full bg-accent/80" />
+              <span className="h-1.5 w-1.5 rounded-full bg-white/70" />
               <span className="text-sm font-medium text-gray-700 dark:text-zinc-300 transition-colors duration-300">
                 {tech}
               </span>
@@ -32,7 +32,7 @@ export function RightPanel({ techStack, socials }) {
       </div>
 
       {/* Divider */}
-      <div className="h-px w-24 ml-auto bg-gradient-to-l from-accent/40 to-transparent" />
+      <div className="h-px w-24 ml-auto bg-gradient-to-l from-white/30 to-transparent" />
 
       {/* Social Links */}
       <div className="space-y-3">
@@ -46,7 +46,7 @@ export function RightPanel({ techStack, socials }) {
               href={social.href}
               target="_blank"
               rel="noreferrer"
-              className="text-sm text-gray-700 dark:text-zinc-300 transition-colors hover:text-indigo-600 dark:hover:text-accent-glow"
+              className="text-sm text-gray-700 dark:text-zinc-300 transition-colors hover:text-white"
               whileHover={{ x: 4 }}
             >
               {social.label}

@@ -90,8 +90,8 @@ export function AssistantSection() {
     >
       {/* Animated background elements */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="assistant-bg-pulse absolute -top-40 -right-40 w-96 h-96 bg-purple-400/10 rounded-full blur-3xl opacity-40" />
-        <div className="assistant-bg-pulse absolute -bottom-32 -left-20 w-80 h-80 bg-indigo-500/6 rounded-full blur-3xl opacity-30" />
+        <div className="assistant-bg-pulse absolute -right-40 -top-40 h-96 w-96 rounded-full bg-white/[0.06] blur-3xl opacity-40" />
+        <div className="assistant-bg-pulse absolute -bottom-32 -left-20 h-80 w-80 rounded-full bg-white/[0.04] blur-3xl opacity-30" />
       </div>
 
       <Container className="relative z-10">
@@ -103,7 +103,7 @@ export function AssistantSection() {
           />
         </div>
         <div ref={chatRef} className="relative group">
-          <div className="absolute inset-0 bg-gradient-to-t from-purple-500/20 to-transparent rounded-2xl blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+          <div className="pointer-events-none absolute inset-0 rounded-2xl bg-gradient-to-t from-white/[0.08] to-transparent opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-100" />
           <div className="relative z-10">
             <ChatAssistant />
           </div>
