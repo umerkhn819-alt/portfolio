@@ -6,7 +6,6 @@ import { Container } from "../ui/Container";
 import { Section } from "../ui/Section";
 import { SectionHeading } from "../ui/SectionHeading";
 import { TiltCard } from "../ui/TiltCard";
-import { SectionHeading } from "../ui/SectionHeading";
 
 export function Experience() {
   const zoneRef = useGsapContext((el) => {
