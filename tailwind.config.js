@@ -5,51 +5,33 @@ export default {
   theme: {
     extend: {
       colors: {
-        surface: {
-          DEFAULT: "rgb(var(--color-surface) / <alpha-value>)",
-          raised: "rgb(var(--color-surface-raised) / <alpha-value>)",
-          overlay: "rgb(var(--color-surface-overlay) / <alpha-value>)",
-        },
-        platinum: {
-          100: "#F5F5F4",
-          300: "#D6D6D2",
-          500: "#8A8A86",
-          700: "#3A3A38",
-          900: "#0E0E0D",
+        background: {
+          dark: "#050505", // Slightly softer black
+          light: "#EFEFEF",
+          card: "rgba(255, 255, 255, 0.03)",
         },
         accent: {
-          DEFAULT: "#F5F5F4",
-          muted: "#D6D6D2",
-          glow: "#F5F5F4",
+          DEFAULT: "#85EE00", // lime green
+          hover: "#9BFF1A",
+          glow: "rgba(133, 238, 0, 0.5)",
+        },
+        text: {
+          primary: "#FFFFFF",
+          secondary: "#A3A3A3",
+          inverse: "#050505",
         },
         border: {
-          subtle: "rgba(var(--color-border-subtle) / <alpha-value>)",
-          DEFAULT: "rgba(var(--color-border) / <alpha-value>)",
+          DEFAULT: "rgba(255, 255, 255, 0.08)",
+          inverse: "rgba(0, 0, 0, 0.08)",
         },
       },
       fontFamily: {
-        sans: [
-          "Inter",
-          "system-ui",
-          "-apple-system",
-          "Segoe UI",
-          "sans-serif",
-        ],
-        display: ["Inter Tight", "Inter", "system-ui", "sans-serif"],
-        mono: ["JetBrains Mono", "ui-monospace", "monospace"],
+        sans: ["Poppins", "sans-serif"],
+        display: ["Sulphur Point", "sans-serif"],
       },
-      animation: {
-        "gradient-shift": "gradient-shift 8s ease infinite",
-      },
-      keyframes: {
-        "gradient-shift": {
-          "0%, 100%": { backgroundPosition: "0% 50%" },
-          "50%": { backgroundPosition: "100% 50%" },
-        },
-      },
-      backgroundSize: {
-        "300%": "300%",
-      },
+      backgroundImage: {
+        'noise': "url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E')",
+      }
     },
   },
   plugins: [],

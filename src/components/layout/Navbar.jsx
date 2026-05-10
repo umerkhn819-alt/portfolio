@@ -1,98 +1,119 @@
-import { useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
-import { navLinks } from "../../data/navigation";
-import { siteMeta } from "../../data/site";
-import { scrollToSection } from "../../utils/scrollToId";
-import { Container } from "../ui/Container";
-import { useMediaQuery } from "../../hooks/useMediaQuery";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Menu, X } from "lucide-react";
+import { Link, useLocation } from "react-router-dom";
 
 export function Navbar() {
-  const [open, setOpen] = useState(false);
-  const isMd = useMediaQuery("(min-width: 768px)");
+  const [isOpen, setIsOpen] = useState(false);
+  const location = useLocation();
 
-  const onNavigate = (id) => {
-    scrollToSection(id);
-    setOpen(false);
-  };
+  // Close menu on route change
+  useEffect(() => {
+    setIsOpen(false);
+  }, [location.pathname]);
+
+  const navLinks = [
+    { label: "Home", path: "/" },
+    { label: "About", path: "/about" },
+    { label: "Services", path: "/services" },
+    { label: "Works", path: "/works" },
+    { label: "Contact", path: "/contact" },
+  ];
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 border-b border-white/5 bg-[#030303]/80 backdrop-blur-md transition-colors duration-300">
-      <Container className="flex h-16 items-center justify-between">
-        <button
-          type="button"
-          onClick={() => onNavigate("hero")}
-          className="font-display text-lg font-semibold tracking-tight text-[#F5F5F4] drop-shadow-[0_0_10px_rgba(255,255,255,0.2)] transition-colors duration-300 hover:text-white hover:drop-shadow-[0_0_18px_rgba(255,255,255,0.35)]"
-        >
-          {siteMeta.brandName}
-        </button>
-
-        <div className="flex items-center gap-3">
-          {isMd ? (
-            <nav className="flex items-center gap-1">
-              {navLinks.map((link) => (
-                <motion.button
-                  key={link.id}
-                  type="button"
-                  onClick={() => onNavigate(link.id)}
-                  className="rounded-full px-4 py-1.5 text-sm font-medium tracking-wide text-white/50 transition-all duration-300 hover:bg-white/5 hover:text-white hover:shadow-[0_0_15px_rgba(255,255,255,0.1)]"
-                  whileHover={{ y: -1, scale: 1.05, rotateZ: 0.8 }}
-                  whileTap={{
-                    scale: 0.92,
-                    rotateZ: -0.5,
-                    boxShadow: "0 0 18px rgba(255,255,255,0.25)",
-                    transition: { duration: 0.15, ease: "easeIn" }
-                  }}
-                >
-                  {link.label}
-                </motion.button>
-              ))}
-            </nav>
-          ) : null}
-
-          {!isMd && (
-            <motion.button
-              type="button"
-              className="rounded-lg border border-white/10 px-3 py-1.5 text-sm text-white/80 hover:bg-white/5 transition-colors duration-300"
-              onClick={() => setOpen((v) => !v)}
-              whileTap={{
-                scale: 0.91,
-                rotateZ: -1,
-                boxShadow: "0 0 18px rgba(255,255,255,0.25)",
-                transition: { duration: 0.15, ease: "easeIn" }
-              }}
-              aria-expanded={open}
-              aria-label="Toggle menu"
-            >
-              Menu
-            </motion.button>
-          )}
+    <>
+      <motion.header
+        className="fixed top-0 inset-x-0 z-50 flex items-center justify-between px-6 md:px-12 py-6 mix-blend-difference text-white"
+        initial={{ y: -100 }}
+        animate={{ y: 0 }}
+        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
+      >
+        <div className="flex-1 font-sans text-xs md:text-sm uppercase tracking-widest hidden sm:block opacity-80">
+          Islamabad, PK
         </div>
-      </Container>
+        <Link to="/" className="flex-1 text-center font-display text-2xl md:text-3xl font-bold tracking-tight">
+          UMER
+        </Link>
+        <div className="flex-1 flex justify-end">
+          <button 
+            onClick={() => setIsOpen(true)} 
+            className="flex items-center justify-center p-2 hover:opacity-70 transition-opacity"
+            aria-label="Open menu"
+          >
+            <div className="grid grid-cols-2 gap-[4px]">
+              <div className="w-1.5 h-1.5 bg-white rounded-full"></div>
+              <div className="w-1.5 h-1.5 bg-white rounded-full"></div>
+              <div className="w-1.5 h-1.5 bg-white rounded-full"></div>
+              <div className="w-1.5 h-1.5 bg-white rounded-full"></div>
+            </div>
+          </button>
+        </div>
+      </motion.header>
 
       <AnimatePresence>
-        {!isMd && open ? (
+        {isOpen && (
           <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-            className="overflow-hidden border-b border-white/5 bg-[#030303]/95 backdrop-blur-md"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+            className="fixed inset-0 z-[60] bg-background-dark flex flex-col justify-center items-center"
           >
-            <Container className="flex flex-col gap-1 py-4">
-              {navLinks.map((link) => (
-                <button
-                  key={link.id}
-                  type="button"
-                  onClick={() => onNavigate(link.id)}
-                  className="rounded-lg px-3 py-2 text-left text-sm font-medium tracking-wide text-white/60 hover:bg-white/5 hover:text-white transition-colors duration-300"
+            <button 
+              onClick={() => setIsOpen(false)}
+              className="absolute top-8 right-6 md:right-12 p-2 text-white hover:text-accent transition-colors"
+            >
+              <X size={32} />
+            </button>
+            <nav className="flex flex-col gap-8 text-center">
+              {navLinks.map((item, i) => (
+                <Link
+                  key={item.label}
+                  to={item.path}
+                  className="font-display text-5xl md:text-7xl font-bold uppercase hover:text-accent transition-colors"
                 >
-                  {link.label}
-                </button>
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.1 + i * 0.1 }}
+                  >
+                    {item.label}
+                  </motion.div>
+                </Link>
               ))}
-            </Container>
+              
+              <div className="flex flex-col gap-4 mt-8">
+                <Link
+                  to="/cv"
+                  className="font-display text-3xl md:text-5xl font-bold uppercase text-text-secondary hover:text-white transition-colors"
+                >
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.1 + navLinks.length * 0.1 }}
+                  >
+                    Preview CV
+                  </motion.div>
+                </Link>
+                
+                <a
+                  href="/Umer_Khan_CV.pdf"
+                  download
+                  className="font-display text-3xl md:text-5xl font-bold uppercase text-accent hover:text-white transition-colors"
+                >
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.1 + (navLinks.length + 1) * 0.1 }}
+                  >
+                    Download CV
+                  </motion.div>
+                </a>
+              </div>
+            </nav>
           </motion.div>
-        ) : null}
+        )}
       </AnimatePresence>
-    </header>
+    </>
   );
 }

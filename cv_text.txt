@@ -1,0 +1,65 @@
+--- AIML ---
+UMER KHAN
+AI / ML Engineer  ·  LLM Integration & RAG  ·  Full-Stack AI Applications
+umerkhn819@gmail.com  ·  +92 318 1412819  ·  Islamabad, Pakistan  ·  github.com/umerkhn819-alt  ·  linkedin.com/in/muhammad-umerkhan-293922404  ·  portfolio-beryl-psi-19.vercel.app
+PROFESSIONAL SUMMARY
+AI/ML engineer with demonstrated experience designing and shipping intelligent full-stack systems — from real-time fraud detection pipelines with ML-powered prediction APIs to conversational AI cooking assistants. Comfortable across the full model-to-product workflow: data processing with NumPy/Pandas, model training with Scikit-learn and PyTorch, LLM integration via OpenAI API and LangChain, and cloud deployment with Docker and AWS. AWS Certified AI Practitioner. Currently pursuing a B.Sc. in Computer Science at Air University, Islamabad (2028).
+CERTIFICATIONS
+✦ AWS Certified AI Practitioner	CLF-C01
+✦ Generative AI on AWS Bedrock & RAG
+TECHNICAL SKILLS
+Machine Learning: Scikit-learn, PyTorch, NumPy, Pandas, Matplotlib — classification, regression, anomaly detection
+LLMs & AI: OpenAI API, LangChain, LlamaIndex, RAG pipeline design, prompt engineering
+Backend & APIs: FastAPI, Node.js, Express.js — RESTful API design, JWT Auth, WebSockets
+Frontend: React.js, React Native (Expo), TypeScript, JavaScript (ES6+)
+Databases: PostgreSQL, MongoDB — schema design, query optimisation
+DevOps & Cloud: Docker & Compose, AWS (EC2, S3, Bedrock), GitHub Actions, CI/CD
+Languages: Python  ·  JavaScript / TypeScript  ·  SQL
+PROJECTS
+AI Fraud Detection & Analytics Platform  |  FastAPI · Scikit-learn · PyTorch · PostgreSQL · OpenAI API · LangChain · React · Docker
+🔗 github.com/umerkhn819-alt
+Built end-to-end ML pipeline to classify fraudulent financial transactions in real time — model training with Scikit-learn, served via FastAPI prediction endpoints with PostgreSQL storage.
+Integrated OpenAI API and LangChain to generate natural-language explanations for each model prediction, making results interpretable for non-technical users.
+Designed an interactive React analytics dashboard with data visualisation; containerised the full stack with Docker for reproducible deployment.
+EastlyAI – AI Recipe Recommender & Cooking Assistant  |  React Native (Expo) · Node.js · Express · MongoDB · OpenAI API · Spoonacular API · JWT · TypeScript
+🔗 github.com/umerkhn819-alt
+Full-stack cross-platform mobile app delivering AI-powered recipe recommendations and a real-time conversational cooking assistant via OpenAI API.
+Built a Node.js/Express REST API backend with MongoDB, JWT authentication, and an admin panel for user and content management.
+Integrated Spoonacular API for live recipe search; shipped across iOS and Android via React Native (Expo).
+EDUCATION
+B.Sc. Computer Science  ·  Air University, Islamabad	Expected Jan 2028
+CGPA: 3.05 / 4.00   ·   Relevant Coursework: Machine Learning, Data Structures & Algorithms, Database Systems, Software Engineering
+Open to AI/ML engineer roles, research assistant positions, and internships  ·  Available immediately
+
+--- FullStack ---
+UMER KHAN
+Full Stack Developer  ·  React & Node.js  ·  Mobile & Web  ·  Cloud Deployment
+umerkhn819@gmail.com  ·  +92 318 1412819  ·  Islamabad, Pakistan  ·  github.com/umerkhn819-alt  ·  linkedin.com/in/muhammad-umerkhan-293922404  ·  portfolio-beryl-psi-19.vercel.app
+PROFESSIONAL SUMMARY
+Full Stack Developer with hands-on experience building and shipping complete web and mobile applications from scratch — REST API backends, interactive React frontends, cross-platform mobile apps, and cloud-deployed infrastructure. Proficient in React.js, React Native, Node.js, Express.js, FastAPI, MongoDB, and PostgreSQL. Comfortable with Docker, AWS, and CI/CD pipelines. Has shipped AI-integrated features (OpenAI API, LangChain) as part of full-stack products. Currently pursuing a B.Sc. in Computer Science at Air University, Islamabad (2028).
+TECHNICAL SKILLS
+Frontend: React.js, React Native (Expo), TypeScript, JavaScript (ES6+), Tailwind CSS, HTML/CSS
+Backend & APIs: Node.js, Express.js, FastAPI — RESTful API design, JWT Auth, WebSockets, Swagger/OpenAPI
+Databases: PostgreSQL, MongoDB — schema design, query optimisation, migrations
+DevOps & Cloud: Docker & Compose, AWS (EC2, S3, Bedrock), GitHub Actions, CI/CD pipelines
+AI Integration: OpenAI API, LangChain — LLM feature integration inside full-stack products
+Tools & Workflow: Git / GitHub, Postman, Agile / Scrum, REST API documentation
+Languages: JavaScript / TypeScript  ·  Python  ·  SQL
+PROJECTS
+Fraud Detection & Analytics Platform  |  React.js · FastAPI · PostgreSQL · Docker · OpenAI API · LangChain
+🔗 github.com/umerkhn819-alt
+Designed and built a complete full-stack web application: React dashboard with data visualisation, FastAPI REST backend, PostgreSQL database, and Dockerised deployment — delivered end-to-end.
+Implemented real-time ML prediction APIs, interactive analytics charts, and result storage with PostgreSQL; containerised the entire stack for consistent staging and production environments.
+Added LLM-powered natural-language explanations for model outputs using OpenAI API and LangChain, improving result readability for non-technical users.
+EastlyAI – Recipe App & Cooking Assistant  |  React Native (Expo) · Node.js · Express · MongoDB · TypeScript · OpenAI API · Spoonacular API · JWT
+🔗 github.com/umerkhn819-alt
+Built a production-ready cross-platform mobile app (iOS & Android) with a React Native/Expo frontend and a Node.js/Express REST API backend — fully typed in TypeScript.
+Designed a MongoDB database schema, JWT-secured authentication system, and a full admin panel for user and content management.
+Integrated Spoonacular API for real-time recipe search and OpenAI API for a conversational in-app cooking assistant.
+CERTIFICATIONS
+✦ AWS Certified AI Practitioner	CLF-C01
+✦ Generative AI on AWS Bedrock & RAG
+EDUCATION
+B.Sc. Computer Science  ·  Air University, Islamabad	Expected Jan 2028
+CGPA: 3.05 / 4.00   ·   Relevant Coursework: Data Structures & Algorithms, Database Systems, Software Engineering, Web Technologies
+Open to full-stack developer roles, internships, and contract work  ·  Available immediately

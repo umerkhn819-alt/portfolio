@@ -1,0 +1,179 @@
+Eatsly:🤖 AI Intelligence
+Smart Recommendations: Generates meal suggestions based on your personal recipe history and custom notes.
+Culinary Chat: A multi-turn AI assistant to help with cooking techniques and ingredient substitutions.
+Model Flexibility: Compatible with OpenAI (GPT-4o) or OpenRouter (Gemma 4).
+🛠 Mobile Experience
+Full CRUD: Create, edit, and manage recipes with structured ingredient lists and steps.
+Social Favorites: Save recipes to your personal collection with automated cleanup on deletion.
+Native Performance: Built with Expo for a smooth, high-performance UI on both iOS and Android.
+🛡 Admin & Security
+Role-Based Access (RBAC): Secure separation between user and admin roles.
+Dashboard: Real-time metrics for users, recipes, and community engagement.
+Secure Auth: Industry-standard JWT implementation with expo-secure-store.
+🚀 Quick Start
+1. Backend Setup
+cd server
+cp .env.example .env
+# Configure your MONGODB_URI and JWT_SECRET in .env
+npm install
+npm run dev
+Tip: Use npm run dev:memory for a zero-config ephemeral database.
+
+2. Mobile App
+cd mobile
+cp .env.example .env
+# Set EXPO_PUBLIC_API_URL to your server IP
+npm install
+npx expo start
+3. Admin Dashboard
+cd admin
+npm install
+npm run dev
+🏗 Technical Architecture
+API Design
+Method	Path	Description
+POST	/auth/register	User onboarding
+GET	/recipes	Paginated recipe feed with filters
+POST	/ai/chat	AI-assisted cooking support
+GET	/admin/overview	Admin-only system metrics
+Environment Configuration
+The system is highly configurable via .env files across all three modules. Key variables include:
+
+BASE_URL: Spoonacular food api
+ADMIN_BOOTSTRAP: Automatically creates a superuser on first boot.
+CORS_ORIGINS: Controlled access for the Web and Admin clients.
+🛠 Tech Stack
+Frontend: React Native (Expo), React (Vite), TypeScript.
+Backend: Node.js, Express.js.
+Database: MongoDB (Mongoose ODM).
+AI: Spoonacular Food Api.
+Auth: JSON Web Tokens (JWT), Bcrypt.
+
+
+Fraud detection system yyou already know details
+
+Draft Mesh ai workflow studio
+DraftMesh
+DraftMesh is a visual AI workflow platform for turning repetitive prompt tasks into reusable operational pipelines. Teams can design, run, and standardize content workflows with node-level visibility and predictable outputs.
+
+Stack:
+
+React + Vite + TypeScript frontend (runs fully standalone in the browser)
+localStorage persistence (no backend required to use the app)
+Backend AI routing (/api/ai/run) with provider configuration in server/.env
+Smart mock fallback when AI provider is unavailable
+Optional Node.js + Express + MongoDB backend in ../server/ for user accounts and cloud workflow persistence
+See ../ARCHITECTURE.md for the full system diagram and workflow guide.
+
+Core Highlights
+Visual node editor built with @xyflow/react (React Flow)
+Sequential execution engine with node statuses (idle, running, done, error, skipped)
+Built-in node types:
+Input
+Transform
+Condition (true/false branching)
+AI Summarize
+AI Rewrite
+AI Custom Prompt
+AI Translate
+Delay
+Output
+Demo mode AI responses for all AI features (no key required)
+Undo/redo history
+Run history panel
+Import/export JSON workflow
+Shareable URL support (?wf=...)
+Double-click canvas quick-add menu
+Animated landing page demo pipeline
+Professional SaaS messaging with clear problem -> solution -> outcome positioning
+Tech Stack
+React 19 + TypeScript
+Vite
+Tailwind CSS
+Framer Motion
+@xyflow/react
+Zustand
+localStorage
+Project Structure
+src/
+├── components/
+│   ├── canvas/         # Canvas, edges, palette, quick-add
+│   ├── layout/         # TopBar and shell UI
+│   ├── nodes/          # All node components
+│   └── ui/             # Shared UI (buttons, modal, toast, controls)
+├── constants/          # Node registry, templates
+├── engine/             # Executor + topological sort + node handlers
+├── hooks/              # useExecution, useWorkflowStorage
+├── lib/                # storage, OpenAI wrapper, mock AI, export/share helpers
+├── pages/              # Landing, Workflows, Studio
+├── store/              # Zustand workflow store
+└── types/              # Workflow and node type definitions
+How Execution Works
+Workflow graph is topologically sorted.
+Nodes execute in order.
+Each node updates visual status in real time.
+Condition node writes handle-aware context:
+nodeId:true
+nodeId:false
+Downstream nodes receiving non-active branch input are marked skipped.
+Outputs are stored and displayed inside nodes.
+Problem It Solves
+Most AI workflows break because teams copy prompts manually across multiple tools, causing:
+
+inconsistent output quality
+no repeatable process
+poor run visibility
+slow delivery for content and operations
+DraftMesh solves this by giving teams:
+
+visual pipeline orchestration
+reusable node-based workflow templates
+backend-routed AI execution with clear runtime status
+optional auth + cloud persistence via MongoDB
+Getting Started
+1) Install
+npm install
+2) Run Development Server
+npm run dev
+3) Build
+npm run build
+4) Preview Production Build
+npm run preview
+Usage Guide
+Open Workflows page.
+Create new workflow or start from template.
+In Studio:
+drag nodes from left panel
+connect handles
+configure node options
+Click Run to execute.
+Check per-node output and run history.
+Optional:
+export/import JSON
+duplicate workflow
+copy output from done nodes
+share workflow URL
+Keyboard & Productivity
+Ctrl + Z / Cmd + Z -> Undo
+Ctrl + Y / Cmd + Shift + Z -> Redo
+Delete -> remove selected element
+Double-click canvas -> quick add menu
+Persistence
+Stored in browser localStorage:
+
+autoflow_workflows
+autoflow_settings
+autoflow_run_history_<workflowId>
+Important Notes
+The frontend works fully standalone — no backend required.
+The backend (../server/) powers AI execution, auth, and MongoDB persistence.
+Shared URL payloads are base64-encoded in the query string for lightweight sharing.
+Current Lint Status
+TypeScript checks pass (npx tsc --noEmit).
+
+ESLint currently reports several existing rule violations in app files, mostly:
+
+react-hooks/set-state-in-effect
+react-refresh/only-export-components
+preserve-caught-error
+These are code-quality follow-ups and do not block runtime behavior.
