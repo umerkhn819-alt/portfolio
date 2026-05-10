@@ -1,7 +1,7 @@
 --- AIML ---
 UMER KHAN
 AI / ML Engineer  ·  LLM Integration & RAG  ·  Full-Stack AI Applications
-umerkhn819@gmail.com  ·  +92 318 1412819  ·  Islamabad, Pakistan  ·  github.com/umerkhn819-alt  ·  linkedin.com/in/muhammad-umerkhan-293922404  ·  portfolio-beryl-psi-19.vercel.app
+umerkhn819@gmail.com  ·  +92 318 1412819  ·  Islamabad, Pakistan  ·  github.com/umerkhn819-alt  ·  linkedin.com/in/muhammad-umerkhan-293922404  ·  portfolio-seven-delta-add137j6se.vercel.app
 PROFESSIONAL SUMMARY
 AI/ML engineer with demonstrated experience designing and shipping intelligent full-stack systems — from real-time fraud detection pipelines with ML-powered prediction APIs to conversational AI cooking assistants. Comfortable across the full model-to-product workflow: data processing with NumPy/Pandas, model training with Scikit-learn and PyTorch, LLM integration via OpenAI API and LangChain, and cloud deployment with Docker and AWS. AWS Certified AI Practitioner. Currently pursuing a B.Sc. in Computer Science at Air University, Islamabad (2028).
 CERTIFICATIONS
@@ -34,7 +34,7 @@ Open to AI/ML engineer roles, research assistant positions, and internships  · 
 --- FullStack ---
 UMER KHAN
 Full Stack Developer  ·  React & Node.js  ·  Mobile & Web  ·  Cloud Deployment
-umerkhn819@gmail.com  ·  +92 318 1412819  ·  Islamabad, Pakistan  ·  github.com/umerkhn819-alt  ·  linkedin.com/in/muhammad-umerkhan-293922404  ·  portfolio-beryl-psi-19.vercel.app
+umerkhn819@gmail.com  ·  +92 318 1412819  ·  Islamabad, Pakistan  ·  github.com/umerkhn819-alt  ·  linkedin.com/in/muhammad-umerkhan-293922404  ·  portfolio-seven-delta-add137j6se.vercel.app
 PROFESSIONAL SUMMARY
 Full Stack Developer with hands-on experience building and shipping complete web and mobile applications from scratch — REST API backends, interactive React frontends, cross-platform mobile apps, and cloud-deployed infrastructure. Proficient in React.js, React Native, Node.js, Express.js, FastAPI, MongoDB, and PostgreSQL. Comfortable with Docker, AWS, and CI/CD pipelines. Has shipped AI-integrated features (OpenAI API, LangChain) as part of full-stack products. Currently pursuing a B.Sc. in Computer Science at Air University, Islamabad (2028).
 TECHNICAL SKILLS

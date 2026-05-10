@@ -13,7 +13,8 @@ import {
   MapPin, 
   FileText, 
   Terminal, 
-  Layers 
+  Layers,
+  Globe
 } from "lucide-react";
 import { Footer } from "../components/layout/Footer";
 
@@ -99,6 +100,10 @@ export function CVPage() {
                 <div className="flex items-center gap-3">
                   <Layers size={14} className="text-accent" />
                   <span>Available for Contract & Full-time</span>
+                </div>
+                <div className="flex items-center gap-3 md:col-span-2 border-t border-white/5 pt-3 mt-1">
+                  <Globe size={14} className="text-accent" />
+                  <a href="https://portfolio-seven-delta-add137j6se.vercel.app/" target="_blank" rel="noreferrer" className="hover:text-white transition-colors text-accent font-semibold truncate">portfolio-seven-delta-add137j6se.vercel.app</a>
                 </div>
               </div>
             </div>
@@ -207,9 +212,10 @@ export function CVPage() {
                   <h2 className="font-display text-4xl font-black uppercase tracking-tight text-[#111111] mb-1">Umer Khan</h2>
                   <p className="text-[10px] uppercase tracking-[0.25em] font-extrabold text-[#555555] mb-4">AI/ML Engineer & Full Stack Developer</p>
                   <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-[11px] text-[#555555]">
-                    <span className="flex items-center gap-1">Email: umerkhn819@gmail.com</span>
-                    <span className="flex items-center gap-1">Phone: +92 318 1412819</span>
+                    <span className="flex items-center gap-1">Email: <a href="mailto:umerkhn819@gmail.com" className="hover:underline text-[#111111] font-semibold">umerkhn819@gmail.com</a></span>
+                    <span className="flex items-center gap-1">Phone: <a href="tel:+923181412819" className="hover:underline text-[#111111] font-semibold">+92 318 1412819</a></span>
                     <span className="flex items-center gap-1">Location: Islamabad, PK</span>
+                    <span className="flex items-center gap-1">Portfolio: <a href="https://portfolio-seven-delta-add137j6se.vercel.app/" target="_blank" rel="noreferrer" className="hover:underline text-[#111111] font-bold">portfolio-seven-delta-add137j6se.vercel.app</a></span>
                   </div>
                 </div>
 
